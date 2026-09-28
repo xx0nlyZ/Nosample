@@ -1,0 +1,358 @@
+@import url("dashboard.css");
+
+/* ==========================================================================
+   PAGE HEAD (back link + actions)
+   ========================================================================== */
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+    color: var(--blue);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+.page-head {
+    margin-bottom: 20px;
+}
+
+.page-sub {
+    margin: 4px 0 0;
+    color: var(--muted);
+    font-size: 13.5px;
+    font-weight: 700;
+}
+
+.head-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 0 22px;
+    border: 0;
+    border-radius: 6px;
+    color: #FFFFFF;
+    background: var(--blue);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background: var(--navy);
+}
+
+.btn-primary i {
+    margin-right: 6px;
+    font-size: 12px;
+}
+
+/* ==========================================================================
+   FILTER BAR (grade entry criteria)
+   ========================================================================== */
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 14px 16px;
+    border: 1px solid #E3E9F2;
+    border-radius: 8px;
+    background: #FFFFFF;
+}
+
+.filter-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.filter-select,
+.filter-input {
+    height: 40px;
+    padding: 0 10px;
+    border: 1px solid #D5DEE9;
+    border-radius: 6px;
+    color: var(--navy);
+    background: #FFFFFF;
+    outline: none;
+}
+
+.filter-select:focus,
+.filter-input:focus {
+    border-color: var(--blue);
+}
+
+.filter-input {
+    width: 90px;
+}
+
+/* ==========================================================================
+   TABLE CARD
+   ========================================================================== */
+.table-card {
+    margin-bottom: 20px;
+    border: 1px solid #E3E9F2;
+    border-radius: 8px;
+    background: #FFFFFF;
+    overflow: hidden;
+}
+
+.table-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 15px 18px;
+    border-bottom: 1px solid #EEF2F8;
+}
+
+.table-heading h3 {
+    margin: 0;
+    font-size: 15px;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+    padding: 13px 16px;
+    border-bottom: 1px solid #EEF2F8;
+    font-size: 13px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.data-table th {
+    color: var(--muted);
+    background: #FBFCFE;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.data-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.data-table tbody tr:hover {
+    background: #F8FAFD;
+}
+
+.data-table .muted-cell {
+    color: var(--muted);
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11.5px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.status-green {
+    color: #177245;
+    background: #E3F4EA;
+}
+
+/* ==========================================================================
+   TABLE FOOTER (pagination)
+   ========================================================================== */
+.table-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 13px 18px;
+    border-top: 1px solid #EEF2F8;
+}
+
+.table-footer .total-label {
+    margin: 0;
+    color: var(--muted);
+    font-size: 12.5px;
+}
+
+.footer-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.pagination-info {
+    margin: 0;
+    color: var(--muted);
+    font-size: 12.5px;
+}
+
+.pagination {
+    display: flex;
+    gap: 5px;
+}
+
+.page-btn {
+    display: grid;
+    width: 32px;
+    height: 32px;
+    place-items: center;
+    border: 1px solid #D5DEE9;
+    border-radius: 5px;
+    color: var(--navy);
+    background: #FFFFFF;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.page-btn.active {
+    border-color: var(--blue);
+    color: #FFFFFF;
+    background: var(--blue);
+    font-weight: 700;
+}
+
+.page-btn:hover:not(.active) {
+    border-color: var(--blue);
+    color: var(--blue);
+}
+
+/* ==========================================================================
+   BOTTOM ACTION BAR (grade entry)
+   ========================================================================== */
+.action-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 14px 20px;
+    border: 1px solid #E3E9F2;
+    border-radius: 8px;
+    background: #FFFFFF;
+}
+
+.action-bar .total-label {
+    margin: 0;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-save {
+    height: 40px;
+    padding: 0 22px;
+    border: 0;
+    border-radius: 6px;
+    color: #FFFFFF;
+    background: var(--blue);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-save:hover {
+    background: var(--navy);
+}
+
+.btn-cancel {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 0 22px;
+    border: 0;
+    border-radius: 6px;
+    color: #FFFFFF;
+    background: #B3261E;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-cancel:hover {
+    background: #8F1E18;
+}
+
+/* ==========================================================================
+   EDITABLE GRADE CELLS (grade entry)
+   ========================================================================== */
+.grade-input-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.grade-input {
+    width: 64px;
+    height: 34px;
+    padding: 0 8px;
+    border: 1px solid #D5DEE9;
+    border-radius: 6px;
+    color: var(--navy);
+    background: #FBFCFE;
+    outline: none;
+    text-align: center;
+}
+
+.grade-input:focus {
+    border-color: var(--blue);
+    background: #FFFFFF;
+}
+
+.grade-input-wrap i {
+    color: var(--muted);
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.grade-input-wrap i:hover {
+    color: var(--blue);
+}
+
+.remark-select {
+    height: 32px;
+    padding: 0 8px;
+    border: 1px solid #D5DEE9;
+    border-radius: 6px;
+    color: #177245;
+    background: #E3F4EA;
+    font-size: 12px;
+    font-weight: 700;
+    outline: none;
+    cursor: pointer;
+}
+
+.remark-select:focus {
+    border-color: var(--blue);
+}

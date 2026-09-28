@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Settings | Cebu Eastern College</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/settings.css">
+    <style>
+        .toast-wrap {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            pointer-events: none;
+        }
+
+        .toast {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 18px;
+            border-radius: 8px;
+            color: #FFFFFF;
+            background: #177245;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            animation: toastIn 0.3s ease;
+            pointer-events: auto;
+        }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+    </style>
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>FACULTY PORTAL</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Faculty navigation">
+            <div class="nav-section">My Classes</div>
+            <a href="../dashboard/faculty-dashboard.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="../schedule/schedule-day.html"><i class="fa-regular fa-calendar-day"></i><span>My Schedule</span></a>
+            <a href="../classes/class-list.html"><i class="fa-solid fa-table-list"></i><span>Class List</span></a>
+            <a href="../assignments/assignments.html"><i class="fa-solid fa-list-check"></i><span>Assignments</span></a>
+
+            <div class="nav-section">Students</div>
+            <a href="../students/student-records.html"><i class="fa-solid fa-users"></i><span>Student List</span></a>
+            <a href="../grades/grade-management.html"><i class="fa-solid fa-file-pen"></i><span>Grades</span></a>
+            <a href="../attendance/attendance-dashboard.html"><i class="fa-solid fa-clipboard-check"></i><span>Attendance</span></a>
+
+            <div class="nav-section">Academic</div>
+            <a href="../announcements/announcements.html"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+            <a href="../dashboard/upcoming-deadlines.html"><i class="fa-regular fa-clock"></i><span>Upcoming Deadlines</span></a>
+
+            <div class="nav-section">Personal</div>
+            <a href="../profile/profile.html"><i class="fa-regular fa-user"></i><span>Profile</span></a>
+            <a href="settings.html" class="active"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../auth/login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <label class="search-box">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search students, subjects, or anything...">
+            </label>
+
+            <select class="semester-select" aria-label="Semester">
+                <option selected>1st Trimester | 1st Year</option>
+                <option>2nd Trimester | 1st Year</option>
+                <option>3rd Trimester | 1st Year</option>
+            </select>
+
+            <button class="header-icon" type="button" aria-label="Notifications">
+                <i class="fa-regular fa-bell" aria-hidden="true"></i>
+                <span class="notif-dot"></span>
+            </button>
+
+            <button class="profile-button" type="button">
+                <span class="profile-avatar">CB</span>
+                <span class="profile-info">
+                    <strong>Mr. Charles Bacus</strong>
+                    <small>Faculty</small>
+                </span>
+            </button>
+        </header>
+
+        <section class="dashboard-content">
+            <div class="page-head">
+                <h1>Settings</h1>
+            </div>
+
+            <div class="settings-layout">
+                <nav class="settings-nav" aria-label="Settings">
+                    <a href="settings.html" class="active"><i class="fa-solid fa-user"></i> Account Settings</a>
+                    <a href="security.html"><i class="fa-solid fa-shield-halved"></i> Security</a>
+                    <a href="notifications.html"><i class="fa-regular fa-bell"></i> Notifications</a>
+                    <a href="preferences.html"><i class="fa-solid fa-sliders"></i> Preferences</a>
+                    <a href="sessions.html"><i class="fa-solid fa-desktop"></i> Session Management</a>
+                    <a href="login-history.html"><i class="fa-solid fa-list"></i> Login History</a>
+                </nav>
+
+                <div class="settings-content">
+                    <div class="card">
+                        <div class="card-head">
+                            <h2>Account Setting</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="account-grid">
+                                <div>
+                                    <form id="account-form" novalidate>
+                                        <div class="form-field">
+                                            <label class="form-label" for="full-name">Full Name</label>
+                                            <input type="text" id="full-name" class="form-input" value="Mr. Charles Bacus">
+                                        </div>
+                                        <div class="form-field">
+                                            <label class="form-label" for="email">Email Address</label>
+                                            <div class="input-group">
+                                                <input type="email" id="email" class="form-input" value="charles.bacus@cec.edu.ph">
+                                                <button type="button" class="btn-verify" id="verify-btn">Verify</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-field">
+                                            <label class="form-label" for="username">Username</label>
+                                            <input type="text" id="username" class="form-input" value="Admin" readonly>
+                                        </div>
+                                        <div class="form-field">
+                                            <label class="form-label" for="address">Address</label>
+                                            <input type="text" id="address" class="form-input" value="Cebu City, Philippines">
+                                        </div>
+                                        <div class="form-actions">
+                                            <button type="submit" class="btn-primary" id="save-btn"><i class="fa-solid fa-floppy-disk"></i> Save Changes</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="profile-photo-panel">
+                                    <h3>Profile Photo</h3>
+                                    <div class="profile-photo">
+                                        CB
+                                        <span class="camera-badge"><i class="fa-solid fa-camera"></i></span>
+                                    </div>
+                                    <button type="button" class="btn-outline" id="photo-btn"><i class="fa-solid fa-image"></i> Change Photo</button>
+                                    <input type="file" id="photo-input" hidden accept="image/*">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="toast-wrap" id="toast-wrap"></div>
+
+    <script>
+        function showToast(message) {
+            const wrap = document.getElementById('toast-wrap');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            wrap.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s';
+                setTimeout(() => toast.remove(), 300);
+            }, 2500);
+        }
+
+
+        function fillAccount(p) {
+            const set = (id, v) => { const el = document.getElementById(id); if (el && v != null) el.value = v; };
+            set('full-name', p.fullName);
+            set('email', p.email);
+            set('username', p.username);
+            set('address', (typeof p.address === 'string' ? p.address : (p.address && p.address.city) || ''));
+        }
+
+        API.get('/faculty/profile').then(function (res) {
+            fillAccount((res && res.data) ? res.data : (res || {}));
+        }).catch(function () {
+            showToast('Failed to load account settings.', true);
+        });
+
+        document.getElementById('verify-btn').addEventListener('click', function () {
+            const email = document.getElementById('email').value.trim();
+            if (!email.includes('@')) {
+                showToast('Please enter a valid email address.', true);
+                return;
+            }
+            this.textContent = 'Verified';
+            this.disabled = true;
+            showToast('Email address verified.');
+        });
+
+        document.getElementById('photo-btn').addEventListener('click', () => document.getElementById('photo-input').click());
+
+        document.getElementById('photo-input').addEventListener('change', function () {
+            if (this.files[0]) {
+                showToast('Profile photo updated.');
+                this.value = '';
+            }
+        });
+
+        document.getElementById('account-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const btn = document.getElementById('save-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Saving...';
+            const payload = {
+                fullName: document.getElementById('full-name').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                address: document.getElementById('address').value.trim()
+            };
+            API.put('/faculty/profile', payload).then(function () {
+                showToast('Changes saved successfully.');
+            }).catch(function () {
+                showToast('Failed to save changes.', true);
+            }).then(function () {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save Changes';
+            });
+        });
+    </script>
+<script src="../../js/api.js"></script>
+<script src="../../js/facultyIdentity.js"></script>
+<script src="../../js/showToast.js"></script>
+<script src="../../js/copyToClipboard.js"></script>
+<script src="../../js/confirmAction.js"></script>
+<script src="../../js/avatarUpload.js"></script>
+<script src="../../js/validateForm.js"></script>
+<script src="../../js/persistSelect.js"></script>
+<script src="../../js/setYear.js"></script>
+
+</body>
+</html>

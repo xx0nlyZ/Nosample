@@ -1,0 +1,259 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login History | Cebu Eastern College</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/settings.css">
+    <style>
+        .btn-export {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            height: 40px;
+            padding: 0 18px;
+            border: 1.5px solid var(--blue);
+            border-radius: 6px;
+            color: var(--blue);
+            background: #FFFFFF;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn-export:hover {
+            color: #FFFFFF;
+            background: var(--blue);
+        }
+
+        .page-head {
+            margin-bottom: 16px;
+        }
+    </style>
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>FACULTY PORTAL</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Faculty navigation">
+            <div class="nav-section">My Classes</div>
+            <a href="../dashboard/faculty-dashboard.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="../schedule/schedule-day.html"><i class="fa-regular fa-calendar-day"></i><span>My Schedule</span></a>
+            <a href="../classes/class-list.html"><i class="fa-solid fa-table-list"></i><span>Class List</span></a>
+            <a href="../assignments/assignments.html"><i class="fa-solid fa-list-check"></i><span>Assignments</span></a>
+
+            <div class="nav-section">Students</div>
+            <a href="../students/student-records.html"><i class="fa-solid fa-users"></i><span>Student List</span></a>
+            <a href="../grades/grade-management.html"><i class="fa-solid fa-file-pen"></i><span>Grades</span></a>
+            <a href="../attendance/attendance-dashboard.html"><i class="fa-solid fa-clipboard-check"></i><span>Attendance</span></a>
+
+            <div class="nav-section">Academic</div>
+            <a href="../announcements/announcements.html"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+            <a href="../dashboard/upcoming-deadlines.html"><i class="fa-regular fa-clock"></i><span>Upcoming Deadlines</span></a>
+
+            <div class="nav-section">Personal</div>
+            <a href="../profile/profile.html"><i class="fa-regular fa-user"></i><span>Profile</span></a>
+            <a href="settings.html" class="active"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../auth/login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <label class="search-box">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search students, subjects, or anything...">
+            </label>
+
+            <select class="semester-select" aria-label="Semester">
+                <option selected>1st Trimester | 1st Year</option>
+                <option>2nd Trimester | 1st Year</option>
+                <option>3rd Trimester | 1st Year</option>
+            </select>
+
+            <button class="header-icon" type="button" aria-label="Notifications">
+                <i class="fa-regular fa-bell" aria-hidden="true"></i>
+                <span class="notif-dot"></span>
+            </button>
+
+            <button class="profile-button" type="button">
+                <span class="profile-avatar">CB</span>
+                <span class="profile-info">
+                    <strong>Mr. Charles Bacus</strong>
+                    <small>Faculty</small>
+                </span>
+            </button>
+        </header>
+
+        <section class="dashboard-content">
+            <a href="login-history.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Login History</a>
+            <div class="page-head">
+                <h1>Login History</h1>
+                <p class="page-desc">All login attempts for your account.</p>
+            </div>
+
+            <div class="table-card">
+                <div class="table-heading">
+                    <div class="heading-actions">
+                        <select class="filter-select" id="range-filter" aria-label="Date range">
+                            <option value="all" selected>All Dates</option>
+                            <option value="7">Last 7 days</option>
+                            <option value="30">Last 30 days</option>
+                            <option value="month">This month</option>
+                        </select>
+                        <button type="button" class="btn-export" id="export-btn"><i class="fa-solid fa-upload"></i> Export</button>
+                    </div>
+                </div>
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Date &amp; Time</th>
+                                <th>Device</th>
+                                <th>IP Address</th>
+                                <th>Status</th>
+                                <th>Location</th>
+                            </tr>
+                        </thead>
+                        <tbody id="loginHistoryBody"></tbody>
+                    </table>
+                </div>
+                <div class="table-footer">
+                    <p class="pagination-info" id="paginationInfo">Showing 0 to 0 of 0 entries</p>
+                    <div class="pagination" id="pagination"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="../../js/api.js"></script>
+    <script src="../../js/facultyIdentity.js"></script>
+    <script>
+        (function () {
+            var PAGE_SIZE = 10;
+            var all = [];
+            var filtered = [];
+            var page = 1;
+
+            function toItems(res) { return (res && Array.isArray(res)) ? res : ((res && res.data) || []); }
+            function esc(v) { return String(v == null ? '' : v).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+            function statusClass(s) { return String(s || '').toLowerCase() === 'failed' ? 'status-red' : 'status-green'; }
+            function rowDate(r) { return new Date(r.dateTime || r.date || 0); }
+
+            function applyFilter() {
+                var val = document.getElementById('range-filter').value;
+                if (val === 'all') { filtered = all.slice(); }
+                else {
+                    var now = new Date();
+                    var limit = val === 'month' ? new Date(now.getFullYear(), now.getMonth(), 1) : new Date(now.getTime() - Number(val) * 86400000);
+                    filtered = all.filter(function (r) { return rowDate(r) >= limit; });
+                }
+                page = 1;
+                render();
+            }
+
+            function render() {
+                var body = document.getElementById('loginHistoryBody');
+                var total = filtered.length;
+                var pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+                if (page > pages) page = pages;
+                var start = (page - 1) * PAGE_SIZE;
+                var rows = filtered.slice(start, start + PAGE_SIZE);
+
+                if (!rows.length) {
+                    body.innerHTML = '<tr><td colspan="6" class="muted-cell">No login history found</td></tr>';
+                } else {
+                    var html = '';
+                    rows.forEach(function (r, i) {
+                        html += '<tr>';
+                        html += '<td class="muted-cell">' + (start + i + 1) + '</td>';
+                        html += '<td>' + esc(r.dateTime || r.date) + '</td>';
+                        html += '<td class="muted-cell">' + esc(r.device) + '</td>';
+                        html += '<td class="muted-cell">' + esc(r.ip || r.ipAddress) + '</td>';
+                        html += '<td><span class="status-badge ' + statusClass(r.status) + '">' + esc(r.status) + '</span></td>';
+                        html += '<td><span class="location-tag">' + esc(r.location) + '</span></td>';
+                        html += '</tr>';
+                    });
+                    body.innerHTML = html;
+                }
+
+                var info = document.getElementById('paginationInfo');
+                if (info) info.textContent = total ? ('Showing ' + (start + 1) + ' to ' + (start + rows.length) + ' of ' + total + ' entries') : 'Showing 0 to 0 of 0 entries';
+
+                var pag = document.getElementById('pagination');
+                if (!pag) return;
+                var phtml = '<button class="page-btn" type="button" data-page="prev" aria-label="Previous page"' + (page <= 1 ? ' disabled' : '') + '><i class="fa-solid fa-chevron-left"></i></button>';
+                for (var n = 1; n <= pages; n++) {
+                    phtml += '<button class="page-btn' + (n === page ? ' active' : '') + '" type="button" data-page="' + n + '">' + n + '</button>';
+                }
+                phtml += '<button class="page-btn" type="button" data-page="next" aria-label="Next page"' + (page >= pages ? ' disabled' : '') + '><i class="fa-solid fa-chevron-right"></i></button>';
+                pag.innerHTML = phtml;
+            }
+
+            document.getElementById('pagination').addEventListener('click', function (e) {
+                var btn = e.target.closest('button[data-page]');
+                if (!btn || btn.disabled) return;
+                var target = btn.getAttribute('data-page');
+                var pages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+                if (target === 'prev') page = Math.max(1, page - 1);
+                else if (target === 'next') page = Math.min(pages, page + 1);
+                else page = Number(target);
+                render();
+            });
+
+            document.getElementById('range-filter').addEventListener('change', applyFilter);
+
+            document.getElementById('export-btn').addEventListener('click', function () {
+                var btn = this;
+                var original = btn.innerHTML;
+                btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Exporting...';
+                var header = ['#', 'Date & Time', 'Device', 'IP Address', 'Status', 'Location'];
+                var rows = filtered.map(function (r, i) {
+                    return [i + 1, r.dateTime || r.date || '', r.device || '', r.ip || r.ipAddress || '', r.status || '', r.location || ''];
+                });
+                var csv = [header].concat(rows).map(function (cols) {
+                    return cols.map(function (c) { return '"' + String(c).replace(/"/g, '""') + '"'; }).join(',');
+                }).join('\r\n');
+                var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                var url = URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = 'login-history.csv';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                btn.innerHTML = original;
+                if (window.showToast) showToast('Login history exported successfully', 'success');
+            });
+
+            API.get('/faculty/login-history').then(function (res) {
+                all = toItems(res);
+                applyFilter();
+            }).catch(function () {
+                all = [];
+                applyFilter();
+                document.getElementById('loginHistoryBody').innerHTML = '<tr><td colspan="6" class="muted-cell">Failed to load login history</td></tr>';
+                if (window.showToast) showToast('Failed to load login history', 'error');
+            });
+        })();
+    </script>
+<script src="../../js/showToast.js"></script>
+<script src="../../js/copyToClipboard.js"></script>
+<script src="../../js/confirmAction.js"></script>
+<script src="../../js/avatarUpload.js"></script>
+<script src="../../js/validateForm.js"></script>
+<script src="../../js/persistSelect.js"></script>
+<script src="../../js/setYear.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Alert | Cebu Eastern College</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/settings.css">
+    <style>
+        .toast-wrap {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            pointer-events: none;
+        }
+
+        .toast {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 18px;
+            border-radius: 8px;
+            color: #FFFFFF;
+            background: #177245;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            animation: toastIn 0.3s ease;
+            pointer-events: auto;
+        }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+    </style>
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>FACULTY PORTAL</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Faculty navigation">
+            <div class="nav-section">My Classes</div>
+            <a href="../dashboard/faculty-dashboard.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="../schedule/schedule-day.html"><i class="fa-regular fa-calendar-day"></i><span>My Schedule</span></a>
+            <a href="../classes/class-list.html"><i class="fa-solid fa-table-list"></i><span>Class List</span></a>
+            <a href="../assignments/assignments.html"><i class="fa-solid fa-list-check"></i><span>Assignments</span></a>
+
+            <div class="nav-section">Students</div>
+            <a href="../students/student-records.html"><i class="fa-solid fa-users"></i><span>Student List</span></a>
+            <a href="../grades/grade-management.html"><i class="fa-solid fa-file-pen"></i><span>Grades</span></a>
+            <a href="../attendance/attendance-dashboard.html"><i class="fa-solid fa-clipboard-check"></i><span>Attendance</span></a>
+
+            <div class="nav-section">Academic</div>
+            <a href="../announcements/announcements.html"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+            <a href="../dashboard/upcoming-deadlines.html"><i class="fa-regular fa-clock"></i><span>Upcoming Deadlines</span></a>
+
+            <div class="nav-section">Personal</div>
+            <a href="../profile/profile.html"><i class="fa-regular fa-user"></i><span>Profile</span></a>
+            <a href="settings.html" class="active"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../auth/login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <label class="search-box">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search students, subjects, or anything...">
+            </label>
+
+            <select class="semester-select" aria-label="Semester">
+                <option selected>1st Trimester | 1st Year</option>
+                <option>2nd Trimester | 1st Year</option>
+                <option>3rd Trimester | 1st Year</option>
+            </select>
+
+            <button class="header-icon" type="button" aria-label="Notifications">
+                <i class="fa-regular fa-bell" aria-hidden="true"></i>
+                <span class="notif-dot"></span>
+            </button>
+
+            <button class="profile-button" type="button">
+                <span class="profile-avatar">CB</span>
+                <span class="profile-info">
+                    <strong>Mr. Charles Bacus</strong>
+                    <small>Faculty</small>
+                </span>
+            </button>
+        </header>
+
+        <section class="dashboard-content">
+            <a href="security.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Security</a>
+            <span class="crumb">Security &gt; Login Alert</span>
+            <div class="page-head">
+                <h1>Login Alert</h1>
+                <p class="page-desc">Manage when you want to be notified about account logins.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-head">
+                    <h2>Notification Options</h2>
+                </div>
+                <div class="card-body stack">
+                    <div class="checkbox-list">
+                        <label>
+                            <input type="checkbox" id="alert-device" checked>
+                            New device login
+                        </label>
+                        <label>
+                            <input type="checkbox" id="alert-location">
+                            Unfamiliar location login
+                        </label>
+                        <label>
+                            <input type="checkbox" id="alert-every">
+                            Every login activity
+                        </label>
+                    </div>
+
+                    <div class="form-field">
+                        <label class="form-label" for="alert-recipient">Recipient Email</label>
+                        <div class="input-row">
+                            <input type="email" id="alert-recipient" class="form-input" value="student@school.educ">
+                            <button type="button" class="btn-primary" id="save-alerts"><i class="fa-solid fa-floppy-disk"></i> Save Alert Preferences</button>
+                        </div>
+                    </div>
+
+                    <p class="caption-note">"Get notified instantly if someone accesses your account."</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="toast-wrap" id="toast-wrap"></div>
+
+    <script>
+        function showToast(message) {
+            const wrap = document.getElementById('toast-wrap');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            wrap.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s';
+                setTimeout(() => toast.remove(), 300);
+            }, 2500);
+        }
+
+        API.get('/faculty/login-alerts').then(function (res) {
+            var d = (res && res.data) ? res.data : (res || {});
+            var emailEl = document.getElementById('alert-recipient');
+            if (d.recipientEmail) emailEl.value = d.recipientEmail;
+            if (d.enabled && d.enabled.indexOf('email') > -1) {
+                var e = document.getElementById('alert-device');
+                if (e) e.checked = true;
+            }
+            if (d.enabled && d.enabled.indexOf('location') > -1) {
+                var l = document.getElementById('alert-location');
+                if (l) l.checked = true;
+            }
+        }).catch(function () {});
+
+        document.getElementById('save-alerts').addEventListener('click', function () {
+            const email = document.getElementById('alert-recipient').value.trim();
+            if (!email.includes('@')) {
+                showToast('Please enter a valid email address.');
+                return;
+            }
+            const devices = [];
+            if (document.getElementById('alert-device').checked) devices.push('email');
+            if (document.getElementById('alert-location').checked) devices.push('location');
+            this.disabled = true;
+            const original = this.innerHTML;
+            this.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Saving...';
+            API.put('/faculty/login-alerts', { recipientEmail: email, enabled: devices }).then(function () {
+                showToast(devices.length + ' alert preference(s) saved successfully.');
+            }).catch(function () {
+                showToast('Failed to save alert preferences.', true);
+            }).then(function () {
+                this.disabled = false;
+                this.innerHTML = original;
+            }).bind(this);
+        });
+    </script>
+<script src="../../js/api.js"></script>
+<script src="../../js/facultyIdentity.js"></script>
+<script src="../../js/showToast.js"></script>
+<script src="../../js/copyToClipboard.js"></script>
+<script src="../../js/confirmAction.js"></script>
+<script src="../../js/avatarUpload.js"></script>
+<script src="../../js/validateForm.js"></script>
+<script src="../../js/persistSelect.js"></script>
+<script src="../../js/setYear.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Dashboard | Cebu Eastern College</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/dashboard.css">
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>FACULTY PORTAL</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Faculty navigation">
+            <div class="nav-section">My Classes</div>
+            <a href="faculty-dashboard.html" class="active"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="../schedule/schedule-day.html"><i class="fa-regular fa-calendar-day"></i><span>My Schedule</span></a>
+            <a href="../classes/class-list.html"><i class="fa-solid fa-table-list"></i><span>Class List</span></a>
+            <a href="../assignments/assignments.html"><i class="fa-solid fa-list-check"></i><span>Assignments</span></a>
+
+            <div class="nav-section">Students</div>
+            <a href="../students/student-records.html"><i class="fa-solid fa-users"></i><span>Student List</span></a>
+            <a href="../grades/grade-management.html"><i class="fa-solid fa-file-pen"></i><span>Grades</span></a>
+            <a href="../attendance/attendance-dashboard.html"><i class="fa-solid fa-clipboard-check"></i><span>Attendance</span></a>
+
+            <div class="nav-section">Academic</div>
+            <a href="../announcements/announcements.html"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+            <a href="upcoming-deadlines.html"><i class="fa-regular fa-clock"></i><span>Upcoming Deadlines</span></a>
+
+            <div class="nav-section">Personal</div>
+            <a href="../profile/profile.html"><i class="fa-regular fa-user"></i><span>Profile</span></a>
+            <a href="../settings/settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../auth/login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <label class="search-box">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search anything...">
+            </label>
+
+            <select class="semester-select" aria-label="Semester">
+                <option selected>1st Trimester | 1st Year</option>
+                <option>2nd Trimester | 1st Year</option>
+                <option>3rd Trimester | 1st Year</option>
+            </select>
+
+            <button class="header-icon" type="button" aria-label="Notifications">
+                <i class="fa-regular fa-bell" aria-hidden="true"></i>
+                <span class="notif-dot"></span>
+            </button>
+
+            <button class="profile-button" type="button">
+                <span class="profile-avatar">CB</span>
+                <span class="profile-info">
+                    <strong>Mr. Charles Bacus</strong>
+                    <small>Faculty</small>
+                </span>
+            </button>
+        </header>
+
+        <section class="dashboard-content">
+            <div class="page-head">
+                <h1>Faculty Dashboard</h1>
+                <p class="page-desc">Welcome back! Here&apos;s an overview of your classes and activities.</p>
+            </div>
+
+            <section class="stats-grid" aria-label="Key statistics">
+                <article class="stat-card">
+                    <div class="stat-info">
+                        <p>Total Students</p>
+                        <strong>124</strong>
+                        <small>Across all classes</small>
+                    </div>
+                    <span class="stat-icon"><i class="fa-solid fa-user-graduate" aria-hidden="true"></i></span>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-info">
+                        <p>My Classes</p>
+                        <strong>5</strong>
+                        <small>Active this semester</small>
+                    </div>
+                    <span class="stat-icon"><i class="fa-solid fa-chalkboard-user" aria-hidden="true"></i></span>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-info">
+                        <p>Pending Assignments</p>
+                        <strong>8</strong>
+                        <small>To be graded</small>
+                    </div>
+                    <span class="stat-icon"><i class="fa-regular fa-file-lines" aria-hidden="true"></i></span>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-info">
+                        <p>Attendance Today</p>
+                        <strong>98%</strong>
+                        <small>Present rate</small>
+                    </div>
+                    <span class="stat-icon"><i class="fa-regular fa-clock" aria-hidden="true"></i></span>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-info">
+                        <p>Unsubmitted Grades</p>
+                        <strong>3</strong>
+                        <small class="stat-sub red">Requires action</small>
+                    </div>
+                    <span class="stat-icon"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i></span>
+                </article>
+            </section>
+
+            <section class="dash-grid" aria-label="Dashboard overview">
+                <article class="panel">
+                    <div class="panel-head">
+                        <h3>Today&apos;s Schedule</h3>
+                        <a href="../schedule/schedule-week.html" class="panel-link">See Full List &#8594;</a>
+                    </div>
+                    <div class="panel-body">
+                        <table class="schedule-table">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Subject</th>
+                                    <th>Room</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="cell-time">7:30 - 9:00</td>
+                                    <td>CCS 101</td>
+                                    <td class="cell-room">Room 204</td>
+                                    <td><span class="status-badge status-green">Ongoing</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="cell-time">9:00 - 10:30</td>
+                                    <td>ITE 210</td>
+                                    <td class="cell-room">Lab 3</td>
+                                    <td><span class="status-badge status-blue">Upcoming</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="cell-time">1:00 - 2:30</td>
+                                    <td>BSIT 320</td>
+                                    <td class="cell-room">Room 108</td>
+                                    <td><span class="status-badge status-blue">Upcoming</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+
+                <article class="panel">
+                    <div class="panel-head">
+                        <h3>My Classes</h3>
+                        <a href="../classes/class-list.html" class="panel-link">View All &#8594;</a>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="class-list">
+                            <li class="class-item">
+                                <div>
+                                    <strong>BSIT 1</strong>
+                                    <span class="class-meta">28 students &middot; CCS 101</span>
+                                </div>
+                                <a href="../classes/class-details.html" class="manage-link">Manage</a>
+                            </li>
+                            <li class="class-item">
+                                <div>
+                                    <strong>BSIT 2</strong>
+                                    <span class="class-meta">25 students &middot; ITE 210</span>
+                                </div>
+                                <a href="../classes/class-details.html" class="manage-link">Manage</a>
+                            </li>
+                            <li class="class-item">
+                                <div>
+                                    <strong>BSIT 3</strong>
+                                    <span class="class-meta">24 students &middot; BSIT 320</span>
+                                </div>
+                                <a href="../classes/class-details.html" class="manage-link">Manage</a>
+                            </li>
+                        </ul>
+                    </div>
+                </article>
+
+                <article class="panel">
+                    <div class="panel-head">
+                        <h3>Announcements</h3>
+                        <a href="../announcements/announcements.html" class="panel-link">View All &#8594;</a>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="news-list">
+                            <li class="news-item">
+                                <div>
+                                    <strong>Midterm exam schedule released</strong>
+                                    <span class="news-desc">Exams run October 3-7. Check the bulletin for room assignments.</span>
+                                    <span class="news-date">2 hours ago</span>
+                                </div>
+                                <span class="tag tag-red">High</span>
+                            </li>
+                            <li class="news-item">
+                                <div>
+                                    <strong>Faculty meeting rescheduled</strong>
+                                    <span class="news-desc">Meeting moved to Friday, 3:00 PM in the conference room.</span>
+                                    <span class="news-date">Yesterday</span>
+                                </div>
+                                <span class="tag tag-blue">Normal</span>
+                            </li>
+                            <li class="news-item">
+                                <div>
+                                    <strong>New e-Learning module added</strong>
+                                    <span class="news-desc">Grade entry training video now available under Faculty Resources.</span>
+                                    <span class="news-date">3 days ago</span>
+                                </div>
+                                <span class="tag tag-blue">Normal</span>
+                            </li>
+                        </ul>
+                    </div>
+                </article>
+            </section>
+        </section>
+    </main>
+<script src="../../js/api.js"></script>
+<script src="../../js/facultyIdentity.js"></script>
+<script>
+    (function () {
+        function toItems(res) { return (res && Array.isArray(res)) ? res : ((res && res.data) || []); }
+        function esc(v) { return String(v == null ? '' : v).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+        function renderSchedule(list) {
+            var tbody = document.querySelector('.schedule-table tbody');
+            if (!tbody) return;
+            if (!list.length) {
+                tbody.innerHTML = '<tr><td colspan="4" class="muted-cell">No schedule for today.</td></tr>';
+                return;
+            }
+            var html = '';
+            list.forEach(function (s) {
+                var time = (s.timeStart && s.timeEnd) ? (s.timeStart + ' - ' + s.timeEnd) : (s.time || s.dueDate || '');
+                var subject = s.code || s.subject || s.title || '';
+                var status = s.status || 'Upcoming';
+                var cls = status.toLowerCase() === 'ongoing' ? 'status-green' : (status.toLowerCase() === 'completed' ? 'status-gray' : 'status-blue');
+                html += '<tr><td class="cell-time">' + esc(time) + '</td><td>' + esc(subject) + '</td><td class="cell-room">' + esc(s.room || '') + '</td><td><span class="status-badge ' + cls + '">' + esc(status) + '</span></td></tr>';
+            });
+            tbody.innerHTML = html;
+        }
+
+        function renderClasses(list) {
+            var ul = document.querySelector('.class-list');
+            if (!ul) return;
+            if (!list.length) {
+                ul.innerHTML = '<li class="class-item"><div><strong>No classes found</strong></div></li>';
+                return;
+            }
+            var html = '';
+            list.forEach(function (c) {
+                var title = c.code || c.course || '';
+                var meta = (c.studentsCount != null ? c.studentsCount + ' students' : '') + (c.course ? ' &middot; ' + esc(c.course) : '');
+                html += '<li class="class-item"><div><strong>' + esc(title) + '</strong><span class="class-meta">' + meta + '</span></div><a href="../classes/class-details.html?id=' + encodeURIComponent(c.id || '') + '" class="manage-link">Manage</a></li>';
+            });
+            ul.innerHTML = html;
+        }
+
+        function renderAnnouncements(list) {
+            var ul = document.querySelector('.news-list');
+            if (!ul) return;
+            if (!list.length) {
+                ul.innerHTML = '<li class="news-item"><div><strong>No announcements</strong></div></li>';
+                return;
+            }
+            var html = '';
+            list.slice(0, 3).forEach(function (a) {
+                var priority = (a.priority || 'Normal');
+                var tag = priority.toLowerCase() === 'high' ? 'tag-red' : 'tag-blue';
+                html += '<li class="news-item"><div><strong>' + esc(a.title || '') + '</strong><span class="news-desc">' + esc(a.message || a.description || '') + '</span><span class="news-date">' + esc(a.datePosted || a.date || '') + '</span></div><span class="tag ' + tag + '">' + esc(priority) + '</span></li>';
+            });
+            ul.innerHTML = html;
+        }
+
+        function loadMetrics() {
+            API.get('/faculty/dashboard/metrics').then(function (res) {
+                var data = (res && res.data) ? res.data : (res || {});
+                var kpis = data.kpis || (Array.isArray(res) ? res : []);
+                var cards = document.querySelectorAll('.stats-grid .stat-card');
+                cards.forEach(function (card, i) {
+                    var kpi = kpis[i];
+                    if (!kpi) return;
+                    var strong = card.querySelector('.stat-info strong');
+                    var small = card.querySelector('.stat-info small');
+                    if (strong) strong.textContent = (kpi.value !== undefined ? kpi.value : (kpi.count !== undefined ? kpi.count : strong.textContent));
+                    if (small && (kpi.sub || kpi.caption)) small.textContent = kpi.sub || kpi.caption;
+                });
+                renderSchedule(toItems(data.upcoming));
+            }).catch(function () {
+                if (window.showToast) showToast('Failed to load dashboard metrics', 'error');
+                renderSchedule([]);
+            });
+        }
+
+        function loadClasses() {
+            API.get('/faculty/classes').then(function (res) {
+                renderClasses(toItems(res));
+            }).catch(function () {
+                if (window.showToast) showToast('Failed to load classes', 'error');
+                renderClasses([]);
+            });
+        }
+
+        function loadAnnouncements() {
+            API.get('/faculty/announcements').then(function (res) {
+                renderAnnouncements(toItems(res));
+            }).catch(function () {
+                if (window.showToast) showToast('Failed to load announcements', 'error');
+                renderAnnouncements([]);
+            });
+        }
+
+        loadMetrics();
+        loadClasses();
+        loadAnnouncements();
+    })();
+</script>
+<script src="../../js/showToast.js"></script>
+<script src="../../js/copyToClipboard.js"></script>
+<script src="../../js/confirmAction.js"></script>
+<script src="../../js/avatarUpload.js"></script>
+<script src="../../js/validateForm.js"></script>
+<script src="../../js/persistSelect.js"></script>
+<script src="../../js/setYear.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Student | CEC Faculty Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/student-records.css">
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>FACULTY PORTAL</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Faculty navigation">
+            <div class="nav-section">My Classes</div>
+            <a href="../dashboard/faculty-dashboard.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="../schedule/schedule-day.html"><i class="fa-regular fa-calendar-day"></i><span>My Schedule</span></a>
+            <a href="../classes/class-list.html"><i class="fa-solid fa-table-list"></i><span>Class List</span></a>
+            <a href="../assignments/assignments.html"><i class="fa-solid fa-list-check"></i><span>Assignments</span></a>
+
+            <div class="nav-section">Students</div>
+            <a href="student-records.html" class="active"><i class="fa-solid fa-users"></i><span>Student List</span></a>
+            <a href="../grades/grade-management.html"><i class="fa-solid fa-file-pen"></i><span>Grades</span></a>
+            <a href="../attendance/attendance-dashboard.html"><i class="fa-solid fa-clipboard-check"></i><span>Attendance</span></a>
+
+            <div class="nav-section">Academic</div>
+            <a href="../announcements/announcements.html"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+            <a href="../dashboard/upcoming-deadlines.html"><i class="fa-regular fa-clock"></i><span>Upcoming Deadlines</span></a>
+
+            <div class="nav-section">Personal</div>
+            <a href="../profile/profile.html"><i class="fa-regular fa-user"></i><span>Profile</span></a>
+            <a href="../settings/settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../auth/login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <label class="search-box">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search anything...">
+            </label>
+
+            <select class="semester-select" aria-label="Semester">
+                <option selected>1st Trimester | 1st Year</option>
+                <option>2nd Trimester | 1st Year</option>
+                <option>3rd Trimester | 1st Year</option>
+            </select>
+
+            <button class="header-icon" type="button" aria-label="Notifications">
+                <i class="fa-regular fa-bell" aria-hidden="true"></i>
+                <span class="notif-dot"></span>
+            </button>
+
+            <button class="profile-button" type="button">
+                <span class="profile-avatar">CB</span>
+                <span class="profile-info">
+                    <strong>Mr. Charles Bacus</strong>
+                    <small>Faculty</small>
+                </span>
+            </button>
+        </header>
+
+        <section class="dashboard-content">
+            <div class="back-bar">
+                <a class="back-link" href="student-records.html"><i class="fa-solid fa-arrow-left"></i> Back to Student Records</a>
+                <div class="page-head">
+                    <h1 id="pageTitle">Add New Student</h1>
+                    <p class="page-desc">Create a new student record with the required information.</p>
+                </div>
+            </div>
+
+            <form id="addStudentForm" class="form-layout" novalidate>
+                <div>
+                    <section class="form-card">
+                        <h3 class="card-title"><i class="fa-solid fa-user"></i> Student Information</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label" for="fullName">Full Name <span class="required">*</span></label>
+                                <input class="form-control" type="text" id="fullName" placeholder="Enter full name" required>
+                                <div class="field-error" id="err-fullName">Please enter the student's full name.</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="studentId">Student ID <span class="required">*</span></label>
+                                <input class="form-control" type="text" id="studentId" placeholder="Enter student ID" required>
+                                <div class="field-error" id="err-studentId">Please enter a student ID.</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="program">Program <span class="required">*</span></label>
+                                <select class="form-control" id="program" required>
+                                    <option value="">Select program...</option>
+                                    <option>BS Information Technology</option>
+                                    <option>BS Hospitality Management</option>
+                                    <option>BS Tourism Management</option>
+                                    <option>BS Secondary Education</option>
+                                    <option>BS Criminology</option>
+                                    <option>Bachelor of Elementary Education</option>
+                                </select>
+                                <div class="field-error" id="err-program">Please select a program.</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="yearLevel">Year Level <span class="required">*</span></label>
+                                <select class="form-control" id="yearLevel" required>
+                                    <option value="">Select year level...</option>
+                                    <option>1st Year</option>
+                                    <option>2nd Year</option>
+                                    <option>3rd Year</option>
+                                    <option>4th Year</option>
+                                </select>
+                                <div class="field-error" id="err-yearLevel">Please select a year level.</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="email">Email Address <span class="required">*</span></label>
+                                <input class="form-control" type="email" id="email" placeholder="name@cec.edu.ph" required>
+                                <div class="field-error" id="err-email">Please enter a valid email address.</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="phoneNumber">Phone Number <span class="required">*</span></label>
+                                <input class="form-control" type="tel" id="phoneNumber" placeholder="09XX XXX XXXX" required>
+                                <div class="field-error" id="err-phoneNumber">Please enter a valid phone number.</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="gender">Gender <span class="required">*</span></label>
+                                <select class="form-control" id="gender" required>
+                                    <option value="">Select gender...</option>
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                </select>
+                                <div class="field-error" id="err-gender">Please select a gender.</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="dateOfBirth">Date of Birth <span class="required">*</span></label>
+                                <input class="form-control" type="date" id="dateOfBirth" required>
+                                <div class="field-error" id="err-dateOfBirth">Please enter the date of birth.</div>
+                            </div>
+                            <div class="form-group full">
+                                <label class="form-label" for="address">Address <span class="required">*</span></label>
+                                <textarea class="form-control" id="address" placeholder="Enter complete address" required></textarea>
+                                <div class="field-error" id="err-address">Please enter an address.</div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <aside>
+                    <section class="side-card">
+                        <h3 class="card-title"><i class="fa-solid fa-camera"></i> Profile Photo</h3>
+                        <div class="upload-avatar" id="uploadAvatar"></div>
+                        <div class="dropzone" id="dropzone">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                            <strong>Click to upload or drag &amp; drop</strong>
+                            <small>PNG or JPG, max 5MB</small>
+                            <input type="file" id="photoFile" accept="image/*" hidden>
+                        </div>
+                        <div class="side-actions">
+                            <button class="btn-outline" type="button" id="cancelBtn">Cancel</button>
+                            <button class="btn-primary" type="submit" id="saveBtn">
+                                <i class="fa-solid fa-user-plus"></i> Save Student
+                            </button>
+                        </div>
+                    </section>
+                </aside>
+            </form>
+        </section>
+    </main>
+
+    <div class="toast-wrap" id="toastWrap"></div>
+
+    <script src="../../js/api.js"></script>
+    <script src="../../js/facultyIdentity.js"></script>
+    <script>
+        (function () {
+            var form = document.getElementById('addStudentForm');
+            var saveBtn = document.getElementById('saveBtn');
+            var toastWrap = document.getElementById('toastWrap');
+
+            function param(name) { var m = new RegExp('[?&]' + name + '=([^&]*)').exec(location.search); return m ? decodeURIComponent(m[1]) : ''; }
+            var studentId = param('id');
+            var editMode = !!studentId;
+
+            function showToast(msg, type) {
+                var t = document.createElement('div');
+                t.className = 'toast' + (type ? ' ' + type : '');
+                var icon = type === 'error' ? 'circle-xmark' : type === 'info' ? 'circle-info' : 'circle-check';
+                t.innerHTML = '<i class="fa-solid fa-' + icon + '"></i> ' + msg;
+                toastWrap.appendChild(t);
+                setTimeout(function () {
+                    t.style.opacity = '0';
+                    t.style.transition = 'opacity 0.3s';
+                    setTimeout(function () { t.remove(); }, 300);
+                }, 3000);
+            }
+
+            function setError(el, errEl, show) {
+                el.classList.toggle('invalid', show);
+                errEl.classList.toggle('visible', show);
+            }
+
+            form.querySelectorAll('.form-control').forEach(function (el) {
+                var err = el.id ? document.getElementById('err-' + el.id) : null;
+                if (err) {
+                    el.addEventListener('input', function () { setError(el, err, false); });
+                    el.addEventListener('change', function () { setError(el, err, false); });
+                }
+            });
+
+            // ---------- Avatar upload ----------
+            var dropzone = document.getElementById('dropzone');
+            var photoFile = document.getElementById('photoFile');
+            var uploadAvatar = document.getElementById('uploadAvatar');
+            var pendingPhoto = null;
+
+            function handleFile(file) {
+                if (!file || !file.type.match('image.*')) {
+                    showToast('Please select an image file.', 'error');
+                    return;
+                }
+                if (file.size > 5 * 1024 * 1024) {
+                    showToast('File exceeds 5MB limit.', 'error');
+                    return;
+                }
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    uploadAvatar.innerHTML = '';
+                    var img = document.createElement('img');
+                    img.src = e.target.result;
+                    uploadAvatar.appendChild(img);
+                    dropzone.querySelector('strong').textContent = 'Photo selected';
+                    dropzone.querySelector('small').textContent = file.name;
+                    dropzone.classList.add('has-file');
+                    pendingPhoto = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+
+            dropzone.addEventListener('click', function () { photoFile.click(); });
+            photoFile.addEventListener('change', function () { handleFile(photoFile.files[0]); });
+
+            ['dragover', 'dragenter'].forEach(function (ev) {
+                dropzone.addEventListener(ev, function (e) {
+                    e.preventDefault();
+                    dropzone.classList.add('highlight');
+                });
+            });
+            ['dragleave', 'dragend'].forEach(function (ev) {
+                dropzone.addEventListener(ev, function () { dropzone.classList.remove('highlight'); });
+            });
+            dropzone.addEventListener('drop', function (e) {
+                e.preventDefault();
+                dropzone.classList.remove('highlight');
+                handleFile(e.dataTransfer.files[0]);
+            });
+
+            document.getElementById('cancelBtn').addEventListener('click', function () {
+                window.location.href = 'student-records.html';
+            });
+
+            // ---------- Submit -> POST /api/v1/students ----------
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                var valid = true;
+
+                [['fullName', function (v) { return v.split(' ').length >= 2; }],
+                 ['studentId', function (v) { return v.length > 0; }],
+                 ['program', function (v) { return v; }],
+                 ['yearLevel', function (v) { return v; }],
+                 ['email', function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }],
+                 ['phoneNumber', function (v) { return /^[\d+][\d\s-]{6,}$/.test(v); }],
+                 ['gender', function (v) { return v; }],
+                 ['dateOfBirth', function (v) { return v; }],
+                 ['address', function (v) { return v.length >= 5; }]
+                ].forEach(function (tuple) {
+                    var el = document.getElementById(tuple[0]);
+                    var err = document.getElementById('err-' + tuple[0]);
+                    var bad = !tuple[1](el.value.trim());
+                    setError(el, err, bad);
+                    if (bad) valid = false;
+                });
+
+                if (!valid) {
+                    showToast('Please fix the highlighted fields.', 'error');
+                    return;
+                }
+
+                saveBtn.disabled = true;
+                saveBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Saving...';
+
+                var body = {};
+                ['fullName', 'studentId', 'program', 'yearLevel', 'email', 'phoneNumber', 'gender', 'dateOfBirth', 'address']
+                    .forEach(function (id) { body[id] = document.getElementById(id).value.trim(); });
+                if (pendingPhoto) body.photo = pendingPhoto;
+
+                var req = editMode ? API.put('/faculty/students/' + encodeURIComponent(studentId), body) : API.post('/faculty/students', body);
+
+                req.then(function () {
+                    saveBtn.disabled = false;
+                    saveBtn.innerHTML = '<i class="fa-solid fa-user-plus"></i> Save Student';
+                    showToast('Student saved successfully. Redirecting...');
+                    setTimeout(function () { window.location.href = 'student-records.html'; }, 1400);
+                }).catch(function () {
+                    saveBtn.disabled = false;
+                    saveBtn.innerHTML = '<i class="fa-solid fa-user-plus"></i> Save Student';
+                    showToast('Failed to save student.', 'error');
+                });
+            });
+
+            function loadStudent() {
+                if (!editMode) return;
+                document.getElementById('pageTitle').textContent = 'Edit Student';
+                API.get('/faculty/students/' + encodeURIComponent(studentId)).then(function (res) {
+                    var s = (res && res.data) ? res.data : (res || {});
+                    if (s.name != null) document.getElementById('fullName').value = s.name;
+                    var sid = s.id != null ? s.id : s.studentId;
+                    if (sid != null) document.getElementById('studentId').value = sid;
+                    if (s.program != null) document.getElementById('program').value = s.program;
+                    var yr = s.year != null ? s.year : s.yearLevel;
+                    if (yr != null) document.getElementById('yearLevel').value = yr;
+                    if (s.email != null) document.getElementById('email').value = s.email;
+                    if (s.phone != null) document.getElementById('phoneNumber').value = s.phone;
+                    if (s.gender != null) document.getElementById('gender').value = s.gender;
+                    var dob = s.dateOfBirth || s.dob;
+                    if (dob != null) document.getElementById('dateOfBirth').value = String(dob).slice(0, 10);
+                    if (s.address != null) document.getElementById('address').value = s.address;
+                }).catch(function () {
+                    showToast('Failed to load student record.', 'error');
+                });
+            }
+
+            loadStudent();
+        })();
+    </script>
+<script src="../../js/showToast.js"></script>
+<script src="../../js/copyToClipboard.js"></script>
+<script src="../../js/confirmAction.js"></script>
+<script src="../../js/avatarUpload.js"></script>
+<script src="../../js/validateForm.js"></script>
+<script src="../../js/persistSelect.js"></script>
+<script src="../../js/setYear.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance | Cebu Eastern College</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/attendance-dashboard.css">
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>FACULTY PORTAL</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Faculty navigation">
+            <div class="nav-section">My Classes</div>
+            <a href="../dashboard/faculty-dashboard.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="../schedule/schedule-day.html"><i class="fa-regular fa-calendar-day"></i><span>My Schedule</span></a>
+            <a href="../classes/class-list.html"><i class="fa-solid fa-table-list"></i><span>Class List</span></a>
+            <a href="../assignments/assignments.html"><i class="fa-solid fa-list-check"></i><span>Assignments</span></a>
+
+            <div class="nav-section">Students</div>
+            <a href="../students/student-records.html"><i class="fa-solid fa-users"></i><span>Student List</span></a>
+            <a href="../grades/grade-management.html"><i class="fa-solid fa-file-pen"></i><span>Grades</span></a>
+            <a href="attendance-dashboard.html" class="active"><i class="fa-solid fa-clipboard-check"></i><span>Attendance</span></a>
+
+            <div class="nav-section">Academic</div>
+            <a href="../announcements/announcements.html"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+            <a href="../dashboard/upcoming-deadlines.html"><i class="fa-regular fa-clock"></i><span>Upcoming Deadlines</span></a>
+
+            <div class="nav-section">Personal</div>
+            <a href="../profile/profile.html"><i class="fa-regular fa-user"></i><span>Profile</span></a>
+            <a href="../settings/settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../auth/login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <label class="search-box">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search anything...">
+            </label>
+
+            <select class="semester-select" aria-label="Semester">
+                <option selected>1st Trimester | 1st Year</option>
+                <option>2nd Trimester | 1st Year</option>
+                <option>3rd Trimester | 1st Year</option>
+            </select>
+
+            <button class="header-icon" type="button" aria-label="Notifications">
+                <i class="fa-regular fa-bell" aria-hidden="true"></i>
+                <span class="notif-dot"></span>
+            </button>
+
+            <button class="profile-button" type="button">
+                <span class="profile-avatar">CB</span>
+                <span class="profile-info">
+                    <strong>Mr. Charles Bacus</strong>
+                    <small>Faculty</small>
+                </span>
+            </button>
+        </header>
+
+        <section class="dashboard-content">
+            <div class="page-head">
+                <h1>Attendance</h1>
+                <p class="page-desc">Track and manage student attendance.</p>
+            </div>
+
+            <div class="filter-bar">
+                <select class="filter-select" aria-label="Course">
+                    <option selected>All Courses</option>
+                    <option>BSIT</option>
+                    <option>BSCS</option>
+                    <option>ITEC</option>
+                </select>
+
+                <select class="filter-select" aria-label="Section">
+                    <option selected>All Sections</option>
+                    <option>BSIT 1A</option>
+                    <option>BSIT 2A</option>
+                    <option>BSCS 1B</option>
+                </select>
+
+                <span class="date-range" title="Date range">
+                    <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+                    Aug 11, 2025 &ndash; Aug 17, 2025
+                </span>
+
+                <button class="btn-search" type="button"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Search</button>
+            </div>
+
+            <section class="stats-grid" aria-label="Attendance summary">
+                <article class="stat-card">
+                    <div class="stat-info">
+                        <p>Total Classes</p>
+                        <strong id="statTotalClasses">0</strong>
+                        <small>Within selected range</small>
+                    </div>
+                    <span class="stat-icon"><i class="fa-solid fa-chalkboard" aria-hidden="true"></i></span>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-info">
+                        <p>Total Students</p>
+                        <strong id="statTotalStudents">0</strong>
+                        <small>Across all classes</small>
+                    </div>
+                    <span class="stat-icon"><i class="fa-solid fa-user-graduate" aria-hidden="true"></i></span>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-info">
+                        <p>Present</p>
+                        <strong id="statPresent">0</strong>
+                        <small class="stat-sub percent-green" id="statPresentRate">&mdash;</small>
+                    </div>
+                    <span class="stat-icon"><i class="fa-regular fa-circle-check" aria-hidden="true"></i></span>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-info">
+                        <p>Absent</p>
+                        <strong id="statAbsent">0</strong>
+                        <small class="stat-sub percent-red" id="statAbsentRate">&mdash;</small>
+                    </div>
+                    <span class="stat-icon"><i class="fa-regular fa-circle-xmark" aria-hidden="true"></i></span>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-info">
+                        <p>Late</p>
+                        <strong id="statLate">0</strong>
+                        <small class="stat-sub percent-amber" id="statLateRate">&mdash;</small>
+                    </div>
+                    <span class="stat-icon"><i class="fa-regular fa-clock" aria-hidden="true"></i></span>
+                </article>
+            </section>
+
+            <div class="table-card">
+                <div class="table-heading">
+                    <h3>Today&apos;s Attendance <span class="muted-cell" id="todayDate"></span></h3>
+                    <a href="all-classes.html" class="panel-link">View All Classes &#8594;</a>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Course</th>
+                                <th>Section</th>
+                                <th>Subject</th>
+                                <th>Present</th>
+                                <th>Absent</th>
+                                <th>Late</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="todayBody"></tbody>
+                    </table>
+                </div>
+
+                <div class="table-footer">
+                    <p class="pagination-info" id="todayPaginationInfo">Showing 0 of 0 sessions today</p>
+                    <div class="pagination">
+                        <button class="page-btn" type="button" aria-label="Previous">&lt;</button>
+                        <button class="page-btn active" type="button">1</button>
+                        <button class="page-btn" type="button" aria-label="Next">&gt;</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-card">
+                <div class="table-heading">
+                    <h3>Class Attendance Details &amp; Summary</h3>
+                    <div class="heading-actions">
+                        <select class="filter-select" id="detailsClassSelect" aria-label="View class attendance"></select>
+                        <button class="btn-export" type="button" data-toast-onclick="Attendance report downloaded"><i class="fa-solid fa-download" aria-hidden="true"></i> Download Report</button>
+                    </div>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Name</th>
+                                <th>Present</th>
+                                <th>Absent</th>
+                                <th>Late</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="detailsBody"></tbody>
+                    </table>
+                </div>
+
+                <div class="table-footer">
+                    <p class="pagination-info" id="detailsPaginationInfo">Showing 0 of 0 students</p>
+                    <div class="pagination">
+                        <button class="page-btn" type="button" aria-label="Previous">&lt;</button>
+                        <button class="page-btn active" type="button">1</button>
+                        <button class="page-btn" type="button">2</button>
+                        <button class="page-btn" type="button">3</button>
+                        <button class="page-btn" type="button" aria-label="Next">&gt;</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analytics-grid">
+                <section class="table-card" aria-label="Attendance analytics">
+                    <div class="donut-row" id="donutRow"></div>
+                </section>
+
+                <aside class="remarks-panel">
+                    <p class="remarks-label"><i class="fa-regular fa-note-sticky" aria-hidden="true"></i> Remarks</p>
+                    <p id="remarksText">&mdash;</p>
+                </aside>
+            </div>
+        </section>
+    </main>
+<script src="../../js/api.js"></script>
+<script src="../../js/facultyIdentity.js"></script>
+<script>
+    (function () {
+        function toItems(res) { return (res && Array.isArray(res)) ? res : ((res && res.data) || []); }
+        function esc(v) { return String(v == null ? '' : v).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+        function setText(id, value) { var el = document.getElementById(id); if (el) el.textContent = (value == null || value === '') ? '\u2014' : value; }
+
+        function donut(value, color, label) {
+            var dash = Math.max(0, Math.min(100, Math.round(value)));
+            return '<div class="donut">' +
+                '<svg viewBox="0 0 36 36" aria-hidden="true">' +
+                '<circle cx="18" cy="18" r="15.9" fill="none" stroke="#E8EEF6" stroke-width="3.5"></circle>' +
+                '<circle cx="18" cy="18" r="15.9" fill="none" stroke="' + color + '" stroke-width="3.5" stroke-dasharray="' + dash + ' 100" stroke-linecap="round" transform="rotate(-90 18 18)"></circle>' +
+                '</svg><span class="donut-value">' + dash + '%</span><span class="donut-label">' + label + '</span></div>';
+        }
+
+        function renderSummary(d) {
+            setText('statTotalClasses', d.totalClasses);
+            setText('statTotalStudents', d.totalStudents);
+            setText('statPresent', d.present);
+            setText('statAbsent', d.absent);
+            setText('statLate', d.late);
+            if (d.presentRate != null) setText('statPresentRate', d.presentRate + '% attendance rate');
+            if (d.absentRate != null) setText('statAbsentRate', d.absentRate + '% absence rate');
+            if (d.lateRate != null) setText('statLateRate', d.lateRate + '% late rate');
+            document.getElementById('donutRow').innerHTML =
+                donut(d.presentRate != null ? d.presentRate : 0, '#2E9E4F', 'Present') +
+                donut(d.absentRate != null ? d.absentRate : 0, '#B3261E', 'Absent') +
+                donut(d.lateRate != null ? d.lateRate : 0, '#E08A00', 'Late');
+            setText('remarksText', d.remarks);
+        }
+
+        function sessionStatus(s) {
+            var v = String(s || '').toLowerCase();
+            return v === 'in progress' ? 'status-blue' : 'status-green';
+        }
+
+        function renderToday(items) {
+            var body = document.getElementById('todayBody');
+            if (!items.length) {
+                body.innerHTML = '<tr><td colspan="9" class="muted-cell">No sessions today</td></tr>';
+                setText('todayPaginationInfo', 'Showing 0 of 0 sessions today');
+                return;
+            }
+            var html = '';
+            items.forEach(function (r) {
+                html += '<tr>';
+                html += '<td class="muted-cell">' + esc(r.time) + '</td>';
+                html += '<td>' + esc(r.course) + '</td>';
+                html += '<td>' + esc(r.section) + '</td>';
+                html += '<td>' + esc(r.subject) + '</td>';
+                html += '<td><span class="check-count"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> ' + esc(r.present) + '</span></td>';
+                html += '<td>' + esc(r.absent) + '</td>';
+                html += '<td>' + esc(r.late) + '</td>';
+                html += '<td><span class="status-badge ' + sessionStatus(r.status) + '">' + esc(r.status) + '</span></td>';
+                html += '<td><a class="btn-action" href="attendance-details.html?id=' + encodeURIComponent(r.classId != null ? r.classId : '') + '">View</a></td>';
+                html += '</tr>';
+            });
+            body.innerHTML = html;
+            setText('todayPaginationInfo', 'Showing 1-' + items.length + ' of ' + items.length + ' sessions today');
+        }
+
+        function studentStatus(s) {
+            var v = String(s || '').toLowerCase();
+            if (v === 'absent') return 'status-red';
+            if (v === 'late') return 'status-amber';
+            return 'status-green';
+        }
+
+        function renderDetails(items) {
+            var body = document.getElementById('detailsBody');
+            if (!items.length) {
+                body.innerHTML = '<tr><td colspan="6" class="muted-cell">No attendance records found</td></tr>';
+                setText('detailsPaginationInfo', 'Showing 0 of 0 students');
+                return;
+            }
+            var html = '';
+            items.forEach(function (r) {
+                html += '<tr>';
+                html += '<td class="muted-cell">' + esc(r.studentId || r.id) + '</td>';
+                html += '<td><strong>' + esc(r.name || r.studentName) + '</strong></td>';
+                html += '<td><span class="check-count"><i class="fa-solid fa-check" aria-hidden="true"></i> ' + esc(r.present) + '</span></td>';
+                html += '<td>' + esc(r.absent) + '</td>';
+                html += '<td>' + esc(r.late) + '</td>';
+                html += '<td><span class="status-badge ' + studentStatus(r.status) + '">' + esc(r.status) + '</span></td>';
+                html += '</tr>';
+            });
+            body.innerHTML = html;
+            setText('detailsPaginationInfo', 'Showing 1-' + items.length + ' of ' + items.length + ' students');
+        }
+
+        function loadDetails(classId) {
+            if (!classId) { renderDetails([]); return; }
+            API.get('/faculty/attendance/classes/' + encodeURIComponent(classId)).then(function (res) {
+                renderDetails(toItems(res));
+            }).catch(function () {
+                renderDetails([]);
+                if (window.showToast) showToast('Failed to load attendance details', 'error');
+            });
+        }
+
+        function loadClasses() {
+            API.get('/faculty/classes').then(function (res) {
+                var items = toItems(res);
+                var sel = document.getElementById('detailsClassSelect');
+                sel.innerHTML = '';
+                items.forEach(function (c) {
+                    var opt = document.createElement('option');
+                    opt.value = c.id != null ? c.id : '';
+                    opt.textContent = (c.section || c.code || '') + ' \u2013 ' + (c.subject || c.name || '');
+                    sel.appendChild(opt);
+                });
+                sel.addEventListener('change', function () { loadDetails(sel.value); });
+                if (items.length) loadDetails(sel.value);
+                else renderDetails([]);
+            }).catch(function () {
+                renderDetails([]);
+            });
+        }
+
+        API.get('/faculty/attendance/summary').then(function (res) {
+            renderSummary((res && res.data) ? res.data : (res || {}));
+        }).catch(function () {
+            if (window.showToast) showToast('Failed to load attendance summary', 'error');
+        });
+
+        API.get('/faculty/attendance/today').then(function (res) { renderToday(toItems(res)); }).catch(function () {
+            renderToday([]);
+        });
+
+        loadClasses();
+    })();
+</script>
+<script src="../../js/showToast.js"></script>
+<script src="../../js/copyToClipboard.js"></script>
+<script src="../../js/confirmAction.js"></script>
+<script src="../../js/avatarUpload.js"></script>
+<script src="../../js/validateForm.js"></script>
+<script src="../../js/persistSelect.js"></script>
+<script src="../../js/setYear.js"></script>
+
+</body>
+</html>

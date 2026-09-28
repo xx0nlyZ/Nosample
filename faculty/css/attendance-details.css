@@ -1,0 +1,265 @@
+@import url("dashboard.css");
+
+/* ==========================================================================
+   BREADCRUMBS
+   ========================================================================== */
+.crumb-bar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.crumb-bar a {
+    color: var(--blue);
+    font-weight: 700;
+}
+
+.crumb-bar a:hover {
+    text-decoration: underline;
+}
+
+.crumb-bar i {
+    font-size: 10px;
+}
+
+/* ==========================================================================
+   CLASS SUMMARY BAR
+   ========================================================================== */
+.summary-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding: 18px 22px;
+    border: 1px solid #E3E9F2;
+    border-radius: 8px;
+    background: #FFFFFF;
+}
+
+.class-summary {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.summary-icon {
+    display: grid;
+    width: 52px;
+    height: 52px;
+    flex: 0 0 52px;
+    place-items: center;
+    border-radius: 10px;
+    color: #FFFFFF;
+    background: var(--blue);
+    font-size: 22px;
+}
+
+.class-summary strong {
+    display: block;
+    font-size: 16px;
+}
+
+.class-summary .summary-meta {
+    display: block;
+    margin-top: 3px;
+    color: var(--muted);
+    font-size: 12.5px;
+}
+
+/* ==========================================================================
+   STAT CARDS (percent variants)
+   ========================================================================== */
+.stat-card .stat-info small.percent-green {
+    color: #177245;
+}
+
+.stat-card .stat-info small.percent-red {
+    color: #B3261E;
+}
+
+.stat-card .stat-info small.percent-amber {
+    color: #B26A00;
+}
+
+/* ==========================================================================
+   MATRIX TABLE
+   ========================================================================== */
+.table-card {
+    margin-bottom: 20px;
+    border: 1px solid #E3E9F2;
+    border-radius: 8px;
+    background: #FFFFFF;
+    overflow: hidden;
+}
+
+.table-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 15px 18px;
+    border-bottom: 1px solid #EEF2F8;
+}
+
+.table-heading h3 {
+    margin: 0;
+    font-size: 15px;
+}
+
+.date-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 14px;
+    border: 1px solid #D5DEE9;
+    border-radius: 20px;
+    color: var(--navy);
+    background: #FFFFFF;
+    font-size: 12.5px;
+    font-weight: 700;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+.matrix-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.matrix-table th,
+.matrix-table td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #EEF2F8;
+    font-size: 12.5px;
+    text-align: center;
+}
+
+.matrix-table th {
+    color: var(--muted);
+    background: #FBFCFE;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.matrix-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.matrix-table tbody tr:hover {
+    background: #F8FAFD;
+}
+
+.matrix-table th:first-child,
+.matrix-table td:first-child {
+    text-align: center;
+}
+
+.matrix-table th:nth-child(2),
+.matrix-table td:nth-child(2) {
+    min-width: 180px;
+    text-align: left;
+    font-weight: 700;
+}
+
+.matrix-table td:nth-child(3) {
+    color: var(--muted);
+}
+
+.cell-dot {
+    display: inline-grid;
+    width: 26px;
+    height: 26px;
+    place-items: center;
+    border-radius: 50%;
+    color: #FFFFFF;
+    font-size: 12px;
+}
+
+.dot-green {
+    background: #2E9E4F;
+}
+
+.dot-red {
+    background: #B3261E;
+}
+
+.dot-amber {
+    background: #E08A00;
+}
+
+/* ==========================================================================
+   ANALYTICS GRID (summary + notes)
+   ========================================================================== */
+.analytics-grid {
+    display: grid;
+    grid-template-columns: 1.25fr 0.75fr;
+    gap: 18px;
+    align-items: stretch;
+}
+
+.donut-row {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 18px;
+    padding: 18px;
+}
+
+.donut {
+    display: grid;
+    justify-items: center;
+    gap: 7px;
+}
+
+.donut svg {
+    width: 84px;
+    height: 84px;
+}
+
+.donut-value {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.donut-label {
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.notes-panel {
+    padding: 22px;
+    border: 1px solid #C9DCF3;
+    border-radius: 8px;
+    background: #E8F0FB;
+}
+
+.notes-panel p {
+    margin: 0;
+    color: #2E4E7E;
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 900px) {
+    .analytics-grid {
+        grid-template-columns: 1fr;
+    }
+}

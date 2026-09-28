@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class List | Cebu Eastern College</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/class-list.css">
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>FACULTY PORTAL</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Faculty navigation">
+            <div class="nav-section">My Classes</div>
+            <a href="../dashboard/faculty-dashboard.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="../schedule/schedule-day.html"><i class="fa-regular fa-calendar-day"></i><span>My Schedule</span></a>
+            <a href="class-list.html" class="active"><i class="fa-solid fa-table-list"></i><span>Class List</span></a>
+            <a href="../assignments/assignments.html"><i class="fa-solid fa-list-check"></i><span>Assignments</span></a>
+
+            <div class="nav-section">Students</div>
+            <a href="../students/student-records.html"><i class="fa-solid fa-users"></i><span>Student List</span></a>
+            <a href="../grades/grade-management.html"><i class="fa-solid fa-file-pen"></i><span>Grades</span></a>
+            <a href="../attendance/attendance-dashboard.html"><i class="fa-solid fa-clipboard-check"></i><span>Attendance</span></a>
+
+            <div class="nav-section">Academic</div>
+            <a href="../announcements/announcements.html"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+            <a href="../dashboard/upcoming-deadlines.html"><i class="fa-regular fa-clock"></i><span>Upcoming Deadlines</span></a>
+
+            <div class="nav-section">Personal</div>
+            <a href="../profile/profile.html"><i class="fa-regular fa-user"></i><span>Profile</span></a>
+            <a href="../settings/settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../auth/login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <label class="search-box">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search anything...">
+            </label>
+
+            <select class="semester-select" aria-label="Semester">
+                <option selected>1st Trimester | 1st Year</option>
+                <option>2nd Trimester | 1st Year</option>
+                <option>3rd Trimester | 1st Year</option>
+            </select>
+
+            <button class="header-icon" type="button" aria-label="Notifications">
+                <i class="fa-regular fa-bell" aria-hidden="true"></i>
+                <span class="notif-dot"></span>
+            </button>
+
+            <button class="profile-button" type="button">
+                <span class="profile-avatar">CB</span>
+                <span class="profile-info">
+                    <strong>Mr. Charles Bacus</strong>
+                    <small>Faculty</small>
+                </span>
+            </button>
+        </header>
+
+        <section class="dashboard-content">
+            <div class="page-head head-row">
+                <div>
+                    <h1>Class List</h1>
+                    <p class="page-desc">View and manage your classes.</p>
+                </div>
+                <button class="btn-primary" type="button" id="addClassBtn">
+                    <i class="fa-solid fa-plus" aria-hidden="true"></i> Add Class
+                </button>
+            </div>
+
+            <div class="filter-bar">
+                <div class="search-input">
+                    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                    <input type="search" id="searchInput" placeholder="Search by subject or courses...">
+                </div>
+                <select class="filter-select" id="sectionFilter" aria-label="Filter by section">
+                    <option value="">All Sections</option>
+                    <option value="BSIT 1A">BSIT 1A</option>
+                    <option value="BSIT 2A">BSIT 2A</option>
+                    <option value="BSCS 1B">BSCS 1B</option>
+                </select>
+            </div>
+
+            <div class="table-card">
+                <div class="table-wrap">
+                    <table class="data-table" id="classTable">
+                        <thead>
+                            <tr>
+                                <th>Course</th>
+                                <th>Subject</th>
+                                <th>Section</th>
+                                <th>Schedule</th>
+                                <th>Room</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+
+                <div class="table-footer">
+                    <p class="pagination-info" id="paginationInfo">Showing 1-5 of 5</p>
+                    <div class="pagination">
+                        <button class="page-btn" type="button" aria-label="Previous">&lt;</button>
+                        <button class="page-btn active" type="button">1</button>
+                        <button class="page-btn" type="button" aria-label="Next">&gt;</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== Add New Class Modal ===== -->
+    <div class="modal-overlay hidden" id="addClassModal" role="dialog" aria-modal="true" aria-labelledby="addClassTitle">
+        <form class="modal" id="addClassForm" novalidate>
+            <div class="modal-header">
+                <h2 id="addClassTitle">Add New Class</h2>
+                <button class="modal-close" type="button" id="closeModalBtn" aria-label="Close">
+                    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label" for="courseName">Course Name <span class="required">*</span></label>
+                        <select class="form-control" id="courseName" required>
+                            <option value="">Select course...</option>
+                            <option>Web Development</option>
+                            <option>Data Structures</option>
+                            <option>Operating Systems</option>
+                            <option>Computer Programming 1</option>
+                            <option>Discrete Mathematics</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="courseCode">Course Code <span class="required">*</span></label>
+                        <input class="form-control" type="text" id="courseCode" placeholder="e.g. BSIT 1A" required>
+                    </div>
+
+                    <div class="form-group span-2">
+                        <label class="form-label" for="section">Section <span class="required">*</span></label>
+                        <input class="form-control" type="text" id="section" placeholder="e.g. Section 1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="form-label">Schedule Days <span class="required">*</span></span>
+                        <div class="day-chips" id="dayChips">
+                            <label class="day-chip"><input type="checkbox" value="M"><span>M</span></label>
+                            <label class="day-chip"><input type="checkbox" value="T"><span>T</span></label>
+                            <label class="day-chip"><input type="checkbox" value="W"><span>W</span></label>
+                            <label class="day-chip"><input type="checkbox" value="Th"><span>Th</span></label>
+                            <label class="day-chip"><input type="checkbox" value="F"><span>F</span></label>
+                            <label class="day-chip"><input type="checkbox" value="S"><span>S</span></label>
+                            <label class="day-chip"><input type="checkbox" value="Su"><span>Su</span></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="form-label">Time <span class="required">*</span></span>
+                        <div class="time-range">
+                            <input class="form-control" type="time" id="timeStart" value="09:00" required>
+                            <span>to</span>
+                            <input class="form-control" type="time" id="timeEnd" value="10:30" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="room">Room/Venue <span class="required">*</span></label>
+                        <input class="form-control" type="text" id="room" placeholder="e.g. Lab 3" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="totalCapacity">Total Capacity <span class="required">*</span></label>
+                        <input class="form-control" type="number" id="totalCapacity" min="1" max="200" placeholder="e.g. 40" required>
+                    </div>
+
+                    <div class="form-group span-2">
+                        <label class="form-label" for="facultyId">Assign Faculty <span class="required">*</span></label>
+                        <select class="form-control" id="facultyId" required>
+                            <option value="">Select faculty...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group span-2">
+                        <span class="form-label">Assign Student List (Optional)</span>
+                        <label class="file-drop" id="fileDrop" for="studentListFile">
+                            <i class="fa-solid fa-cloud-arrow-up" aria-hidden="true"></i>
+                            <strong>Click to upload or drag &amp; drop</strong>
+                            <span>CSV or XLSX file</span>
+                            <input type="file" id="studentListFile" accept=".csv,.xlsx" hidden>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-outline" type="button" id="cancelBtn">Cancel</button>
+                <button class="btn-primary" type="submit" id="saveClassBtn">Save Class</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="../../js/api.js"></script>
+    <script src="../../js/facultyIdentity.js"></script>
+    <script>
+        const modal = document.getElementById('addClassModal');
+        const addClassBtn = document.getElementById('addClassBtn');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const saveClassBtn = document.getElementById('saveClassBtn');
+        const form = document.getElementById('addClassForm');
+        const fileDrop = document.getElementById('fileDrop');
+        const fileInput = document.getElementById('studentListFile');
+        const tbody = document.querySelector('#classTable tbody');
+
+        function openModal() {
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+        }
+
+        addClassBtn.addEventListener('click', openModal);
+        closeModalBtn.addEventListener('click', closeModal);
+        cancelBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', function (event) {
+            if (event.target === modal) closeModal();
+        });
+
+        fileDrop.addEventListener('dragover', function (event) {
+            event.preventDefault();
+            fileDrop.classList.add('highlight');
+        });
+
+        fileDrop.addEventListener('dragleave', function () {
+            fileDrop.classList.remove('highlight');
+        });
+
+        fileDrop.addEventListener('drop', function (event) {
+            event.preventDefault();
+            fileDrop.classList.remove('highlight');
+            if (event.dataTransfer.files.length) {
+                fileInput.files = event.dataTransfer.files;
+                showFileName();
+            }
+        });
+
+        fileInput.addEventListener('change', showFileName);
+
+        function showFileName() {
+            const name = fileInput.files.length ? 'File selected: ' + fileInput.files[0].name : '';
+            const hint = fileDrop.querySelector('span');
+            if (name) hint.textContent = name;
+        }
+
+        function toItems(res) { return (res && Array.isArray(res)) ? res : ((res && res.data) || []); }
+        function esc(v) { return String(v == null ? '' : v).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+        function renderRows(list) {
+            if (!list.length) {
+                tbody.innerHTML = '<tr><td colspan="6" class="muted-cell">No classes found</td></tr>';
+                updatePaginationInfo();
+                return;
+            }
+            let html = '';
+            list.forEach(function (c) {
+                html += '<tr data-section="' + esc(c.section || '') + '">';
+                html += '<td>' + esc(c.code || '') + '</td>';
+                html += '<td>' + esc(c.course || '') + '</td>';
+                html += '<td>' + esc(c.section || '') + '</td>';
+                html += '<td>' + esc(c.schedule || '') + '</td>';
+                html += '<td class="muted-cell">' + esc(c.room || '') + '</td>';
+                html += '<td><a class="btn-action" href="class-details.html?id=' + encodeURIComponent(c.id || '') + '">View</a></td>';
+                html += '</tr>';
+            });
+            tbody.innerHTML = html;
+            updatePaginationInfo();
+        }
+
+        const searchInput = document.getElementById('searchInput');
+        const sectionFilter = document.getElementById('sectionFilter');
+        const paginationInfo = document.getElementById('paginationInfo');
+
+        function applyFilters() {
+            const query = searchInput.value.trim().toLowerCase();
+            const section = sectionFilter.value;
+            const rows = tbody.querySelectorAll('tr');
+            let visible = 0;
+
+            rows.forEach(function (row) {
+                const text = row.textContent.toLowerCase();
+                const matchQuery = !query || text.includes(query);
+                const matchSection = !section || row.dataset.section === section;
+                row.style.display = matchQuery && matchSection ? '' : 'none';
+                if (matchQuery && matchSection) visible++;
+            });
+
+            paginationInfo.textContent = visible ? 'Showing 1-' + visible + ' of ' + visible : 'No classes found';
+        }
+
+        function updatePaginationInfo() {
+            const rows = tbody.querySelectorAll('tr');
+            const visibleRows = Array.prototype.filter.call(rows, function (row) {
+                return row.style.display !== 'none';
+            }).length;
+            paginationInfo.textContent = visibleRows ? 'Showing 1-' + visibleRows + ' of ' + visibleRows : 'No classes found';
+        }
+
+        searchInput.addEventListener('input', applyFilters);
+        sectionFilter.addEventListener('change', applyFilters);
+
+        function loadClasses() {
+            const q = searchInput.value.trim();
+            API.get('/faculty/classes', q ? { q: q } : undefined).then(function (res) {
+                renderRows(toItems(res));
+            }).catch(function () {
+                if (window.showToast) showToast('Failed to load classes', 'error');
+                renderRows([]);
+            });
+        }
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            saveClassBtn.disabled = true;
+            saveClassBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin" aria-hidden="true"></i> Saving...';
+
+            const days = Array.prototype.map.call(
+                document.querySelectorAll('#dayChips input:checked'),
+                function (chip) { return chip.value; }
+            ).join(', ');
+            const body = {
+                course: document.getElementById('courseName').value,
+                code: document.getElementById('courseCode').value,
+                section: document.getElementById('section').value,
+                days: days,
+                timeStart: document.getElementById('timeStart').value,
+                timeEnd: document.getElementById('timeEnd').value,
+                room: document.getElementById('room').value,
+                totalCapacity: document.getElementById('totalCapacity').value,
+                facultyId: document.getElementById('facultyId').value
+            };
+
+            API.post('/faculty/classes', body).then(function () {
+                saveClassBtn.disabled = false;
+                saveClassBtn.innerHTML = 'Save Class';
+                form.reset();
+                closeModal();
+                if (window.showToast) showToast('Class saved successfully');
+function loadFacultyOptions() {
+            API.get('/faculty/directory').then(function (res) {
+                const list = toItems(res);
+                const select = document.getElementById('facultyId');
+                select.innerHTML = '<option value="">Select faculty...</option>';
+                list.forEach(function (f) {
+                    const name = f.fullName || f.name || '';
+                    if (!name) return;
+                    const opt = document.createElement('option');
+                    opt.value = f.id != null ? f.id : name;
+                    opt.textContent = name;
+                    select.appendChild(opt);
+                });
+            }).catch(function () {});
+        }
+
+        loadFacultyOptions();
+        loadClasses();
+            }).catch(function () {
+                saveClassBtn.disabled = false;
+                saveClassBtn.innerHTML = 'Save Class';
+                if (window.showToast) showToast('Failed to save class', 'error');
+            });
+        });
+
+        loadClasses();
+    </script>
+<script src="../../js/showToast.js"></script>
+<script src="../../js/copyToClipboard.js"></script>
+<script src="../../js/confirmAction.js"></script>
+<script src="../../js/avatarUpload.js"></script>
+<script src="../../js/validateForm.js"></script>
+<script src="../../js/persistSelect.js"></script>
+<script src="../../js/setYear.js"></script>
+
+</body>
+</html>

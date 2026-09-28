@@ -1,0 +1,364 @@
+@import url("dashboard.css");
+
+/* ==========================================================================
+   PAGE HEAD (semester badge)
+   ========================================================================== */
+.semester-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 14px;
+    border: 1px solid #D5DEE9;
+    border-radius: 6px;
+    color: var(--navy);
+    background: #FFFFFF;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.semester-badge i {
+    color: var(--blue);
+}
+
+/* ==========================================================================
+   FILTER BAR (grade controls)
+   ========================================================================== */
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 14px 16px;
+    border: 1px solid #E3E9F2;
+    border-radius: 8px;
+    background: #FFFFFF;
+}
+
+.filter-select {
+    height: 40px;
+    padding: 0 10px;
+    border: 1px solid #D5DEE9;
+    border-radius: 6px;
+    color: var(--navy);
+    background: #FFFFFF;
+    outline: none;
+}
+
+.filter-select:focus {
+    border-color: var(--blue);
+}
+
+.btn-search {
+    height: 40px;
+    padding: 0 22px;
+    border: 0;
+    border-radius: 6px;
+    color: #FFFFFF;
+    background: var(--blue);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-search:hover {
+    background: var(--navy);
+}
+
+/* ==========================================================================
+   MY CLASSES CARDS
+   ========================================================================== */
+.classes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.class-card {
+    padding: 18px;
+    border: 1px solid #E3E9F2;
+    border-radius: 8px;
+    background: #FFFFFF;
+}
+
+.class-card .class-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.class-card .class-icon {
+    display: grid;
+    width: 44px;
+    height: 44px;
+    place-items: center;
+    border-radius: 8px;
+    color: var(--blue);
+    background: var(--pale-blue);
+    font-size: 19px;
+}
+
+.class-code {
+    margin: 14px 0 2px;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.class-subject {
+    display: block;
+    color: var(--muted);
+    font-size: 12.5px;
+}
+
+.class-meta {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin: 12px 0 14px;
+    color: var(--muted);
+    font-size: 12.5px;
+}
+
+.class-meta i {
+    color: var(--blue);
+    font-size: 13px;
+}
+
+.btn-manage {
+    display: block;
+    width: 100%;
+    padding: 9px 0;
+    border: 1.5px solid var(--blue);
+    border-radius: 6px;
+    color: var(--blue);
+    background: #FFFFFF;
+    font-size: 12.5px;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+}
+
+.btn-manage:hover {
+    color: #FFFFFF;
+    background: var(--blue);
+}
+
+/* ==========================================================================
+   TABLE CARD (Recent Grade Entries)
+   ========================================================================== */
+.table-card {
+    margin-bottom: 22px;
+    border: 1px solid #E3E9F2;
+    border-radius: 8px;
+    background: #FFFFFF;
+    overflow: hidden;
+}
+
+.table-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 15px 18px;
+    border-bottom: 1px solid #EEF2F8;
+}
+
+.table-heading h3 {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin: 0;
+    font-size: 15px;
+}
+
+.table-heading h3 i {
+    color: var(--blue);
+    font-size: 14px;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+    padding: 13px 16px;
+    border-bottom: 1px solid #EEF2F8;
+    font-size: 13px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.data-table th {
+    color: var(--muted);
+    background: #FBFCFE;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.data-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.data-table tbody tr:hover {
+    background: #F8FAFD;
+}
+
+.data-table .muted-cell {
+    color: var(--muted);
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 11.5px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.status-green {
+    color: #177245;
+    background: #E3F4EA;
+}
+
+.status-orange {
+    color: #B26A00;
+    background: #FFF1D6;
+}
+
+.status-blue {
+    color: #1D4E9B;
+    background: #E2ECFA;
+}
+
+.btn-action {
+    display: inline-block;
+    padding: 6px 16px;
+    border: 1px solid var(--blue);
+    border-radius: 5px;
+    color: var(--blue);
+    background: #FFFFFF;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.btn-action:hover {
+    color: #FFFFFF;
+    background: var(--blue);
+    text-decoration: none;
+}
+
+/* ==========================================================================
+   GRADE DISTRIBUTION CHART
+   ========================================================================== */
+.panel {
+    border: 1px solid #E3E9F2;
+    border-radius: 8px;
+    background: #FFFFFF;
+    overflow: hidden;
+}
+
+.panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 15px 18px;
+    border-bottom: 1px solid #EEF2F8;
+}
+
+.panel-head h3 {
+    margin: 0;
+    font-size: 15px;
+}
+
+.panel-head .filter-select {
+    height: 34px;
+    font-size: 12.5px;
+}
+
+.chart-body {
+    padding: 22px 18px 16px;
+}
+
+.bar-chart {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    gap: 10px;
+    height: 230px;
+    border-bottom: 1px solid #D5DEE9;
+}
+
+.bar-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+}
+
+.bar-value {
+    margin-bottom: 6px;
+    color: var(--navy);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.bar {
+    width: 38px;
+    border-radius: 4px 4px 0 0;
+    background: var(--blue);
+}
+
+.bar-col:nth-child(odd) .bar {
+    background: var(--navy);
+}
+
+.bar-label {
+    margin-top: 9px;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.chart-legend {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 18px;
+    color: var(--muted);
+    font-size: 11.5px;
+}
+
+.chart-legend i {
+    font-size: 11px;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 700px) {
+    .bar {
+        width: 26px;
+    }
+
+    .bar-label {
+        font-size: 9px;
+    }
+}

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Schedule | Cebu Eastern College</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/schedule.css">
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>FACULTY PORTAL</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Faculty navigation">
+            <div class="nav-section">My Classes</div>
+            <a href="../dashboard/faculty-dashboard.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="schedule-day.html" class="active"><i class="fa-regular fa-calendar-day"></i><span>My Schedule</span></a>
+            <a href="../classes/class-list.html"><i class="fa-solid fa-table-list"></i><span>Class List</span></a>
+            <a href="../assignments/assignments.html"><i class="fa-solid fa-list-check"></i><span>Assignments</span></a>
+
+            <div class="nav-section">Students</div>
+            <a href="../students/student-records.html"><i class="fa-solid fa-users"></i><span>Student List</span></a>
+            <a href="../grades/grade-management.html"><i class="fa-solid fa-file-pen"></i><span>Grades</span></a>
+            <a href="../attendance/attendance-dashboard.html"><i class="fa-solid fa-clipboard-check"></i><span>Attendance</span></a>
+
+            <div class="nav-section">Academic</div>
+            <a href="../announcements/announcements.html"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+            <a href="../dashboard/upcoming-deadlines.html"><i class="fa-regular fa-clock"></i><span>Upcoming Deadlines</span></a>
+
+            <div class="nav-section">Personal</div>
+            <a href="../profile/profile.html"><i class="fa-regular fa-user"></i><span>Profile</span></a>
+            <a href="../settings/settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../auth/login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <label class="search-box">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search anything...">
+            </label>
+
+            <select class="semester-select" aria-label="Semester">
+                <option selected>1st Trimester | 1st Year</option>
+                <option>2nd Trimester | 1st Year</option>
+                <option>3rd Trimester | 1st Year</option>
+            </select>
+
+            <button class="header-icon" type="button" aria-label="Notifications">
+                <i class="fa-regular fa-bell" aria-hidden="true"></i>
+                <span class="notif-dot"></span>
+            </button>
+
+            <button class="profile-button" type="button">
+                <span class="profile-avatar">CB</span>
+                <span class="profile-info">
+                    <strong>Mr. Charles Bacus</strong>
+                    <small>Faculty</small>
+                </span>
+            </button>
+        </header>
+
+        <section class="dashboard-content">
+            <div class="schedule-head">
+                <div class="page-head">
+                    <h1>My Schedule</h1>
+                    <p class="page-desc">View your class schedule for the week.</p>
+                </div>
+                <div class="schedule-nav">
+                    <button class="date-nav-btn" type="button" aria-label="Previous"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
+                    <span class="date-nav-label" id="dateLabel">&mdash;</span>
+                    <button class="date-nav-btn" type="button" aria-label="Next"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
+
+                    <nav class="view-toggle" aria-label="Calendar view">
+                        <a href="schedule-day.html">Day</a>
+                        <a href="schedule-week.html" class="active">Week</a>
+                        <a href="schedule-month.html">Month</a>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="table-card-slim">
+                <div class="table-wrap">
+                    <table class="timetable">
+                        <thead>
+                            <tr id="weekHead"></tr>
+                        </thead>
+                        <tbody id="weekBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+<script src="../../js/api.js"></script>
+<script src="../../js/facultyIdentity.js"></script>
+<script>
+    (function () {
+        function esc(v) { return String(v == null ? '' : v).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+        function param(name) { var m = new RegExp('[?&]' + name + '=([^&]*)').exec(location.search); return m ? decodeURIComponent(m[1]) : ''; }
+        function setText(id, value) { var el = document.getElementById(id); if (el) el.textContent = (value == null || value === '') ? '\u2014' : value; }
+
+        var head = document.getElementById('weekHead');
+        var body = document.getElementById('weekBody');
+
+        function eventCell(ev) {
+            if (!ev) return '<td class="empty-slot"></td>';
+            return '<td><div class="week-event ' + esc(ev.theme || 'theme-blue') + '">' +
+                '<strong><i class="fa-solid ' + esc(ev.icon || 'fa-book') + '" aria-hidden="true"></i> ' + esc(ev.code || ev.section) + '</strong>' +
+                '<span class="sub">' + esc(ev.subject) + '</span>' +
+                '<span class="room"><i class="fa-solid fa-location-dot" aria-hidden="true"></i>' + esc(ev.room) + '</span>' +
+                '</div></td>';
+        }
+
+        function render(d) {
+            d = (d && d.data) ? d.data : (d || {});
+            setText('dateLabel', d.label);
+
+            var days = d.days || [];
+            var html = '<th class="time-head">Time</th>';
+            days.forEach(function (day) {
+                html += '<th>' + esc(day.label) + ' <small>' + esc(day.date) + '</small></th>';
+            });
+            head.innerHTML = html;
+
+            var slots = d.slots || [];
+            if (!slots.length) {
+                body.innerHTML = '<tr><td class="muted-cell" colspan="' + (days.length + 1) + '">No scheduled classes.</td></tr>';
+                return;
+            }
+            var rows = '';
+            slots.forEach(function (slot) {
+                rows += '<tr><td class="time-col">' + esc(slot.time) + '</td>';
+                var cells = slot.cells || [];
+                for (var i = 0; i < days.length; i++) rows += eventCell(cells[i]);
+                rows += '</tr>';
+            });
+            body.innerHTML = rows;
+        }
+
+        var baseDate = param('date') ? new Date(param('date') + 'T00:00:00') : new Date();
+        if (isNaN(baseDate.getTime())) baseDate = new Date();
+        document.querySelectorAll('.date-nav-btn').forEach(function (btn, idx) {
+            btn.addEventListener('click', function () {
+                var d = new Date(baseDate.getTime());
+                d.setDate(d.getDate() + (idx === 0 ? -7 : 7));
+                window.location.href = 'schedule-week.html?date=' + d.toISOString().slice(0, 10);
+            });
+        });
+
+        API.get('/faculty/schedule/week', { date: param('date') }).then(function (res) {
+            render(res);
+        }).catch(function () {
+            render({});
+            if (window.showToast) showToast('Failed to load schedule', 'error');
+        });
+    })();
+</script>
+<script src="../../js/showToast.js"></script>
+<script src="../../js/copyToClipboard.js"></script>
+<script src="../../js/confirmAction.js"></script>
+<script src="../../js/avatarUpload.js"></script>
+<script src="../../js/validateForm.js"></script>
+<script src="../../js/persistSelect.js"></script>
+<script src="../../js/setYear.js"></script>
+
+</body>
+</html>

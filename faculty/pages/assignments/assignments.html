@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignments | Cebu Eastern College</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/assignments.css">
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>FACULTY PORTAL</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Faculty navigation">
+            <div class="nav-section">My Classes</div>
+            <a href="../dashboard/faculty-dashboard.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="../schedule/schedule-day.html"><i class="fa-regular fa-calendar-day"></i><span>My Schedule</span></a>
+            <a href="../classes/class-list.html"><i class="fa-solid fa-table-list"></i><span>Class List</span></a>
+            <a href="assignments.html" class="active"><i class="fa-solid fa-list-check"></i><span>Assignments</span></a>
+
+            <div class="nav-section">Students</div>
+            <a href="../students/student-records.html"><i class="fa-solid fa-users"></i><span>Student List</span></a>
+            <a href="../grades/grade-management.html"><i class="fa-solid fa-file-pen"></i><span>Grades</span></a>
+            <a href="../attendance/attendance-dashboard.html"><i class="fa-solid fa-clipboard-check"></i><span>Attendance</span></a>
+
+            <div class="nav-section">Academic</div>
+            <a href="../announcements/announcements.html"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+            <a href="../dashboard/upcoming-deadlines.html"><i class="fa-regular fa-clock"></i><span>Upcoming Deadlines</span></a>
+
+            <div class="nav-section">Personal</div>
+            <a href="../profile/profile.html"><i class="fa-regular fa-user"></i><span>Profile</span></a>
+            <a href="../settings/settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../auth/login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <label class="search-box">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search anything...">
+            </label>
+
+            <select class="semester-select" aria-label="Semester">
+                <option selected>1st Trimester | 1st Year</option>
+                <option>2nd Trimester | 1st Year</option>
+                <option>3rd Trimester | 1st Year</option>
+            </select>
+
+            <button class="header-icon" type="button" aria-label="Notifications">
+                <i class="fa-regular fa-bell" aria-hidden="true"></i>
+                <span class="notif-dot"></span>
+            </button>
+
+            <button class="profile-button" type="button">
+                <span class="profile-avatar">CB</span>
+                <span class="profile-info">
+                    <strong>Mr. Charles Bacus</strong>
+                    <small>Faculty</small>
+                </span>
+            </button>
+        </header>
+
+        <section class="dashboard-content">
+            <div class="page-head head-row">
+                <div>
+                    <h1>Assignments</h1>
+                    <p class="page-desc">Manage all assignment activities for your classes.</p>
+                </div>
+                <a href="assignment-form.html" class="btn-add"><i class="fa-solid fa-plus"></i> Add Assignment</a>
+            </div>
+
+            <div class="control-bar">
+                <div class="control-left">
+                    <select class="filter-select" id="course-filter" aria-label="Filter by course">
+                        <option value="all">All Classes</option>
+                        <option value="Web Development">Web Development (1A)</option>
+                        <option value="Data Structures">Data Structures (2A)</option>
+                        <option value="Operating Systems">Operating Systems (2A)</option>
+                        <option value="Computer Programming 1">Computer Programming 1 (1B)</option>
+                    </select>
+                </div>
+                <div class="mini-stats">
+                    <div class="mini-stat">
+                        <div class="stat-icon green"><i class="fa-solid fa-layer-group"></i></div>
+                        <div>
+                            <p>Active Assignments</p>
+                            <strong>15</strong>
+                        </div>
+                    </div>
+                    <div class="mini-stat">
+                        <div class="stat-icon"><i class="fa-solid fa-pen"></i></div>
+                        <div>
+                            <p>Drafts</p>
+                            <strong>3</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-head">
+                    <h3><i class="fa-solid fa-file-pen" style="color:var(--blue);margin-right:8px;"></i>All Assignments</h3>
+                    <label class="check-all">
+                        <input type="checkbox" id="select-all">
+                        Select All
+                    </label>
+                </div>
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Select</th>
+                                <th>Assignment Title</th>
+                                <th>Course / Section</th>
+                                <th>Due Date</th>
+                                <th>Submissions</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="assignments-body"></tbody>
+                    </table>
+                </div>
+                <div class="table-footer">
+                    <p class="pagination-info">Showing 1-4 of 18 entries</p>
+                    <div class="pagination">
+                        <button class="page-btn active" type="button">1</button>
+                        <button class="page-btn" type="button">2</button>
+                        <button class="page-btn" type="button">3</button>
+                        <button class="page-btn" type="button"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="../../js/api.js"></script>
+    <script src="../../js/facultyIdentity.js"></script>
+    <script>
+        const selectAll = document.getElementById('select-all');
+        const courseFilter = document.getElementById('course-filter');
+        const tbody = document.getElementById('assignments-body');
+
+        function toItems(res) { return (res && Array.isArray(res)) ? res : ((res && res.data) || []); }
+        function esc(v) { return String(v == null ? '' : v).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+        function statusMeta(status) {
+            var s = String(status || '').toLowerCase();
+            if (s === 'active' || s === 'published') return { label: 'ACTIVE', cls: 'status-green' };
+            if (s === 'draft') return { label: 'DRAFT', cls: 'status-amber' };
+            if (s === 'closed') return { label: 'CLOSED', cls: 'status-red' };
+            return { label: String(status || '').toUpperCase(), cls: 'status-blue' };
+        }
+
+        function bindRowChecks() {
+            const rows = tbody.querySelectorAll('.row-select');
+            rows.forEach(function (row) {
+                row.addEventListener('change', function () {
+                    selectAll.checked = [...rows].every(function (r) { return r.checked; });
+                });
+            });
+        }
+
+        function updatePagination(total) {
+            const rowsData = tbody.querySelectorAll('tr');
+            const visible = [...rowsData].filter(function (r) { return r.style.display !== 'none'; }).length;
+            document.querySelector('.pagination-info').textContent = visible ? 'Showing 1-' + visible + ' of ' + total + ' entries' : 'No assignments found';
+        }
+
+        function renderRows(list) {
+            if (!list.length) {
+                tbody.innerHTML = '<tr><td colspan="7" class="muted-cell">No assignments found</td></tr>';
+                document.querySelector('.pagination-info').textContent = 'No assignments found';
+                return;
+            }
+            let html = '';
+            list.forEach(function (a) {
+                var meta = statusMeta(a.status);
+                var total = (a.totalStudents != null) ? a.totalStudents : ((a.studentsCount != null) ? a.studentsCount : a.maxScore);
+                html += '<tr>';
+                html += '<td><input type="checkbox" class="row-check row-select" aria-label="Select assignment"></td>';
+                html += '<td class="assignment-title">' + esc(a.title || '') + '</td>';
+                html += '<td class="muted-cell">' + esc(a.subject || '') + '</td>';
+                html += '<td>' + esc(a.dueDate || '') + '</td>';
+                html += '<td class="submission-count">' + esc((a.submissions != null ? a.submissions : 0) + ' / ' + (total != null ? total : '')) + '</td>';
+                html += '<td><span class="status-badge ' + meta.cls + '">' + meta.label + '</span></td>';
+                html += '<td><div class="actions-cell">';
+                html += '<a href="submission-review.html?assignmentId=' + encodeURIComponent(a.id || '') + '" class="btn-action">View Submissions</a>';
+                html += '<a href="assignment-form.html?id=' + encodeURIComponent(a.id || '') + '" class="btn-action">Edit</a>';
+                html += '</div></td>';
+                html += '</tr>';
+            });
+            tbody.innerHTML = html;
+            bindRowChecks();
+            updatePagination(list.length);
+        }
+
+        selectAll.addEventListener('change', function () {
+            tbody.querySelectorAll('.row-select').forEach(function (row) { row.checked = selectAll.checked; });
+        });
+
+        courseFilter.addEventListener('change', function () {
+            const filter = this.value;
+            const rowsData = tbody.querySelectorAll('tr');
+            rowsData.forEach(function (row) {
+                const course = row.cells[2] ? row.cells[2].textContent : '';
+                row.style.display = (filter === 'all' || course.includes(filter)) ? '' : 'none';
+            });
+            updatePagination(rowsData.length);
+        });
+
+        function loadAssignments() {
+            API.get('/faculty/assignments').then(function (res) {
+                var list = toItems(res);
+                renderRows(list);
+                var stats = document.querySelectorAll('.mini-stat strong');
+                var active = list.filter(function (a) { return String(a.status || '').toLowerCase() === 'active'; }).length;
+                var drafts = list.filter(function (a) { return String(a.status || '').toLowerCase() === 'draft'; }).length;
+                if (stats[0]) stats[0].textContent = active;
+                if (stats[1]) stats[1].textContent = drafts;
+            }).catch(function () {
+                if (window.showToast) showToast('Failed to load assignments', 'error');
+                renderRows([]);
+            });
+        }
+
+        loadAssignments();
+    </script>
+<script src="../../js/showToast.js"></script>
+<script src="../../js/copyToClipboard.js"></script>
+<script src="../../js/confirmAction.js"></script>
+<script src="../../js/avatarUpload.js"></script>
+<script src="../../js/validateForm.js"></script>
+<script src="../../js/persistSelect.js"></script>
+<script src="../../js/setYear.js"></script>
+
+</body>
+</html>

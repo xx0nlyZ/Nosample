@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade | Web Development (Section 1A)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/gradebook.css">
+    <style>
+        .status-red {
+            color: #B3261E;
+            background: #FBE4E4;
+        }
+
+        .page-head {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+    </style>
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>FACULTY PORTAL</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Faculty navigation">
+            <div class="nav-section">My Classes</div>
+            <a href="../dashboard/faculty-dashboard.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="../schedule/schedule-day.html"><i class="fa-regular fa-calendar-day"></i><span>My Schedule</span></a>
+            <a href="../classes/class-list.html"><i class="fa-solid fa-table-list"></i><span>Class List</span></a>
+            <a href="../assignments/assignments.html"><i class="fa-solid fa-list-check"></i><span>Assignments</span></a>
+
+            <div class="nav-section">Students</div>
+            <a href="../students/student-records.html"><i class="fa-solid fa-users"></i><span>Student List</span></a>
+            <a href="grade-management.html" class="active"><i class="fa-solid fa-file-pen"></i><span>Grades</span></a>
+            <a href="../attendance/attendance-dashboard.html"><i class="fa-solid fa-clipboard-check"></i><span>Attendance</span></a>
+
+            <div class="nav-section">Academic</div>
+            <a href="../announcements/announcements.html"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+            <a href="../dashboard/upcoming-deadlines.html"><i class="fa-regular fa-clock"></i><span>Upcoming Deadlines</span></a>
+
+            <div class="nav-section">Personal</div>
+            <a href="../profile/profile.html"><i class="fa-regular fa-user"></i><span>Profile</span></a>
+            <a href="../settings/settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../auth/login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <label class="search-box">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search anything...">
+            </label>
+
+            <select class="semester-select" aria-label="Semester">
+                <option selected>1st Trimester | 1st Year</option>
+                <option>2nd Trimester | 1st Year</option>
+                <option>3rd Trimester | 1st Year</option>
+            </select>
+
+            <button class="header-icon" type="button" aria-label="Notifications">
+                <i class="fa-regular fa-bell" aria-hidden="true"></i>
+                <span class="notif-dot"></span>
+            </button>
+
+            <button class="profile-button" type="button">
+                <span class="profile-avatar">CB</span>
+                <span class="profile-info">
+                    <strong>Mr. Charles Bacus</strong>
+                    <small>Faculty</small>
+                </span>
+            </button>
+        </header>
+
+        <section class="dashboard-content">
+            <div class="page-head">
+                <div>
+                    <a class="back-link" id="backLink" href="grade-management.html"><i class="fa-solid fa-arrow-left"></i> Back</a>
+                    <h1 style="margin:0 0 4px;font-size:26px;letter-spacing:0.3px;">Grade</h1>
+                    <p class="page-sub" id="gradeSub">&mdash;</p>
+                </div>
+                <div class="head-actions">
+                    <a class="btn-primary" id="editGradeLink" href="grade-entry.html"><i class="fa-solid fa-pen"></i> Edit Grade</a>
+                </div>
+            </div>
+
+            <section class="table-card">
+                <div class="table-wrap">
+                    <table class="data-table" id="gradeTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Student Name</th>
+                                <th>Midterm (40%)</th>
+                                <th>Finals (60%)</th>
+                                <th>Total</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody id="gradeTbody"></tbody>
+                    </table>
+                </div>
+
+                <div class="table-footer">
+                    <p class="total-label"><i class="fa-solid fa-users" style="color:var(--blue);margin-right:6px;"></i>Total Students: <strong style="color:var(--navy);" id="totalStudents">0</strong></p>
+                    <div class="footer-right">
+                        <p class="pagination-info" id="paginationInfo">Showing 0 of 0</p>
+                        <div class="pagination" id="pagination"></div>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <script src="../../js/api.js"></script>
+    <script src="../../js/facultyIdentity.js"></script>
+    <script>
+        (function () {
+            var students = [];
+            var ROW_SIZE = 5;
+            var page = 1;
+            var totalPages = 1;
+
+            var tbody = document.getElementById('gradeTbody');
+            var pagInfo = document.getElementById('paginationInfo');
+            var pagWrap = document.getElementById('pagination');
+
+            function param(name) { var m = new RegExp('[?&]' + name + '=([^&]*)').exec(location.search); return m ? decodeURIComponent(m[1]) : ''; }
+            function toItems(res) { return (res && Array.isArray(res)) ? res : ((res && res.data) || []); }
+            function esc(v) { return String(v == null ? '' : v).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+            var classId = param('id') || param('classId') || '1';
+
+            function compute(mid, fin) {
+                return Math.round((mid * 0.40 + fin * 0.60) * 100) / 100;
+            }
+
+            function render() {
+                totalPages = Math.max(1, Math.ceil(students.length / ROW_SIZE));
+                if (page > totalPages) page = totalPages;
+
+                if (!students.length) {
+                    tbody.innerHTML = '<tr><td colspan="6" class="muted-cell">No students found</td></tr>';
+                    document.getElementById('totalStudents').textContent = '0';
+                    pagInfo.textContent = 'No entries';
+                    pagWrap.innerHTML = '';
+                    return;
+                }
+
+                var start = (page - 1) * ROW_SIZE;
+                var rows = students.slice(start, start + ROW_SIZE);
+                var html = '';
+                rows.forEach(function (s, i) {
+                    var mid = s.midterm != null ? s.midterm : (s.mid != null ? s.mid : 0);
+                    var fin = s.finals != null ? s.finals : (s.fin != null ? s.fin : 0);
+                    var total = compute(mid, fin);
+                    var passed = total >= 75;
+                    html += '<tr>';
+                    html += '<td class="muted-cell">' + (start + i + 1) + '</td>';
+                    html += '<td>' + esc(s.name || s.studentName) + '</td>';
+                    html += '<td>' + esc(mid) + '</td>';
+                    html += '<td>' + esc(fin) + '</td>';
+                    html += '<td><strong>' + total.toFixed(2) + '</strong></td>';
+                    html += '<td><span class="status-badge ' + (passed ? 'status-green' : 'status-red') + '">' + (passed ? 'Passed' : 'Failed') + '</span></td>';
+                    html += '</tr>';
+                });
+                tbody.innerHTML = html;
+
+                document.getElementById('totalStudents').textContent = students.length;
+                var end = Math.min(start + ROW_SIZE, students.length);
+                pagInfo.textContent = 'Showing ' + (start + 1) + '-' + end + ' of ' + students.length;
+
+                var pg = '<button class="page-btn" data-page="prev"' + (page <= 1 ? ' disabled' : '') + '>&lt;</button>';
+                for (var p = 1; p <= totalPages; p++) {
+                    pg += '<button class="page-btn' + (p === page ? ' active' : '') + '" data-page="' + p + '">' + p + '</button>';
+                }
+                pg += '<button class="page-btn" data-page="next"' + (page >= totalPages ? ' disabled' : '') + '>&gt;</button>';
+                pagWrap.innerHTML = pg;
+            }
+
+            pagWrap.addEventListener('click', function (e) {
+                var btn = e.target.closest('.page-btn');
+                if (!btn || btn.disabled) return;
+                var val = btn.dataset.page;
+                if (val === 'prev') page--;
+                else if (val === 'next') page++;
+                else page = parseInt(val, 10);
+                render();
+            });
+
+            function loadGrades() {
+                var edit = document.getElementById('editGradeLink');
+                if (edit) edit.href = 'grade-entry.html?id=' + encodeURIComponent(classId);
+                API.get('/faculty/grades/' + encodeURIComponent(classId)).then(function (res) {
+                    students = toItems(res);
+                    render();
+                }).catch(function () {
+                    students = [];
+                    render();
+                    if (window.showToast) showToast('Failed to load grade sheet', 'error');
+                });
+            }
+
+            loadGrades();
+        })();
+    </script>
+<script src="../../js/showToast.js"></script>
+<script src="../../js/copyToClipboard.js"></script>
+<script src="../../js/confirmAction.js"></script>
+<script src="../../js/avatarUpload.js"></script>
+<script src="../../js/validateForm.js"></script>
+<script src="../../js/persistSelect.js"></script>
+<script src="../../js/setYear.js"></script>
+
+</body>
+</html>

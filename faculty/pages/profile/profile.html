@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | CEC Faculty Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/dashboard.css">
+    <link rel="stylesheet" href="../../css/profile.css">
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>FACULTY PORTAL</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Faculty navigation">
+            <div class="nav-section">My Classes</div>
+            <a href="../dashboard/faculty-dashboard.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="../schedule/schedule-day.html"><i class="fa-regular fa-calendar-day"></i><span>My Schedule</span></a>
+            <a href="../classes/class-list.html"><i class="fa-solid fa-table-list"></i><span>Class List</span></a>
+            <a href="../assignments/assignments.html"><i class="fa-solid fa-list-check"></i><span>Assignments</span></a>
+
+            <div class="nav-section">Students</div>
+            <a href="../students/student-records.html"><i class="fa-solid fa-users"></i><span>Student List</span></a>
+            <a href="../grades/grade-management.html"><i class="fa-solid fa-file-pen"></i><span>Grades</span></a>
+            <a href="../attendance/attendance-dashboard.html"><i class="fa-solid fa-clipboard-check"></i><span>Attendance</span></a>
+
+            <div class="nav-section">Academic</div>
+            <a href="../announcements/announcements.html"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+            <a href="../dashboard/upcoming-deadlines.html"><i class="fa-regular fa-clock"></i><span>Upcoming Deadlines</span></a>
+
+            <div class="nav-section">Personal</div>
+            <a href="profile.html" class="active"><i class="fa-regular fa-user"></i><span>Profile</span></a>
+            <a href="../settings/settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../auth/login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <label class="search-box">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search anything...">
+            </label>
+
+            <button class="header-icon" type="button" aria-label="Notifications">
+                <i class="fa-regular fa-bell" aria-hidden="true"></i>
+                <span class="notif-dot"></span>
+            </button>
+
+            <button class="profile-button" type="button">
+                <span class="profile-avatar">&mdash;</span>
+                <span class="profile-info">
+                    <strong></strong>
+                    <small>Faculty</small>
+                </span>
+            </button>
+        </header>
+
+        <section class="dashboard-content">
+            <div class="page-head">
+                <h1>Profile</h1>
+                <p class="page-desc">View and manage your faculty information.</p>
+            </div>
+
+            <section class="profile-grid" aria-label="Profile information">
+                <div class="profile-column">
+                    <article class="profile-card profile-summary">
+                        <span class="summary-avatar" id="summaryAvatar"></span>
+                        <h2 id="profileName">&mdash;</h2>
+                        <p class="role-sub" id="profileRole">Faculty</p>
+                        <a href="edit-profile.html" class="btn btn-primary"><i class="fa-solid fa-pen"></i> Edit Profile</a>
+                    </article>
+
+                    <article class="profile-card">
+                        <div class="profile-card-head">
+                            <i class="fa-solid fa-id-card"></i>
+                            <h3>Personal Information</h3>
+                        </div>
+                        <div class="info-body">
+                            <div class="info-grid">
+                                <div class="info-field">
+                                    <label>Full Name</label>
+                                    <p id="infoName">&mdash;</p>
+                                </div>
+                                <div class="info-field">
+                                    <label>Employee ID</label>
+                                    <p><span id="infoEmployeeId">&mdash;</span> <button class="cec-copy-btn" type="button" id="copyEmployeeId" data-copy="" aria-label="Copy employee ID" title="Copy"><i class="fa-solid fa-copy"></i></button></p>
+                                </div>
+                                <div class="info-field">
+                                    <label>Email</label>
+                                    <p><span id="infoEmail">&mdash;</span> <button class="cec-copy-btn" type="button" id="copyEmail" data-copy="" aria-label="Copy email" title="Copy"><i class="fa-solid fa-copy"></i></button></p>
+                                </div>
+                                <div class="info-field">
+                                    <label>Phone</label>
+                                    <p><span id="infoPhone">&mdash;</span> <button class="cec-copy-btn" type="button" id="copyPhone" data-copy="" aria-label="Copy phone number" title="Copy"><i class="fa-solid fa-copy"></i></button></p>
+                                </div>
+                                <div class="info-field">
+                                    <label>Department</label>
+                                    <p id="infoDepartment">&mdash;</p>
+                                </div>
+                                <div class="info-field">
+                                    <label>Designation</label>
+                                    <p id="infoDesignation">Faculty</p>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="profile-column">
+                    <article class="profile-card">
+                        <div class="profile-card-head">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                            <h3>Education</h3>
+                        </div>
+                        <ul class="edu-list" id="eduList"></ul>
+                    </article>
+
+                    <article class="profile-card">
+                        <div class="profile-card-head">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <h3>Contact Address</h3>
+                        </div>
+                        <div class="address-body">
+                            <p id="addressLine1">&mdash;</p>
+                            <p id="addressLine2"></p>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </section>
+    </main>
+<script src="../../js/api.js"></script>
+<script src="../../js/facultyIdentity.js"></script>
+<script>
+    (function () {
+        function esc(v) { return String(v == null ? '' : v).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+        function initials(name) { return String(name || '').split(/\s+/).filter(function (w) { return /[A-Za-z]/.test(w); }).map(function (w) { return w.charAt(0); }).slice(0, 2).join('').toUpperCase(); }
+        function setText(id, value) { var el = document.getElementById(id); if (el) el.textContent = (value == null || value === '') ? '\u2014' : value; }
+        function setCopy(id, value) { var el = document.getElementById(id); if (el) el.setAttribute('data-copy', value || ''); }
+
+        API.get('/faculty/profile').then(function (res) {
+            var p = (res && res.data) ? res.data : (res || {});
+            var fullName = p.fullName || p.name || '';
+            setText('profileName', p.name || fullName);
+            setText('profileRole', p.designation || 'Faculty');
+            setText('infoName', fullName);
+            setText('infoEmployeeId', p.employeeId);
+            setText('infoEmail', p.email);
+            setText('infoPhone', p.phone);
+            setText('infoDepartment', p.department);
+            setText('infoDesignation', p.designation || 'Faculty');
+
+            var avatar = document.getElementById('summaryAvatar');
+            if (avatar) avatar.textContent = initials(fullName);
+
+            setCopy('copyEmployeeId', p.employeeId);
+            setCopy('copyEmail', p.email);
+            setCopy('copyPhone', p.phone);
+
+            var parts = String(p.address || '').split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+            if (parts.length) {
+                setText('addressLine1', parts[0]);
+                setText('addressLine2', parts.slice(1).join(', '));
+            }
+
+            var html = '';
+            (p.education || []).forEach(function (e) {
+                html += '<li class="edu-item"><h4>' + esc(e.degree || e.title) + '</h4>' +
+                    '<p class="edu-school">' + esc(e.school) + '</p>' +
+                    '<p class="edu-years">' + esc(e.years) + '</p></li>';
+            });
+            document.getElementById('eduList').innerHTML = html || '<li class="edu-item"><p class="page-desc">No education records found.</p></li>';
+        }).catch(function () {
+            if (window.showToast) showToast('Failed to load profile', 'error');
+        });
+    })();
+</script>
+<script src="../../js/showToast.js"></script>
+<script src="../../js/copyToClipboard.js"></script>
+<script src="../../js/confirmAction.js"></script>
+<script src="../../js/avatarUpload.js"></script>
+<script src="../../js/validateForm.js"></script>
+<script src="../../js/persistSelect.js"></script>
+<script src="../../js/setYear.js"></script>
+
+</body>
+</html>

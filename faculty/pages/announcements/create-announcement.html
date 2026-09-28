@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Announcement | Cebu Eastern College</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/announcements.css">
+    <style>
+        .toast-wrap {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            pointer-events: none;
+        }
+
+        .toast {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 18px;
+            border-radius: 8px;
+            color: #FFFFFF;
+            background: #177245;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            animation: toastIn 0.3s ease;
+            pointer-events: auto;
+        }
+
+        .toast.error {
+            background: #B3261E;
+        }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .btn-post:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>FACULTY PORTAL</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Faculty navigation">
+            <div class="nav-section">My Classes</div>
+            <a href="../dashboard/faculty-dashboard.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="../schedule/schedule-day.html"><i class="fa-regular fa-calendar-day"></i><span>My Schedule</span></a>
+            <a href="../classes/class-list.html"><i class="fa-solid fa-table-list"></i><span>Class List</span></a>
+            <a href="../assignments/assignments.html"><i class="fa-solid fa-list-check"></i><span>Assignments</span></a>
+
+            <div class="nav-section">Students</div>
+            <a href="../students/student-records.html"><i class="fa-solid fa-users"></i><span>Student List</span></a>
+            <a href="../grades/grade-management.html"><i class="fa-solid fa-file-pen"></i><span>Grades</span></a>
+            <a href="../attendance/attendance-dashboard.html"><i class="fa-solid fa-clipboard-check"></i><span>Attendance</span></a>
+
+            <div class="nav-section">Academic</div>
+            <a href="announcements.html" class="active"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+            <a href="../dashboard/upcoming-deadlines.html"><i class="fa-regular fa-clock"></i><span>Upcoming Deadlines</span></a>
+
+            <div class="nav-section">Personal</div>
+            <a href="../profile/profile.html"><i class="fa-regular fa-user"></i><span>Profile</span></a>
+            <a href="../settings/settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../auth/login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <label class="search-box">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search courses, sections or anything...">
+            </label>
+
+            <select class="semester-select" aria-label="Semester">
+                <option selected>1st Trimester | 1st Year</option>
+                <option>2nd Trimester | 1st Year</option>
+                <option>3rd Trimester | 1st Year</option>
+            </select>
+
+            <button class="header-icon" type="button" aria-label="Notifications">
+                <i class="fa-regular fa-bell" aria-hidden="true"></i>
+                <span class="notif-dot"></span>
+            </button>
+
+            <button class="profile-button" type="button">
+                <span class="profile-avatar">CB</span>
+                <span class="profile-info">
+                    <strong>Mr. Charles Bacus</strong>
+                    <small>Faculty</small>
+                </span>
+            </button>
+        </header>
+
+        <section class="dashboard-content">
+            <a href="announcements.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Announcements</a>
+            <div class="page-head">
+                <h1>Create Announcement</h1>
+                <p class="page-desc">Draft a new announcement for your students.</p>
+            </div>
+
+            <form id="announcement-form" class="form-card" novalidate>
+                <div class="form-body">
+                    <div class="form-field">
+                        <label class="form-label" for="announcement-title">Title <span class="required">*</span></label>
+                        <input type="text" id="announcement-title" class="form-input" placeholder="No Class on Aug 12">
+                    </div>
+
+                    <div class="form-field">
+                        <label class="form-label" for="announcement-message">Message <span class="required">*</span></label>
+                        <textarea id="announcement-message" class="form-textarea" placeholder="Write your message here..."></textarea>
+                    </div>
+
+                    <div class="form-field field-section">
+                        <span class="form-label">Target Audience</span>
+                        <div class="checkbox-group">
+                            <label>
+                                <input type="checkbox" id="aud-all-classes" checked>
+                                All Classes
+                            </label>
+                            <label>
+                                <input type="checkbox" id="aud-all-students">
+                                All Students
+                            </label>
+                            <label>
+                                <input type="checkbox" id="aud-specific">
+                                Specific Sections
+                            </label>
+                        </div>
+                        <p class="helper-text">(Select at least 1 option)</p>
+                    </div>
+
+                    <div class="form-field">
+                        <label class="form-label" for="announcement-priority">Priority</label>
+                        <select id="announcement-priority" class="form-select">
+                            <option selected>Normal</option>
+                            <option>High</option>
+                            <option>Low</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-footer">
+                    <a href="announcements.html" class="btn-outline">Cancel</a>
+                    <button type="submit" class="btn-post" id="post-btn"><i class="fa-solid fa-bullhorn"></i> Post Announcement</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <div class="toast-wrap" id="toast-wrap"></div>
+
+    <script src="../../js/api.js"></script>
+    <script src="../../js/facultyIdentity.js"></script>
+    <script>
+        function showToast(message, isError) {
+            const wrap = document.getElementById('toast-wrap');
+            const toast = document.createElement('div');
+            toast.className = 'toast' + (isError ? ' error' : '');
+            toast.textContent = message;
+            wrap.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s';
+                setTimeout(() => toast.remove(), 300);
+            }, 2500);
+        }
+
+        const form = document.getElementById('announcement-form');
+        const titleInput = document.getElementById('announcement-title');
+        const messageInput = document.getElementById('announcement-message');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            let valid = true;
+            titleInput.style.borderColor = 'initial';
+            messageInput.style.borderColor = 'initial';
+
+            if (titleInput.value.trim() === '') {
+                titleInput.style.borderColor = '#B3261E';
+                valid = false;
+            }
+            if (messageInput.value.trim() === '') {
+                messageInput.style.borderColor = '#B3261E';
+                valid = false;
+            }
+
+            const checked = document.querySelectorAll('.checkbox-group input[type="checkbox"]:checked');
+            if (checked.length === 0) {
+                valid = false;
+                document.querySelector('.helper-text').textContent = '(Please select at least 1 option)';
+                document.querySelector('.helper-text').style.color = '#B3261E';
+            } else {
+                document.querySelector('.helper-text').textContent = '(Select at least 1 option)';
+                document.querySelector('.helper-text').style.color = '';
+            }
+
+            if (!valid) {
+                showToast('Please fill out the required fields.', true);
+                return;
+            }
+
+            const btn = document.getElementById('post-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Posting...';
+
+            const body = {
+                title: titleInput.value.trim(),
+                message: messageInput.value.trim(),
+                priority: document.getElementById('announcement-priority').value,
+                audience: Array.prototype.map.call(checked, function (el) { return el.id; })
+            };
+
+            API.post('/faculty/announcements', body).then(function () {
+                showToast('Announcement posted successfully.');
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-bullhorn"></i> Post Announcement';
+                setTimeout(() => window.location.href = 'announcements.html', 900);
+            }).catch(function () {
+                showToast('Failed to post announcement.', true);
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-bullhorn"></i> Post Announcement';
+            });
+        });
+    </script>
+<script src="../../js/showToast.js"></script>
+<script src="../../js/copyToClipboard.js"></script>
+<script src="../../js/confirmAction.js"></script>
+<script src="../../js/avatarUpload.js"></script>
+<script src="../../js/validateForm.js"></script>
+<script src="../../js/persistSelect.js"></script>
+<script src="../../js/setYear.js"></script>
+
+</body>
+</html>

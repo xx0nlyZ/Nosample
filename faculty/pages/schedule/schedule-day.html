@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Schedule | Cebu Eastern College</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/schedule.css">
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>FACULTY PORTAL</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Faculty navigation">
+            <div class="nav-section">My Classes</div>
+            <a href="../dashboard/faculty-dashboard.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="schedule-day.html" class="active"><i class="fa-regular fa-calendar-day"></i><span>My Schedule</span></a>
+            <a href="../classes/class-list.html"><i class="fa-solid fa-table-list"></i><span>Class List</span></a>
+            <a href="../assignments/assignments.html"><i class="fa-solid fa-list-check"></i><span>Assignments</span></a>
+
+            <div class="nav-section">Students</div>
+            <a href="../students/student-records.html"><i class="fa-solid fa-users"></i><span>Student List</span></a>
+            <a href="../grades/grade-management.html"><i class="fa-solid fa-file-pen"></i><span>Grades</span></a>
+            <a href="../attendance/attendance-dashboard.html"><i class="fa-solid fa-clipboard-check"></i><span>Attendance</span></a>
+
+            <div class="nav-section">Academic</div>
+            <a href="../announcements/announcements.html"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+            <a href="../dashboard/upcoming-deadlines.html"><i class="fa-regular fa-clock"></i><span>Upcoming Deadlines</span></a>
+
+            <div class="nav-section">Personal</div>
+            <a href="../profile/profile.html"><i class="fa-regular fa-user"></i><span>Profile</span></a>
+            <a href="../settings/settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../auth/login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <label class="search-box">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search anything...">
+            </label>
+
+            <select class="semester-select" aria-label="Semester">
+                <option selected>1st Trimester | 1st Year</option>
+                <option>2nd Trimester | 1st Year</option>
+                <option>3rd Trimester | 1st Year</option>
+            </select>
+
+            <button class="header-icon" type="button" aria-label="Notifications">
+                <i class="fa-regular fa-bell" aria-hidden="true"></i>
+                <span class="notif-dot"></span>
+            </button>
+
+            <button class="profile-button" type="button">
+                <span class="profile-avatar">CB</span>
+                <span class="profile-info">
+                    <strong>Mr. Charles Bacus</strong>
+                    <small>Faculty</small>
+                </span>
+            </button>
+        </header>
+
+        <section class="dashboard-content">
+            <div class="schedule-head">
+                <div class="page-head">
+                    <h1>My Schedule</h1>
+                    <p class="page-desc">Track your class schedule for the selected day.</p>
+                </div>
+                <div class="schedule-nav">
+                    <button class="date-nav-btn" type="button" aria-label="Previous"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
+                    <span class="date-nav-label" id="dateLabel">&mdash;</span>
+                    <button class="date-nav-btn" type="button" aria-label="Next"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
+
+                    <nav class="view-toggle" aria-label="Calendar view">
+                        <a href="schedule-day.html" class="active">Day</a>
+                        <a href="schedule-week.html">Week</a>
+                        <a href="schedule-month.html">Month</a>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="calendar-card">
+                <div class="table-card-slim">
+                    <div class="table-wrap">
+                        <table class="agenda-table">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Class / Subject</th>
+                                    <th>Room</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="agendaBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="../../js/api.js"></script>
+    <script src="../../js/facultyIdentity.js"></script>
+    <script>
+        const now = new Date();
+        const tbody = document.getElementById('agendaBody');
+        const THEMES = ['theme-orange', 'theme-green', 'theme-blue'];
+        const ACCENTS = ['accent-orange', 'accent-green', 'accent-blue'];
+
+        function toItems(res) { return (res && Array.isArray(res)) ? res : ((res && res.data) || []); }
+        function esc(v) { return String(v == null ? '' : v).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+        function param(name) { var m = new RegExp('[?&]' + name + '=([^&]*)').exec(location.search); return m ? decodeURIComponent(m[1]) : ''; }
+        function statusClass(s) {
+            var v = String(s || '').toLowerCase();
+            if (v === 'ongoing') return 'status-green';
+            if (v === 'completed') return 'status-gray';
+            return 'status-blue';
+        }
+
+        function renderRows(items) {
+            if (!items.length) {
+                tbody.innerHTML = '<tr><td colspan="4" class="muted-cell">No classes scheduled.</td></tr>';
+                return;
+            }
+            var html = '';
+            items.forEach(function (c, i) {
+                var status = c.status || 'Upcoming';
+                html += '<tr class="' + ACCENTS[i % ACCENTS.length] + '">';
+                html += '<td>' + esc(c.time) + '</td>';
+                html += '<td><span class="agenda-code ' + THEMES[i % THEMES.length] + '">' + esc(c.code || c.section) + '</span><strong>' + esc(c.subject) + '</strong></td>';
+                html += '<td class="muted-cell"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> ' + esc(c.room) + '</td>';
+                html += '<td><span class="status-badge ' + statusClass(status) + '">' + esc(status) + '</span></td>';
+                html += '</tr>';
+            });
+            tbody.innerHTML = html;
+        }
+
+        function syncStatus() {
+            const rows = document.querySelectorAll('.agenda-table tbody tr');
+            rows.forEach(function (row) {
+                const timeCell = row.querySelector('td');
+                const statusCell = row.querySelector('.status-badge');
+                if (!timeCell || !statusCell) return;
+                let endHours = null;
+
+                const match = timeCell.textContent.match(/(\d{1,2}):(\d{2})\s*-\s*(\d{1,2}):(\d{2})\s*(AM|PM)/);
+                if (match) {
+                    let [, sh, sm, eh, em, mer] = match;
+                    let startH = parseInt(sh, 10) % 12;
+                    if (mer.toUpperCase() === 'PM' && parseInt(sh, 10) !== 12) startH += 12;
+                    endHours = startH;
+                }
+
+                const startStatus = statusCell.textContent.trim();
+                if (endHours !== null && startStatus === 'Completed') return;
+
+                if (endHours !== null && endHours === now.getHours()) {
+                    statusCell.textContent = 'Ongoing';
+                    statusCell.className = 'status-badge status-green';
+                } else if (endHours !== null && endHours > now.getHours()) {
+                    statusCell.textContent = 'Upcoming';
+                    statusCell.className = 'status-badge status-blue';
+                } else if (endHours !== null && endHours < now.getHours()) {
+                    statusCell.textContent = 'Completed';
+                    statusCell.className = 'status-badge status-gray';
+                }
+            });
+        }
+
+        var baseDate = param('date') ? new Date(param('date') + 'T00:00:00') : new Date();
+        if (isNaN(baseDate.getTime())) baseDate = new Date();
+        var dateLabel = document.getElementById('dateLabel');
+        if (dateLabel) dateLabel.textContent = baseDate.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' });
+
+        document.querySelectorAll('.date-nav-btn').forEach(function (btn, idx) {
+            btn.addEventListener('click', function () {
+                var d = new Date(baseDate.getTime());
+                d.setDate(d.getDate() + (idx === 0 ? -1 : 1));
+                window.location.href = 'schedule-day.html?date=' + d.toISOString().slice(0, 10);
+            });
+        });
+
+        API.get('/faculty/schedule/day', { date: param('date') }).then(function (res) {
+            renderRows(toItems(res));
+            syncStatus();
+        }).catch(function () {
+            renderRows([]);
+            if (window.showToast) showToast('Failed to load schedule', 'error');
+        });
+
+        setInterval(syncStatus, 60000);
+    </script>
+<script src="../../js/showToast.js"></script>
+<script src="../../js/copyToClipboard.js"></script>
+<script src="../../js/confirmAction.js"></script>
+<script src="../../js/avatarUpload.js"></script>
+<script src="../../js/validateForm.js"></script>
+<script src="../../js/persistSelect.js"></script>
+<script src="../../js/setYear.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,512 @@
+@import url("dashboard.css");
+
+/* ==========================================================================
+   SCHEDULE PAGE
+   ========================================================================== */
+.schedule-card {
+    margin-bottom: 20px;
+    border: 1px solid #E3E9F2;
+    border-radius: 8px;
+    background: #FFFFFF;
+    overflow: hidden;
+}
+
+.card-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 15px 18px;
+    border-bottom: 1px solid #EEF2F8;
+}
+
+.card-heading h3 {
+    margin: 0;
+    font-size: 15px;
+}
+
+.date-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 14px;
+    border: 1px solid #D5DEE9;
+    border-radius: 20px;
+    color: var(--navy);
+    background: #FFFFFF;
+    font-size: 12.5px;
+    font-weight: 700;
+}
+
+.date-badge i {
+    color: var(--blue);
+}
+
+/* ---------- Today list ---------- */
+
+.today-list {
+    margin: 0;
+    padding: 4px 18px;
+    list-style: none;
+}
+
+.today-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid #EEF2F8;
+}
+
+.today-item:last-child {
+    border-bottom: 0;
+}
+
+.today-main {
+    display: grid;
+    gap: 3px;
+}
+
+.today-main .times {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.today-main strong {
+    font-size: 14px;
+}
+
+.today-main .room {
+    color: var(--muted);
+    font-size: 12.5px;
+}
+
+/* ---------- Weekly table ---------- */
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+    padding: 13px 16px;
+    border-bottom: 1px solid #EEF2F8;
+    font-size: 13px;
+    text-align: left;
+}
+
+.data-table th {
+    color: var(--muted);
+    background: #FBFCFE;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.data-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.data-table tbody tr:hover {
+    background: #F8FAFD;
+}
+
+.data-table .muted-cell {
+    color: var(--muted);
+}
+
+.data-table .day-cell {
+    white-space: nowrap;
+    font-weight: 700;
+}
+
+/* ==========================================================================
+   SCHEDULE VIEW (Day / Week / Month)
+   ========================================================================== */
+.schedule-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.schedule-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.date-nav-btn {
+    display: grid;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    border: 1px solid #D5DEE9;
+    border-radius: 6px;
+    color: var(--navy);
+    background: #FFFFFF;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.date-nav-btn:hover {
+    border-color: var(--blue);
+    color: #FFFFFF;
+    background: var(--blue);
+}
+
+.date-nav-label {
+    min-width: 220px;
+    padding: 0 6px;
+    color: var(--navy);
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.view-toggle {
+    display: inline-flex;
+    overflow: hidden;
+    border: 1px solid #D5DEE9;
+    border-radius: 6px;
+    background: #FFFFFF;
+}
+
+.view-toggle a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 18px;
+    color: var(--muted);
+    font-size: 12.5px;
+    font-weight: 700;
+}
+
+.view-toggle a + a {
+    border-left: 1px solid #E3E9F2;
+}
+
+.view-toggle a:hover {
+    color: var(--navy);
+    background: #F0F4FA;
+}
+
+.view-toggle a.active {
+    color: #FFFFFF;
+    background: var(--blue);
+}
+
+/* ---------- Theme color tags ---------- */
+
+.theme-blue {
+    color: #1D4E9B;
+    background: #E2ECFA;
+}
+
+.theme-green {
+    color: #177245;
+    background: #E3F4EA;
+}
+
+.theme-orange {
+    color: #B26A00;
+    background: #FFF2CC;
+}
+
+.theme-pink {
+    color: #A4205C;
+    background: #FBE4F0;
+}
+
+/* ==========================================================================
+   MONTH CALENDAR GRID
+   ========================================================================== */
+.calendar-card {
+    border: 1px solid #E3E9F2;
+    border-radius: 8px;
+    background: #FFFFFF;
+    overflow: hidden;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.calendar-day-head {
+    padding: 12px 8px;
+    color: var(--muted);
+    background: #FBFCFE;
+    border-bottom: 1px solid #EEF2F8;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.calendar-cell {
+    position: relative;
+    min-height: 104px;
+    padding: 8px;
+    border-right: 1px solid #EEF2F8;
+    border-bottom: 1px solid #EEF2F8;
+    background: #FFFFFF;
+}
+
+.calendar-cell:nth-child(7n) {
+    border-right: 0;
+}
+
+.calendar-cell.other-month {
+    background: #FAFBFD;
+}
+
+.calendar-cell .day-num {
+    display: inline-grid;
+    width: 24px;
+    height: 24px;
+    place-items: center;
+    border-radius: 50%;
+    color: var(--navy);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.calendar-cell.other-month .day-num {
+    color: #AEB9C9;
+}
+
+.calendar-cell.today .day-num {
+    color: #FFFFFF;
+    background: var(--blue);
+}
+
+.calendar-cell.today {
+    box-shadow: inset 0 0 0 2px var(--blue);
+}
+
+.today-tag {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    color: #FFFFFF;
+    background: var(--blue);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.event-pill {
+    display: block;
+    margin-top: 5px;
+    padding: 3px 7px;
+    border-radius: 4px;
+    font-size: 10.5px;
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.event-pill:first-of-type {
+    margin-top: 8px;
+}
+
+/* ==========================================================================
+   WEEK TIMETABLE
+   ========================================================================== */
+.table-card-slim {
+    border: 1px solid #E3E9F2;
+    border-radius: 8px;
+    background: #FFFFFF;
+    overflow: hidden;
+}
+
+.timetable {
+    width: 100%;
+    min-width: 860px;
+    border-collapse: collapse;
+}
+
+.timetable th,
+.timetable td {
+    padding: 0;
+    border-right: 1px solid #EEF2F8;
+    border-bottom: 1px solid #EEF2F8;
+    vertical-align: top;
+    text-align: center;
+}
+
+.timetable th {
+    padding: 12px 8px;
+    color: var(--muted);
+    background: #FBFCFE;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.timetable th small {
+    display: block;
+    margin-top: 2px;
+    color: var(--blue);
+    font-size: 10.5px;
+}
+
+.timetable th.time-head {
+    width: 130px;
+}
+
+.timetable .time-col {
+    padding: 12px 10px;
+    color: var(--muted);
+    font-size: 11.5px;
+    font-weight: 700;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.timetable td.empty-slot {
+    background: #FCFDFE;
+}
+
+.week-event {
+    display: grid;
+    gap: 2px;
+    margin: 5px 6px;
+    padding: 9px 11px;
+    border-radius: 6px;
+    font-size: 11.5px;
+    text-align: left;
+}
+
+.week-event strong {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12.5px;
+}
+
+.week-event strong i {
+    font-size: 11px;
+}
+
+.week-event .sub,
+.week-event .room {
+    font-size: 11px;
+    opacity: 0.85;
+}
+
+.week-event .room i {
+    margin-right: 4px;
+}
+
+/* ==========================================================================
+   DAILY AGENDA
+   ========================================================================== */
+.agenda-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.agenda-table th,
+.agenda-table td {
+    padding: 13px 16px;
+    border-bottom: 1px solid #EEF2F8;
+    font-size: 13px;
+    text-align: left;
+}
+
+.agenda-table th {
+    color: var(--muted);
+    background: #FBFCFE;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.agenda-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.agenda-table tbody tr:hover {
+    background: #F8FAFD;
+}
+
+.agenda-table td:first-child {
+    color: var(--blue);
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.accent-blue td:first-child {
+    box-shadow: inset 4px 0 0 #1D4E9B;
+}
+
+.accent-green td:first-child {
+    box-shadow: inset 4px 0 0 #2E9E4F;
+}
+
+.accent-orange td:first-child {
+    box-shadow: inset 4px 0 0 #E08A00;
+}
+
+.accent-pink td:first-child {
+    box-shadow: inset 4px 0 0 #C2255C;
+}
+
+.agenda-code {
+    display: inline-flex;
+    margin-right: 8px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11.5px;
+    font-weight: 700;
+}
+
+.status-gray {
+    color: #5A6B7E;
+    background: #E7EBF0;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 700px) {
+    .calendar-cell {
+        min-height: 64px;
+        padding: 4px;
+    }
+
+    .event-pill {
+        padding: 2px 4px;
+        font-size: 9px;
+    }
+
+    .view-toggle a {
+        padding: 8px 12px;
+    }
+
+    .date-nav-label {
+        min-width: 170px;
+        font-size: 12.5px;
+    }
+}

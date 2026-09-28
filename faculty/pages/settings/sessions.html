@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session Management | Cebu Eastern College</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/settings.css">
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>FACULTY PORTAL</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Faculty navigation">
+            <div class="nav-section">My Classes</div>
+            <a href="../dashboard/faculty-dashboard.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="../schedule/schedule-day.html"><i class="fa-regular fa-calendar-day"></i><span>My Schedule</span></a>
+            <a href="../classes/class-list.html"><i class="fa-solid fa-table-list"></i><span>Class List</span></a>
+            <a href="../assignments/assignments.html"><i class="fa-solid fa-list-check"></i><span>Assignments</span></a>
+
+            <div class="nav-section">Students</div>
+            <a href="../students/student-records.html"><i class="fa-solid fa-users"></i><span>Student List</span></a>
+            <a href="../grades/grade-management.html"><i class="fa-solid fa-file-pen"></i><span>Grades</span></a>
+            <a href="../attendance/attendance-dashboard.html"><i class="fa-solid fa-clipboard-check"></i><span>Attendance</span></a>
+
+            <div class="nav-section">Academic</div>
+            <a href="../announcements/announcements.html"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+            <a href="../dashboard/upcoming-deadlines.html"><i class="fa-regular fa-clock"></i><span>Upcoming Deadlines</span></a>
+
+            <div class="nav-section">Personal</div>
+            <a href="../profile/profile.html"><i class="fa-regular fa-user"></i><span>Profile</span></a>
+            <a href="settings.html" class="active"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../auth/login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <label class="search-box">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search students, subjects, or anything...">
+            </label>
+
+            <select class="semester-select" aria-label="Semester">
+                <option selected>1st Trimester | 1st Year</option>
+                <option>2nd Trimester | 1st Year</option>
+                <option>3rd Trimester | 1st Year</option>
+            </select>
+
+            <button class="header-icon" type="button" aria-label="Notifications">
+                <i class="fa-regular fa-bell" aria-hidden="true"></i>
+                <span class="notif-dot"></span>
+            </button>
+
+            <button class="profile-button" type="button">
+                <span class="profile-avatar">CB</span>
+                <span class="profile-info">
+                    <strong>Mr. Charles Bacus</strong>
+                    <small>Faculty</small>
+                </span>
+            </button>
+        </header>
+
+        <section class="dashboard-content">
+            <div class="page-head">
+                <h1>Settings</h1>
+            </div>
+
+            <div class="settings-layout">
+                <nav class="settings-nav" aria-label="Settings">
+                    <a href="settings.html"><i class="fa-solid fa-user"></i> Account Settings</a>
+                    <a href="security.html"><i class="fa-solid fa-shield-halved"></i> Security</a>
+                    <a href="notifications.html"><i class="fa-regular fa-bell"></i> Notifications</a>
+                    <a href="preferences.html"><i class="fa-solid fa-sliders"></i> Preferences</a>
+                    <a href="sessions.html" class="active"><i class="fa-solid fa-desktop"></i> Session Management</a>
+                    <a href="login-history.html"><i class="fa-solid fa-list"></i> Login History</a>
+                </nav>
+
+                <div class="settings-content">
+                    <div class="card">
+                        <div class="card-head">
+                            <h2>Session Management</h2>
+                        </div>
+                        <div class="card-body stack">
+                            <div id="session-list"></div>
+
+                            <div class="session-meta">
+                                <div class="meta-row">
+                                    <label>Session Timeout</label>
+                                    <span class="helper">You will be automatically logged out after a period of inactivity.</span>
+                                    <select class="pref-select" aria-label="Session timeout" id="timeout-select">
+                                        <option selected>30 minutes</option>
+                                        <option>15 minutes</option>
+                                        <option>1 hour</option>
+                                        <option>4 hours</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+<script src="../../js/api.js"></script>
+<script src="../../js/facultyIdentity.js"></script>
+<script src="../../js/api.js"></script>
+<script src="../../js/facultyIdentity.js"></script>
+<script src="../../js/showToast.js"></script>
+<script src="../../js/copyToClipboard.js"></script>
+<script src="../../js/confirmAction.js"></script>
+<script src="../../js/avatarUpload.js"></script>
+<script src="../../js/validateForm.js"></script>
+<script src="../../js/persistSelect.js"></script>
+<script src="../../js/setYear.js"></script>
+
+    <script>
+        (function () {
+            var list = document.getElementById('session-list');
+            function render(items) {
+                list.innerHTML = (items && items.length) ? items.map(function (s) {
+                    var isCurrent = !!(s.current);
+                    var icon = (s.device || '').toLowerCase().indexOf('mobile') > -1 ? 'fa-mobile-screen' : (s.device || '').toLowerCase().indexOf('tablet') > -1 ? 'fa-tablet-screen-button' : 'fa-desktop';
+                    var last = s.lastActive ? new Date(s.lastActive).toLocaleString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }) : '—';
+                    return '<div class="session-block">' +
+                        '<span class="session-icon"><i class="fa-solid ' + icon + '"></i></span>' +
+                        '<div class="session-info"><strong>' + (s.device || s.name || 'Device') + '</strong>' +
+                        '<span>' + (s.location || s.city || '') + '</span></div>' +
+                        (isCurrent ? '<span class="pill-green">This Device</span>' : '<button type="button" class="btn-outline btn-sm" data-revoke="' + s.id + '"><i class="fa-solid fa-right-from-bracket"></i> Revoke</button>') +
+                        '</div>' +
+                        '<div class="session-meta"><div class="meta-row"><label>Last Active</label><span class="meta-value">' + last + '</span></div></div>';
+                }).join('') : '<p class="empty-note">No active sessions found.</p>';
+            }
+            function load() {
+                API.get('/faculty/sessions').then(function (res) {
+                    var items = Array.isArray(res) ? res : (res && res.data);
+                    render(items || []);
+                }).catch(function () {
+                    list.innerHTML = '<p class="empty-note">Failed to load sessions.</p>';
+                    if (window.showToast) showToast('Failed to load sessions.', true);
+                });
+            }
+            list.addEventListener('click', function (e) {
+                var btn = e.target.closest('[data-revoke]');
+                if (!btn) return;
+                btn.disabled = true;
+                API.del('/faculty/sessions/' + btn.getAttribute('data-revoke')).then(function () {
+                    if (window.showToast) showToast('Session revoked.');
+                    load();
+                }).catch(function () {
+                    btn.disabled = false;
+                    if (window.showToast) showToast('Failed to revoke session.', true);
+                });
+            });
+            load();
+        })();
+    </script>
+
+</body>
+</html>

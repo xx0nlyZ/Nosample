@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile | CEC Faculty Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/student-records.css">
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>FACULTY PORTAL</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Faculty navigation">
+            <div class="nav-section">My Classes</div>
+            <a href="../dashboard/faculty-dashboard.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="../schedule/schedule-day.html"><i class="fa-regular fa-calendar-day"></i><span>My Schedule</span></a>
+            <a href="../classes/class-list.html"><i class="fa-solid fa-table-list"></i><span>Class List</span></a>
+            <a href="../assignments/assignments.html"><i class="fa-solid fa-list-check"></i><span>Assignments</span></a>
+
+            <div class="nav-section">Students</div>
+            <a href="student-records.html" class="active"><i class="fa-solid fa-users"></i><span>Student List</span></a>
+            <a href="../grades/grade-management.html"><i class="fa-solid fa-file-pen"></i><span>Grades</span></a>
+            <a href="../attendance/attendance-dashboard.html"><i class="fa-solid fa-clipboard-check"></i><span>Attendance</span></a>
+
+            <div class="nav-section">Academic</div>
+            <a href="../announcements/announcements.html"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+            <a href="../dashboard/upcoming-deadlines.html"><i class="fa-regular fa-clock"></i><span>Upcoming Deadlines</span></a>
+
+            <div class="nav-section">Personal</div>
+            <a href="../profile/profile.html"><i class="fa-regular fa-user"></i><span>Profile</span></a>
+            <a href="../settings/settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../auth/login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <label class="search-box">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search anything...">
+            </label>
+
+            <select class="semester-select" aria-label="Semester">
+                <option selected>1st Trimester | 1st Year</option>
+                <option>2nd Trimester | 1st Year</option>
+                <option>3rd Trimester | 1st Year</option>
+            </select>
+
+            <button class="header-icon" type="button" aria-label="Notifications">
+                <i class="fa-regular fa-bell" aria-hidden="true"></i>
+                <span class="notif-dot"></span>
+            </button>
+
+            <button class="profile-button" type="button">
+                <span class="profile-avatar">CB</span>
+                <span class="profile-info">
+                    <strong>Mr. Charles Bacus</strong>
+                    <small>Faculty</small>
+                </span>
+            </button>
+        </header>
+
+        <section class="dashboard-content">
+            <div class="back-bar">
+                <a class="back-link" href="student-records.html"><i class="fa-solid fa-arrow-left"></i> Back to Student Records</a>
+            </div>
+
+            <section class="hero-card" aria-label="Student summary">
+                <div class="hero-avatar" id="heroAvatar"></div>
+                <div class="hero-info">
+                    <h2 class="hero-name"><span id="heroName">&mdash;</span> <span class="status-pill active" id="heroStatus">Active</span></h2>
+                    <ul class="hero-meta">
+                        <li>Student ID: <strong id="heroId">&mdash;</strong></li>
+                        <li>Course: <strong id="heroCourse">&mdash;</strong></li>
+                        <li>Year Level: <strong id="heroYear">&mdash;</strong></li>
+                    </ul>
+                </div>
+                <a class="btn-outline" style="margin-left:auto;" id="editRecordLink" href="add-student.html"><i class="fa-regular fa-pen-to-square"></i> Edit Record</a>
+            </section>
+
+            <nav class="profile-tabs" aria-label="Profile views">
+                <button type="button" class="tab-btn active" data-target="profile">Profile</button>
+                <button type="button" class="tab-btn" data-target="academics">Academics</button>
+            </nav>
+
+            <section class="tab-panel" id="profile">
+                <div class="form-card">
+                    <h3 class="card-title"><i class="fa-solid fa-id-card"></i> Personal Information</h3>
+
+                    <div class="form-grid" style="grid-template-columns:1fr 1fr;">
+                        <div class="info-item"><span>Full Name</span><strong id="infoName">&mdash;</strong></div>
+                        <div class="info-item"><span>Student ID</span><strong id="infoId">&mdash;</strong></div>
+                        <div class="info-item"><span>Program</span><strong id="infoProgram">&mdash;</strong></div>
+                        <div class="info-item"><span>Year Level</span><strong id="infoYear">&mdash;</strong></div>
+                        <div class="info-item"><span>Email Address</span><strong id="infoEmail">&mdash;</strong></div>
+                        <div class="info-item"><span>Phone Number</span><strong id="infoPhone">&mdash;</strong></div>
+                        <div class="info-item"><span>Gender</span><strong id="infoGender">&mdash;</strong></div>
+                        <div class="info-item"><span>Date of Birth</span><strong id="infoDob">&mdash;</strong></div>
+                        <div class="info-item" style="grid-column:1 / -1;"><span>Address</span><strong id="infoAddress">&mdash;</strong></div>
+                    </div>
+                </div>
+
+                <div class="info-banner" role="status" style="display:flex;align-items:flex-start;gap:10px;padding:12px 16px;border:1px solid #C6DCF5;border-radius:8px;color:#1D4E9B;background:#E8F1FD;font-size:13px;">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <span>This profile displays the student's enrolled information for the current academic term.</span>
+                </div>
+            </section>
+
+            <section class="tab-panel" id="academics" hidden>
+                <div class="form-card">
+                    <h3 class="card-title"><i class="fa-solid fa-graduation-cap"></i> Academic Record</h3>
+                    <div class="info-item"><span>Program</span><strong id="acadProgram">&mdash;</strong></div>
+                    <div class="info-item"><span>Year Level</span><strong id="acadYear">&mdash;</strong></div>
+                    <div class="info-item"><span>Semester</span><strong id="acadSemester">&mdash;</strong></div>
+                    <div class="info-item"><span>Academic Standing</span><strong><span class="status-pill active" id="acadStanding">&mdash;</span></strong></div>
+                    <div class="info-item"><span>Total Units Completed</span><strong id="acadUnits">&mdash;</strong></div>
+                    <div class="info-item"><span>GWA</span><strong id="acadGwa">&mdash;</strong></div>
+                    <p class="page-desc" style="margin-top:14px;">Detailed subject grades are available from the Grades page per class roster.</p>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <script src="../../js/api.js"></script>
+    <script src="../../js/facultyIdentity.js"></script>
+    <script>
+        (function () {
+            var tabs = document.querySelectorAll('.tab-btn');
+            var panels = document.querySelectorAll('.tab-panel');
+            tabs.forEach(function (tab) {
+                tab.addEventListener('click', function () {
+                    tabs.forEach(function (t) { t.classList.remove('active'); });
+                    tab.classList.add('active');
+                    var target = tab.getAttribute('data-target');
+                    panels.forEach(function (p) { p.hidden = (p.id !== target); });
+                });
+            });
+
+            function param(name) { var m = new RegExp('[?&]' + name + '=([^&]*)').exec(location.search); return m ? decodeURIComponent(m[1]) : ''; }
+            function setText(id, value) { var el = document.getElementById(id); if (el) el.textContent = (value == null || value === '') ? '\u2014' : value; }
+            function initials(name) { return String(name || '').split(/\s+/).filter(function (w) { return /[A-Za-z]/.test(w); }).map(function (w) { return w.charAt(0); }).slice(0, 2).join('').toUpperCase(); }
+            function statusClass(status) {
+                if (status === 'Active') return 'active';
+                if (status === 'On Leave') return 'onleave';
+                return 'inactive';
+            }
+
+            var studentId = param('id') || '1';
+
+            function loadStudent() {
+                API.get('/faculty/students/' + encodeURIComponent(studentId)).then(function (res) {
+                    var s = (res && res.data) ? res.data : (res || {});
+                    setText('heroName', s.name);
+                    setText('heroId', s.id || s.studentId);
+                    setText('heroCourse', s.program);
+                    setText('heroYear', s.year || s.yearLevel);
+                    setText('infoName', s.name);
+                    setText('infoId', s.id || s.studentId);
+                    setText('infoProgram', s.program);
+                    setText('infoYear', s.year || s.yearLevel);
+                    setText('infoEmail', s.email);
+                    setText('infoPhone', s.phone);
+                    setText('infoGender', s.gender);
+                    setText('infoDob', s.dateOfBirth || s.dob);
+                    setText('infoAddress', s.address);
+                    setText('acadProgram', s.program);
+                    setText('acadYear', s.year || s.yearLevel);
+                    setText('acadSemester', s.semester);
+                    setText('acadUnits', s.unitsCompleted);
+                    setText('acadGwa', s.gwa);
+
+                    var avatar = document.getElementById('heroAvatar');
+                    var status = s.status || 'Active';
+                    if (avatar) avatar.textContent = initials(s.name);
+                    setText('heroStatus', status);
+                    var heroStatus = document.getElementById('heroStatus');
+                    if (heroStatus) heroStatus.className = 'status-pill ' + statusClass(status);
+                    var standing = document.getElementById('acadStanding');
+                    if (standing) standing.textContent = s.academicStanding || 'Good Standing';
+                    var link = document.getElementById('editRecordLink');
+                    if (link) link.href = 'add-student.html?id=' + encodeURIComponent(studentId);
+                }).catch(function () {
+                    if (window.showToast) showToast('Failed to load student record', 'error');
+                });
+            }
+
+            loadStudent();
+        })();
+    </script>
+<script src="../../js/showToast.js"></script>
+<script src="../../js/copyToClipboard.js"></script>
+<script src="../../js/confirmAction.js"></script>
+<script src="../../js/avatarUpload.js"></script>
+<script src="../../js/validateForm.js"></script>
+<script src="../../js/persistSelect.js"></script>
+<script src="../../js/setYear.js"></script>
+
+</body>
+</html>
