@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile | Cebu Eastern College</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/profile.css">
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>ADMIN PORTAL</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Admin navigation">
+            <div class="nav-section">Management</div>
+            <a href="../dashboard/admin.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="../logs/audit-overview.html"><i class="fa-solid fa-chart-column"></i><span>Audit Overview</span></a>
+            <a href="../logs/activity-logs.html"><i class="fa-solid fa-clock-rotate-left"></i><span>Activity Logs</span></a>
+            <a href="../users/user-management.html"><i class="fa-solid fa-user-gear"></i><span>User Management</span></a>
+
+            <div class="nav-section">Academic</div>
+            <a href="../announcements/announcements.html"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+            <a href="../reports/detailed-report.html"><i class="fa-solid fa-chart-simple"></i><span>Reports &amp; Analytics</span></a>
+
+            <div class="nav-section">System</div>
+            <a href="../maintenance/backup-maintenance.html"><i class="fa-solid fa-database"></i><span>Backup &amp; Maintenance</span></a>
+
+            <div class="nav-section">Account</div>
+            <a href="profile.html" class="active"><i class="fa-regular fa-user"></i><span>Profile</span></a>
+            <a href="../settings/settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../auth/sign-in.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <label class="search-box">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search anything...">
+            </label>
+
+            <button class="header-icon" type="button" aria-label="Notifications">
+                <i class="fa-regular fa-bell" aria-hidden="true"></i>
+                <span class="notif-dot"></span>
+            </button>
+
+            <button class="profile-button" type="button">
+                <span class="profile-avatar"></span> <span class="profile-info">
+                    <strong></strong>
+                    <small></small>
+                </span>
+            </button>
+        </header>
+
+        <section class="dashboard-content">
+            <div class="page-head head-row">
+                <div class="profile-head-row">
+                    <a class="back-btn" href="profile.html" aria-label="Back to Admin Profile"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i></a>
+                    <div>
+                        <h1>Edit Profile Information</h1>
+                        <p class="crumb">
+                            <a href="profile.html">Admin Profile</a>
+                            <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                            <span>Edit Profile Information - <strong></strong></span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="head-actions">
+                    <button class="btn btn-primary" type="submit" form="edit-profile-form"><i class="fa-solid fa-floppy-disk" aria-hidden="true"></i> Save Changes</button>
+                </div>
+            </div>
+
+            <article class="hero-card" aria-label="Administrator avatar">
+                <div class="avatar-wrap">
+                    <span class="hero-avatar" id="hero-avatar">
+                        <img id="avatar-img" alt="Administrator avatar" hidden>
+                        <span class="avatar-initials" id="avatar-initials"></span>
+                    </span>
+                    <button class="btn btn-outline avatar-trigger" type="button" aria-label="Upload new picture"><i class="fa-solid fa-upload" aria-hidden="true"></i> Upload New Picture</button>
+                    <input type="file" id="avatar-input" accept="image/*" hidden>
+                </div>
+
+                <div class="hero-info">
+                    <h2 class="hero-name"></h2>
+                    <p class="hero-role"><i class="fa-solid fa-id-card" aria-hidden="true"></i> Administrator Account</p>
+                </div>
+            </article>
+
+            <form id="edit-profile-form" class="form-layout" action="#" method="post" enctype="multipart/form-data" novalidate>
+                <article class="card form-card">
+                    <div class="card-head">
+                        <i class="fa-solid fa-briefcase" aria-hidden="true"></i>
+                        <h3>Work Information</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-grid">
+                            <div class="form-field">
+                                <label for="work-email">Work Email</label>
+                                <input type="email" id="work-email" name="workEmail" value="" disabled>
+                            </div>
+
+                            <div class="form-field">
+                                <label for="assign-user-id">Assign User ID</label>
+                                <input type="text" id="assign-user-id" name="assignUserId" value="" disabled>
+                            </div>
+
+                            <div class="form-field">
+                                <label for="contact-number">Contact Number <span class="req">*</span></label>
+                                <input type="tel" id="contact-number" name="contactNumber" value="" required>
+                                <span class="error-msg" data-error-for="contactNumber" hidden>Contact number is required.</span>
+                            </div>
+
+                            <div class="form-field">
+                                <label for="role-permissions">Role &amp; Permissions <span class="req">*</span></label>
+                                <select id="role-permissions" name="rolePermissions" required>
+                                    <option value="Academic Staff, Administrator" selected>Academic Staff, Administrator</option>
+                                    <option value="Academic Staff">Academic Staff</option>
+                                    <option value="Administrator">Administrator</option>
+                                </select>
+                                <span class="field-hint"><a class="text-link" href="#">[EDIT SECURITY ACCESS LEVEL]</a></span>
+                            </div>
+
+                            <div class="form-field">
+                                <label for="department">Department <span class="req">*</span></label>
+                                <select id="department" name="department" required>
+                                    <option value="Academic Affairs" selected>Academic Affairs</option>
+                                    <option value="Administrative Services">Administrative Services</option>
+                                    <option value="Human Resources">Human Resources</option>
+                                    <option value="Finance">Finance</option>
+                                    <option value="Information Technology">Information Technology</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="card form-card">
+                    <div class="card-head">
+                        <i class="fa-regular fa-user" aria-hidden="true"></i>
+                        <h3>Personal Details</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-grid">
+                            <div class="form-field">
+                                <label for="full-name">Full Name <span class="req">*</span></label>
+                                <input type="text" id="full-name" name="fullName" value="" required>
+                                <span class="error-msg" data-error-for="fullName" hidden>Full name is required.</span>
+                            </div>
+
+                            <div class="form-field">
+                                <label for="join-date">Join Date <span class="req">*</span></label>
+                                <input type="date" id="join-date" name="joinDate" value="" required>
+                                <span class="error-msg" data-error-for="joinDate" hidden>Join date is required.</span>
+                            </div>
+
+                            <div class="form-field">
+                                <label for="address">Address <span class="req">*</span></label>
+                                <input type="text" id="address" name="address" value="" required>
+                                <span class="error-msg" data-error-for="address" hidden>Address is required.</span>
+                            </div>
+
+                            <div class="form-field">
+                                <label for="birth-date">Birth Date <span class="req">*</span></label>
+                                <input type="date" id="birth-date" name="birthDate" value="" required>
+                                <span class="error-msg" data-error-for="birthDate" hidden>Birth date is required.</span>
+                            </div>
+                        </div>
+
+                        <div class="form-footer-links">
+                            <a class="text-link danger" href="#">[Deactivate Account]</a>
+                            <a class="text-link" href="#">[View Activity Audit Log]</a>
+                        </div>
+                    </div>
+                </article>
+            </form>
+        </section>
+    </main>
+
+    <script src="../../js/api.js"></script>
+    <script src="../../js/adminIdentity.js"></script>
+    <script src="../../js/admin-profile.js"></script>
+</body>
+</html>

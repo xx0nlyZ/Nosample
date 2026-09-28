@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Alert | Cebu Eastern College</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/settings.css">
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>ADMIN PORTAL</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Admin navigation">
+            <div class="nav-section">Management</div>
+            <a href="../dashboard/admin.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="../logs/audit-overview.html"><i class="fa-solid fa-chart-column"></i><span>Audit Overview</span></a>
+            <a href="../logs/activity-logs.html"><i class="fa-solid fa-clock-rotate-left"></i><span>Activity Logs</span></a>
+            <a href="../users/user-management.html"><i class="fa-solid fa-user-gear"></i><span>User Management</span></a>
+
+            <div class="nav-section">Academic</div>
+            <a href="../announcements/announcements.html"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+            <a href="../reports/detailed-report.html"><i class="fa-solid fa-chart-simple"></i><span>Reports &amp; Analytics</span></a>
+
+            <div class="nav-section">System</div>
+            <a href="../maintenance/backup-maintenance.html"><i class="fa-solid fa-database"></i><span>Backup &amp; Maintenance</span></a>
+
+            <div class="nav-section">Account</div>
+            <a href="../profile/profile.html"><i class="fa-regular fa-user"></i><span>Profile</span></a>
+            <a href="settings.html" class="active"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../auth/sign-in.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <label class="search-box">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search students, subjects, or anything...">
+            </label>
+
+            <button class="header-icon" type="button" aria-label="Notifications">
+                <i class="fa-regular fa-bell" aria-hidden="true"></i>
+                <span class="notif-dot"></span>
+            </button>
+
+            <button class="profile-button" type="button">
+                <span class="profile-avatar"></span> <span class="profile-info">
+                    <strong></strong>
+                    <small></small>
+                </span>
+            </button>
+        </header>
+
+        <section class="dashboard-content">
+            <div class="page-head">
+                <nav class="crumb" aria-label="Breadcrumb">
+                    <a href="security.html">Security</a>
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <span>Login Alert</span>
+                </nav>
+                <h1>Login Alert</h1>
+                <p class="page-desc">Choose when you want to be notified about activity on your account.</p>
+            </div>
+
+            <div class="card">
+                <div class="card-head">
+                    <h3>Notification Options</h3>
+                </div>
+                <div class="card-body">
+                    <div class="check-row">
+                        <input type="checkbox" id="alert-new-device" checked>
+                        <div>
+                            <strong>New device login</strong>
+                            <small>An alert is sent when a new device or browser is used to sign into your account.</small>
+                        </div>
+                    </div>
+                    <div class="check-row">
+                        <input type="checkbox" id="alert-unfamiliar-location">
+                        <div>
+                            <strong>Unfamiliar location login</strong>
+                            <small>An alert is sent when your account is accessed from an unfamiliar location.</small>
+                        </div>
+                    </div>
+                    <div class="check-row">
+                        <input type="checkbox" id="alert-every-activity">
+                        <div>
+                            <strong>Every login activity</strong>
+                            <small>An alert is sent for every successful or failed login attempt.</small>
+                        </div>
+                    </div>
+
+                    <div class="alert-email-row">
+                        <input type="email" id="alert-email" class="form-input" value="student@school.educ" aria-label="Alert recipient email">
+                        <button type="button" class="btn btn-primary" id="save-alerts-btn"><i class="fa-solid fa-envelope"></i> Save Alert Preferences</button>
+                    </div>
+
+                    <p class="footer-note">Get notified instantly if someone accesses your account.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="../../js/api.js"></script>
+    <script src="../../js/adminIdentity.js"></script>
+    <script src="../../js/login-alerts.js"></script>
+</body>
+</html>

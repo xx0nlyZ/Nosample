@@ -1,0 +1,512 @@
+/* =========================
+   GENERAL
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #ffffff;
+    color: #0B2C5E;
+    min-width: 320px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+
+/* =========================
+   NAVIGATION BAR
+========================= */
+
+.navbar {
+    height: 86px;
+    flex: 0 0 86px;
+    background: #0B2C5E;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 5%;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo {
+    width: 70px;
+    height: 70px;
+
+    object-fit: contain;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-area h1 {
+    font-size: 30px;
+    letter-spacing: 1px;
+}
+
+.logo-area p {
+    margin-top: 5px;
+    letter-spacing: 5px;
+    font-size: 14px;
+    color: #DCE7F5;
+}
+
+.portal-title {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    font-size: 17px;
+}
+
+.portal-title i {
+    font-size: 24px;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+    height: calc(100vh - 143px);
+    min-height: 0;
+    flex: 1 1 auto;
+
+    position: relative;
+
+    background-image: url("../images/school_bg.jpg");
+
+    background-size: cover;
+    background-position: center;
+
+    display: flex;
+    align-items: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+        90deg,
+        rgba(11, 44, 94, 0.95),
+        rgba(11, 44, 94, 0.65),
+        rgba(11, 44, 94, 0.10)
+    );
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+
+    color: white;
+    margin-left: 5%;
+    max-width: 38%;
+}
+
+.line {
+    width: 75px;
+    height: 4px;
+    background: #1D4E9B;
+
+    margin-bottom: 20px;
+}
+
+.welcome {
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.hero h2 {
+    font-size: 50px;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.description {
+    font-size: 21px;
+    line-height: 1.5;
+    max-width: 600px;
+}
+
+
+/* =========================
+   PORTAL SECTION
+========================= */
+
+.portal-section {
+    width: 44%;
+    height: auto;
+    min-height: 0;
+    position: absolute;
+    top: 24%;
+    left: auto;
+    right: 4%;
+    transform: none;
+    z-index: 2;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: max-content;
+    align-items: start;
+    align-content: start;
+
+    gap: 14px;
+
+    padding: 0;
+
+    background: transparent;
+}
+
+
+/* =========================
+   PORTAL CARDS
+========================= */
+
+.portal-card {
+    min-height: 0;
+    min-width: 0;
+    height: fit-content;
+
+    border-radius: 10px;
+    color: inherit;
+    text-decoration: none;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    padding: 10px 8px;
+
+    transition: 0.3s ease;
+
+    position: relative;
+    overflow: hidden;
+
+    box-shadow: 0 4px 12px rgba(11, 44, 94, 0.14);
+}
+
+.portal-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+
+/* Card Colors */
+
+.student {
+    background: #DCE7F5;
+}
+
+.faculty {
+    background: #DCE7F5;
+}
+
+.registrar {
+    background: #DCE7F5;
+}
+
+.admin {
+    background: #DCE7F5;
+}
+
+
+/* =========================
+   ICONS
+========================= */
+
+.icon {
+    width: 62px;
+    height: 62px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 8px;
+
+    color: white;
+
+    font-size: 25px;
+}
+
+.student .icon {
+    background: #1D4E9B;
+}
+
+.faculty .icon {
+    background: #1D4E9B;
+}
+
+.registrar .icon {
+    background: #1D4E9B;
+}
+
+.admin .icon {
+    background: #1D4E9B;
+}
+
+
+/* =========================
+   CARD TEXT
+========================= */
+
+.portal-card h3 {
+    width: 100%;
+    font-size: clamp(15px, 1.5vw, 20px);
+    margin-bottom: 4px;
+    white-space: nowrap;
+}
+
+.student h3 {
+    color: #0B2C5E;
+}
+
+.faculty h3 {
+    color: #0B2C5E;
+}
+
+.registrar h3 {
+    color: #0B2C5E;
+}
+
+.admin h3 {
+    color: #0B2C5E;
+}
+
+.portal-card p {
+    width: 100%;
+    max-width: 100%;
+    font-size: clamp(10px, 1vw, 13px);
+    line-height: 1.2;
+
+    color: #0B2C5E;
+    overflow-wrap: break-word;
+}
+
+
+/* =========================
+   ARROW BUTTON
+========================= */
+
+.arrow {
+    width: 30px;
+    height: 30px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    text-decoration: none;
+
+    margin-top: auto;
+
+    font-size: 13px;
+
+    transition: 0.3s;
+}
+
+.student .arrow {
+    background: #0B2C5E;
+}
+
+.faculty .arrow {
+    background: #0B2C5E;
+}
+
+.registrar .arrow {
+    background: #0B2C5E;
+}
+
+.admin .arrow {
+    background: #0B2C5E;
+}
+
+
+/* =========================
+   RESPONSIVE LAYOUT
+========================= */
+
+.arrow:hover {
+    transform: scale(1.1);
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    background: #0B2C5E;
+
+    color: white;
+
+    text-align: center;
+
+    padding: 12px 25px;
+
+    flex: 0 0 auto;
+}
+
+footer h3 {
+    font-size: 16px;
+    margin-bottom: 7px;
+}
+
+footer p {
+    color: #DCE7F5;
+    font-size: 14px;
+}
+
+
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
+
+@media (max-width: 1000px) {
+
+    .portal-section {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .hero h2 {
+        font-size: 42px;
+    }
+
+    .portal-card {
+        min-height: 0;
+    }
+
+    .portal-section {
+        width: 50%;
+        height: auto;
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .navbar {
+        height: 76px;
+        flex: 0 0 76px;
+        padding: 20px;
+
+        gap: 10px;
+    }
+
+    .logo-area h1 {
+        font-size: 16px;
+    }
+
+    .logo-area p {
+        font-size: 8px;
+        letter-spacing: 2px;
+    }
+
+    .portal-title {
+        font-size: 14px;
+    }
+
+    .hero {
+        height: 34vh;
+        flex: 0 0 34vh;
+        min-height: 190px;
+    }
+
+    .hero-content {
+        margin: 0 25px;
+        max-width: 100%;
+    }
+
+    .welcome {
+        font-size: 22px;
+    }
+
+    .hero h2 {
+        font-size: clamp(24px, 7vw, 34px);
+    }
+
+    .description {
+        font-size: 14px;
+    }
+
+    .portal-section {
+        position: static;
+        width: 100%;
+        height: auto;
+        transform: none;
+        flex: 1 1 auto;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .portal-card {
+        padding: 12px 8px;
+        border-radius: 9px;
+    }
+
+    .icon {
+        width: 52px;
+        height: 52px;
+        margin-bottom: 8px;
+        font-size: 22px;
+    }
+
+    .portal-card h3 {
+        font-size: 18px;
+        margin-bottom: 5px;
+    }
+
+    .portal-card p {
+        font-size: 11px;
+        line-height: 1.25;
+    }
+
+    .arrow {
+        width: 30px;
+        height: 30px;
+        font-size: 13px;
+    }
+
+    footer {
+        padding: 7px 12px;
+    }
+
+    footer h3 {
+        font-size: 12px;
+        margin-bottom: 3px;
+    }
+
+    footer p {
+        font-size: 10px;
+    }
+}
