@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Financial | CEC Student Portal</title>
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../../css/student-section.css">
+</head>
+<body class="section-page">
+
+  <!-- Sidebar -->
+  <aside class="section-sidebar">
+    <div class="section-brand">
+      <img src="../../../images/cec-logo.png" alt="CEC logo">
+      <strong>CEC</strong>
+      <span>STUDENT PORTAL</span>
+    </div>
+
+    <nav class="section-nav">
+      <a href="../dashboard/student-dashboard.html">
+        <i class="fa-solid fa-house"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="student-profile.html">
+        <i class="fa-regular fa-user"></i>
+        <span>My Profile</span>
+      </a>
+      <a href="enrollment.html">
+        <i class="fa-regular fa-file-lines"></i>
+        <span>Enrollment</span>
+      </a>
+      <a href="../grades/grades.html">
+        <i class="fa-solid fa-chart-simple"></i>
+        <span>Grades</span>
+      </a>
+      <a href="financial.html" class="active">
+        <i class="fa-regular fa-credit-card"></i>
+        <span>Financial</span>
+      </a>
+      <a href="../classes/class-schedule.html">
+        <i class="fa-regular fa-calendar"></i>
+        <span>Class Schedule</span>
+      </a>
+      <a href="documents.html">
+        <i class="fa-regular fa-file-lines"></i>
+        <span>Documents</span>
+      </a>
+      <a href="../announcements/announcements.html">
+        <i class="fa-solid fa-volume-high"></i>
+        <span>Announcement</span>
+      </a>
+      <a href="../classes/curriculum.html">
+        <i class="fa-solid fa-pen-ruler"></i>
+        <span>Curriculum</span>
+      </a>
+    </nav>
+
+    <div class="section-bottom">
+      <a href="#">
+        <i class="fa-solid fa-gear"></i>
+        <span>Settings</span>
+      </a>
+      <a href="../auth/student.html">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        <span>Logout</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="section-main">
+
+    <!-- Top Header -->
+    <header class="dashboard-header">
+      <div class="search-box">
+        <input type="search" placeholder="Search" aria-label="Search dashboard">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </div>
+
+      <button class="header-icon" type="button" aria-label="Notifications">
+        <i class="fa-regular fa-bell"></i>
+      </button>
+
+      <button class="profile-button" type="button" aria-label="Open profile menu">
+        <span class="profile-icon"><i class="fa-regular fa-user"></i></span>
+        <i class="fa-solid fa-chevron-down"></i>
+      </button>
+    </header>
+
+    <!-- Page Content -->
+    <section class="section-content">
+      <p class="breadcrumb">
+        Home <i class="fa-solid fa-chevron-right"></i> Financial
+      </p>
+
+      <h1 class="section-title">Financial Information</h1>
+
+      <!-- Empty State View -->
+      <div class="empty-panel" id="financialPanel">
+        <i class="fa-regular fa-credit-card"></i>
+        <h2>No financial information yet</h2>
+        <p>Your assessment, payment, and account balance details will appear here.</p>
+      </div>
+    </section>
+
+  </main>
+
+<script src="../../js/api.js"></script>
+<script>
+    (function () {
+        function esc(v) {
+            return String(v == null ? '' : v).replace(/[&<>"]/g, function (c) {
+                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+            });
+        }
+
+        var panel = document.getElementById('financialPanel');
+
+        function render(d) {
+            if (!panel || !d) return;
+            var hasValue = d.assessment != null || d.payments != null || d.balance != null || (d.items && d.items.length);
+            if (!hasValue) return;
+            var html = '';
+            html += '<table class="blank-table" style="margin-bottom:16px">' +
+                '<thead><tr><th>Item</th><th>Amount</th></tr></thead><tbody>';
+            if (d.assessment != null) html += '<tr><th>Assessment</th><td>' + esc(d.assessment) + '</td></tr>';
+            if (d.payments != null) html += '<tr><th>Payments</th><td>' + esc(d.payments) + '</td></tr>';
+            if (d.balance != null) html += '<tr><th>Balance</th><td>' + esc(d.balance) + '</td></tr>';
+            html += '</tbody></table>';
+
+            if (d.items && d.items.length) {
+                html += '<table class="blank-table">' +
+                    '<thead><tr><th>Description</th><th>Date</th><th>Amount</th></tr></thead><tbody>';
+                d.items.forEach(function (it) {
+                    if (!it) return;
+                    var amount = it.amount != null ? it.amount : (it.total != null ? it.total : it.cost);
+                    html += '<tr>' +
+                        '<td>' + esc(it.description || it.particulars || it.item || it.name || '') + '</td>' +
+                        '<td>' + esc(it.date || it.dueDate || it.transactionDate || it.createdOn || '') + '</td>' +
+                        '<td>' + esc(amount) + '</td>' +
+                        '</tr>';
+                });
+                html += '</tbody></table>';
+            }
+
+            panel.innerHTML = html;
+        }
+
+        API.get('/student/financial').then(function (res) {
+            var d = (res && res.data) ? res.data : (res || {});
+            render(d);
+        }).catch(function () {
+            if (window.showToast) showToast('Failed to load financial information', 'error');
+        });
+    })();
+</script>
+<script src="../../js/showToast.js"></script>
+<script src="../../js/copyToClipboard.js"></script>
+<script src="../../js/confirmAction.js"></script>
+<script src="../../js/avatarUpload.js"></script>
+<script src="../../js/validateForm.js"></script>
+<script src="../../js/persistSelect.js"></script>
+<script src="../../js/setYear.js"></script>
+</body>
+</html>

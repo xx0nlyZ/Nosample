@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Class Schedule | CEC Student Portal</title>
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../../css/student-section.css">
+</head>
+<body class="section-page">
+
+  <!-- Sidebar -->
+  <aside class="section-sidebar">
+    <div class="section-brand">
+      <img src="../../../images/cec-logo.png" alt="CEC logo">
+      <strong>CEC</strong>
+      <span>STUDENT PORTAL</span>
+    </div>
+
+    <nav class="section-nav">
+      <a href="../dashboard/student-dashboard.html">
+        <i class="fa-solid fa-house"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="../records/student-profile.html">
+        <i class="fa-regular fa-user"></i>
+        <span>My Profile</span>
+      </a>
+      <a href="../records/enrollment.html">
+        <i class="fa-regular fa-file-lines"></i>
+        <span>Enrollment</span>
+      </a>
+      <a href="../grades/grades.html">
+        <i class="fa-solid fa-chart-simple"></i>
+        <span>Grades</span>
+      </a>
+      <a href="../records/financial.html">
+        <i class="fa-regular fa-credit-card"></i>
+        <span>Financial</span>
+      </a>
+      <a href="class-schedule.html" class="active">
+        <i class="fa-regular fa-calendar"></i>
+        <span>Class Schedule</span>
+      </a>
+      <a href="../records/documents.html">
+        <i class="fa-regular fa-file-lines"></i>
+        <span>Documents</span>
+      </a>
+      <a href="../announcements/announcements.html">
+        <i class="fa-solid fa-volume-high"></i>
+        <span>Announcement</span>
+      </a>
+      <a href="curriculum.html">
+        <i class="fa-solid fa-pen-ruler"></i>
+        <span>Curriculum</span>
+      </a>
+    </nav>
+
+    <div class="section-bottom">
+      <a href="#">
+        <i class="fa-solid fa-gear"></i>
+        <span>Settings</span>
+      </a>
+      <a href="../auth/student.html">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        <span>Logout</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="section-main">
+
+    <!-- Top Header -->
+    <header class="dashboard-header">
+      <div class="search-box">
+        <input type="search" placeholder="Search" aria-label="Search dashboard">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </div>
+
+      <button class="header-icon" type="button" aria-label="Notifications">
+        <i class="fa-regular fa-bell"></i>
+      </button>
+
+      <button class="profile-button" type="button" aria-label="Open profile menu">
+        <span class="profile-icon"><i class="fa-regular fa-user"></i></span>
+        <i class="fa-solid fa-chevron-down"></i>
+      </button>
+    </header>
+
+    <!-- Page Content -->
+    <section class="section-content">
+      <p class="breadcrumb">
+        Home <i class="fa-solid fa-chevron-right"></i> Class Schedule
+      </p>
+
+      <h1 class="section-title">Class Schedule</h1>
+
+      <!-- Filter Controls -->
+      <div class="filter-row">
+        <div class="filter-box">
+          <label for="schedule-term">Semester</label>
+          <select id="schedule-term" class="semester-select">
+            <option>Select semester</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Empty State View -->
+      <div class="empty-panel" id="schedulePanel">
+        <i class="fa-regular fa-calendar"></i>
+        <h2>No class schedule yet</h2>
+        <p>Your schedule will appear here after enrollment information is available.</p>
+      </div>
+    </section>
+
+  </main>
+
+<script src="../../js/api.js"></script>
+<script>
+    (function () {
+        function esc(v) {
+            return String(v == null ? '' : v).replace(/[&<>"]/g, function (c) {
+                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+            });
+        }
+
+        var select = document.getElementById('schedule-term');
+        var panel = document.getElementById('schedulePanel');
+
+        function render(res) {
+            if (!panel) return;
+            var items = (res && Array.isArray(res)) ? res : ((res && res.data) || []);
+            if (!items.length) return;
+            var html = '' +
+                '<table class="blank-table">' +
+                '<thead><tr><th>Day</th><th>Time</th><th>Subject Code</th><th>Subject Title</th><th>Room</th></tr></thead><tbody>';
+            items.forEach(function (s) {
+                if (!s) return;
+                html += '<tr>' +
+                    '<td>' + esc(s.day) + '</td>' +
+                    '<td>' + esc(s.time) + '</td>' +
+                    '<td>' + esc(s.code) + '</td>' +
+                    '<td>' + esc(s.title) + '</td>' +
+                    '<td>' + esc(s.room) + '</td>' +
+                    '</tr>';
+            });
+            html += '</tbody></table>';
+            panel.innerHTML = html;
+        }
+
+        function load() {
+            var term = select ? select.value : '';
+            API.get('/student/schedule', { term: term === 'Select semester' ? '' : term }).then(render).catch(function () {
+                if (window.showToast) showToast('Failed to load class schedule', 'error');
+            });
+        }
+
+        if (select) select.addEventListener('change', load);
+        load();
+    })();
+</script>
+<script src="../../js/showToast.js"></script>
+<script src="../../js/copyToClipboard.js"></script>
+<script src="../../js/confirmAction.js"></script>
+<script src="../../js/avatarUpload.js"></script>
+<script src="../../js/validateForm.js"></script>
+<script src="../../js/persistSelect.js"></script>
+<script src="../../js/setYear.js"></script>
+</body>
+</html>

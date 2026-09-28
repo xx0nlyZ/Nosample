@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard | Cebu Eastern College</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/student-dashboard.css">
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>STUDENT PORTAL</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Student navigation">
+            <a href="#" class="active"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
+            <a href="../records/student-profile.html"><i class="fa-regular fa-user"></i><span>My Profile</span></a>
+            <a href="../records/enrollment.html"><i class="fa-regular fa-file-lines"></i><span>Enrollment</span></a>
+            <a href="../grades/grades.html"><i class="fa-solid fa-chart-simple"></i><span>Grades</span></a>
+            <a href="../records/financial.html"><i class="fa-regular fa-credit-card"></i><span>Financial</span></a>
+            <a href="../classes/class-schedule.html"><i class="fa-regular fa-calendar"></i><span>Class Schedule</span></a>
+            <a href="../records/documents.html"><i class="fa-regular fa-file-lines"></i><span>Documents</span></a>
+            <a href="../announcements/announcements.html"><i class="fa-solid fa-volume-high"></i><span>Announcement</span></a>
+            <a href="../classes/curriculum.html"><i class="fa-solid fa-pen-ruler"></i><span>Curriculum</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="#"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+            <a href="../auth/student.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="app-header">
+            <button class="menu-toggle" type="button" id="menu-toggle" aria-label="Toggle sidebar"><i class="fa-solid fa-bars"></i></button>
+            <h1 class="app-title">Student Dashboard</h1>
+
+            <label class="app-search">
+                <span class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Search anything</span>
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search anything...">
+            </label>
+
+            <div class="app-user">
+                <span class="app-user-avatar">—</span>
+                <span class="app-user-text">
+                    <strong></strong>
+                    <small>Student</small>
+                </span>
+            </div>
+        </header>
+
+        <section class="analytics-content">
+            <section class="welcome-banner">
+                <h2>Welcome back<span id="dashboardName"></span>!</h2>
+                <p><span id="dashboardCourse"></span> Track your grades, schedule, and account in one place.</p>
+            </section>
+
+            <section class="kpis" aria-label="Student summary">
+                <article class="kpi-card">
+                    <i class="fa-solid fa-chart-simple kpi-icon"></i>
+                    <div>
+                        <span class="kpi-label">GPA (Current)</span>
+                        <strong class="kpi-value" id="statGpa">0</strong>
+                        <small class="kpi-sub good" id="statGpaChange"></small>
+                    </div>
+                </article>
+                <article class="kpi-card">
+                    <i class="fa-regular fa-credit-card kpi-icon amber"></i>
+                    <div>
+                        <span class="kpi-label">Account Balance</span>
+                        <strong class="kpi-value" id="statBalance">0</strong>
+                        <small class="kpi-sub due" id="statBalanceDue"></small>
+                    </div>
+                </article>
+                <article class="kpi-card">
+                    <i class="fa-regular fa-book-open kpi-icon green"></i>
+                    <div>
+                        <span class="kpi-label">Enrolled Units</span>
+                        <strong class="kpi-value" id="statUnits">0</strong>
+                        <small class="kpi-sub">This Semester</small>
+                    </div>
+                </article>
+                <article class="kpi-card">
+                    <i class="fa-regular fa-clipboard kpi-icon"></i>
+                    <div>
+                        <span class="kpi-label">Unread Announcement</span>
+                        <strong class="kpi-value" id="statAnnouncements">0</strong>
+                        <small class="kpi-sub">Awaiting review</small>
+                    </div>
+                </article>
+            </section>
+
+            <section class="analytics-grid">
+                <div class="analytics-main">
+                    <article class="chart-card">
+                        <div class="card-head">
+                            <h3>Weekly Schedule</h3>
+                            <a href="../classes/class-schedule.html">View Full Schedule</a>
+                        </div>
+                        <div class="schedule-table-wrap">
+                            <table class="schedule-table">
+                                <thead><tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Saturday</th></tr></thead>
+                                <tbody id="scheduleBody">
+                                    <tr><th>7:00 - 8:30 AM</th><td></td><td></td><td></td><td></td><td></td></tr>
+                                    <tr><th>8:30 - 10:00 AM</th><td></td><td></td><td></td><td></td><td></td></tr>
+                                    <tr><th>10:00 - 11:30 AM</th><td></td><td></td><td></td><td></td><td></td></tr>
+                                    <tr><th>11:30 - 1:00 PM</th><td></td><td></td><td></td><td></td><td></td></tr>
+                                    <tr><th>1:00 - 2:30 PM</th><td></td><td></td><td></td><td></td><td></td></tr>
+                                    <tr><th>2:30 - 4:00 PM</th><td></td><td></td><td></td><td></td><td></td></tr>
+                                    <tr><th>4:00 - 5:30 PM</th><td></td><td></td><td></td><td></td><td></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </article>
+
+                    <article class="chart-card">
+                        <div class="card-head">
+                            <h3>Announcement</h3>
+                            <a href="../announcements/announcements.html">View all</a>
+                        </div>
+                        <ul class="events-list announcement-list" id="announcementList"></ul>
+                    </article>
+                </div>
+
+                <aside class="analytics-rail">
+                    <article class="chart-card">
+                        <div class="calendar-head">
+                            <h3>Calendar</h3>
+                            <button type="button" disabled aria-label="Calendar month"><i class="fa-solid fa-chevron-right"></i></button>
+                        </div>
+                        <div class="calendar" id="calendarGrid" role="grid" aria-label="Calendar">
+                            <span class="dow">Mon</span><span class="dow">Tue</span><span class="dow">Wed</span><span class="dow">Thu</span><span class="dow">Fri</span><span class="dow">Sat</span><span class="dow">Sun</span>
+                        </div>
+                    </article>
+
+                    <article class="chart-card">
+                        <h3>Today's Classes</h3>
+                        <ul class="events-list" id="todayClasses"></ul>
+                    </article>
+                </aside>
+            </section>
+
+            <footer class="app-footer">
+                &copy; 2024 Cebu Eastern College. All rights reserved.
+            </footer>
+        </section>
+    </main>
+
+    <script src="../../js/api.js"></script>
+    <script src="../../js/sidebar.js"></script>
+    <script src="../../js/showToast.js"></script>
+    <script src="../../js/copyToClipboard.js"></script>
+    <script src="../../js/confirmAction.js"></script>
+    <script src="../../js/avatarUpload.js"></script>
+    <script src="../../js/validateForm.js"></script>
+    <script src="../../js/persistSelect.js"></script>
+    <script src="../../js/setYear.js"></script>
+    <script src="../../js/student-dashboard.js"></script>
+    <script>
+        (function () {
+            var toggle = document.getElementById('menu-toggle');
+            toggle.addEventListener('click', function () {
+                document.body.classList.toggle('sidebar-collapsed');
+            });
+        })();
+    </script>
+</body>
+</html>

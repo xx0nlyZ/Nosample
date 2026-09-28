@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curriculum | CEC Student Portal</title>
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../../css/student-section.css">
+</head>
+<body class="section-page">
+
+  <!-- Sidebar -->
+  <aside class="section-sidebar">
+    <div class="section-brand">
+      <img src="../../../images/cec-logo.png" alt="CEC logo">
+      <strong>CEC</strong>
+      <span>STUDENT PORTAL</span>
+    </div>
+
+    <nav class="section-nav">
+      <a href="../dashboard/student-dashboard.html">
+        <i class="fa-solid fa-house"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="../records/student-profile.html">
+        <i class="fa-regular fa-user"></i>
+        <span>My Profile</span>
+      </a>
+      <a href="../records/enrollment.html">
+        <i class="fa-regular fa-file-lines"></i>
+        <span>Enrollment</span>
+      </a>
+      <a href="../grades/grades.html">
+        <i class="fa-solid fa-chart-simple"></i>
+        <span>Grades</span>
+      </a>
+      <a href="../records/financial.html">
+        <i class="fa-regular fa-credit-card"></i>
+        <span>Financial</span>
+      </a>
+      <a href="class-schedule.html">
+        <i class="fa-regular fa-calendar"></i>
+        <span>Class Schedule</span>
+      </a>
+      <a href="../records/documents.html">
+        <i class="fa-regular fa-file-lines"></i>
+        <span>Documents</span>
+      </a>
+      <a href="../announcements/announcements.html">
+        <i class="fa-solid fa-volume-high"></i>
+        <span>Announcement</span>
+      </a>
+      <a href="curriculum.html" class="active">
+        <i class="fa-solid fa-pen-ruler"></i>
+        <span>Curriculum</span>
+      </a>
+    </nav>
+
+    <div class="section-bottom">
+      <a href="#">
+        <i class="fa-solid fa-gear"></i>
+        <span>Settings</span>
+      </a>
+      <a href="../auth/student.html">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        <span>Logout</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="section-main">
+
+    <!-- Top Header -->
+    <header class="dashboard-header">
+      <div class="search-box">
+        <input type="search" placeholder="Search" aria-label="Search dashboard">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </div>
+
+      <button class="header-icon" type="button" aria-label="Notifications">
+        <i class="fa-regular fa-bell"></i>
+      </button>
+
+      <button class="profile-button" type="button" aria-label="Open profile menu">
+        <span class="profile-icon"><i class="fa-regular fa-user"></i></span>
+        <i class="fa-solid fa-chevron-down"></i>
+      </button>
+    </header>
+
+    <!-- Page Content -->
+    <section class="section-content">
+      <p class="breadcrumb">
+        Home <i class="fa-solid fa-chevron-right"></i> Curriculum
+      </p>
+
+      <h1 class="section-title">Curriculum</h1>
+
+      <!-- Empty State View -->
+      <div class="empty-panel">
+        <i class="fa-solid fa-pen-ruler"></i>
+        <h2>No curriculum information yet</h2>
+        <p>Your program curriculum and course flowchart will appear here.</p>
+      </div>
+    </section>
+
+  </main>
+
+<script src="../../js/showToast.js"></script>
+<script src="../../js/copyToClipboard.js"></script>
+<script src="../../js/confirmAction.js"></script>
+<script src="../../js/avatarUpload.js"></script>
+<script src="../../js/validateForm.js"></script>
+<script src="../../js/persistSelect.js"></script>
+<script src="../../js/setYear.js"></script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | CEC Student Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/student-section.css">
+    <link rel="stylesheet" href="../../css/student-profile.css">
+</head>
+<body class="profile-page">
+    <aside class="section-sidebar">
+        <div class="section-brand"><img src="../../../images/cec-logo.png" alt="CEC logo"><strong>CEC</strong><span>STUDENT PORTAL</span></div>
+        <nav class="section-nav">
+            <a href="../dashboard/student-dashboard.html"><i class="fa-solid fa-house"></i><span>Dashboard</span></a>
+            <a href="student-profile.html" class="active"><i class="fa-regular fa-user"></i><span>My Profile</span></a>
+            <a href="enrollment.html"><i class="fa-regular fa-file-lines"></i><span>Enrollment</span></a>
+            <a href="../grades/grades.html"><i class="fa-solid fa-chart-simple"></i><span>Grades</span></a>
+            <a href="financial.html"><i class="fa-regular fa-credit-card"></i><span>Financial</span></a>
+            <a href="../classes/class-schedule.html"><i class="fa-regular fa-calendar"></i><span>Class Schedule</span></a>
+            <a href="documents.html"><i class="fa-regular fa-file-lines"></i><span>Documents</span></a>
+            <a href="../announcements/announcements.html"><i class="fa-solid fa-volume-high"></i><span>Announcement</span></a>
+            <a href="../classes/curriculum.html"><i class="fa-solid fa-pen-ruler"></i><span>Curriculum</span></a>
+        </nav>
+        <div class="section-bottom"><a href="#"><i class="fa-solid fa-gear"></i><span>Settings</span></a><a href="../auth/student.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a></div>
+    </aside>
+    <main class="profile-main">
+                <header class="dashboard-header">
+            <div class="search-box">
+                <input type="search" placeholder="Search" aria-label="Search dashboard">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+
+            <button class="header-icon" type="button" aria-label="Notifications"><i class="fa-regular fa-bell"></i></button>
+            <button class="profile-button" type="button" aria-label="Open profile menu">
+                <span class="profile-icon"><i class="fa-regular fa-user"></i></span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </button>
+        </header>
+        <header class="profile-header">
+            <a href="../dashboard/student-dashboard.html" class="back-button" aria-label="Back to dashboard"><i class="fa-solid fa-arrow-left"></i></a>
+            <div class="profile-summary">
+                <div class="profile-avatar"><i class="fa-regular fa-user"></i></div>
+                <div>
+                    <h1></h1>
+                    <p class="profile-course"><span></span><span> • </span><span></span></p>
+                    <p class="profile-id"><strong>Student ID:</strong> <span></span></p>
+                </div>
+            </div>
+            <button type="button" class="edit-profile-button">Edit Profile</button>
+        </header>
+
+        <nav class="profile-tabs" aria-label="Profile sections">
+            <a href="#personal" class="active">Personal Information</a>
+            <a href="#emergency" data-note="For changes in emergency contact details, please submit a request to the Registrar's Office.">Emergency Contact</a>
+            <a href="#guardian" data-note="For changes in guardian information, please submit a request to the Registrar's Office.">Guardian Information</a>
+            <a href="#documents" data-note="Please submit a request to the Registrar's Office for document assistance.">Documents</a>
+        </nav>
+
+        <section class="profile-information profile-tab-content" id="personal" aria-label="Personal information">
+            <div class="information-row"><i class="fa-regular fa-user"></i><span>Full Name</span><strong></strong></div>
+            <div class="information-row"><i class="fa-regular fa-calendar"></i><span>Date of Birth</span><strong></strong></div>
+            <div class="information-row"><i class="fa-solid fa-venus-mars"></i><span>Gender</span><strong></strong></div>
+            <div class="information-row"><i class="fa-solid fa-envelope"></i><span>Email Address</span><strong></strong></div>
+            <div class="information-row"><i class="fa-solid fa-phone"></i><span>Phone Number</span><strong></strong></div>
+            <div class="information-row"><i class="fa-solid fa-location-dot"></i><span>Address</span><strong></strong></div>
+            <div class="information-row"><i class="fa-regular fa-square-plus"></i><span>Program</span><strong></strong></div>
+            <div class="information-row"><i class="fa-solid fa-arrow-up-right-dots"></i><span>Year Level</span><strong></strong></div>
+            <div class="information-row"><i class="fa-solid fa-compass-drafting"></i><span>Section</span><strong></strong></div>
+            <div class="information-row"><i class="fa-solid fa-graduation-cap"></i><span>Enrollment Status</span><strong class="enrolled"></strong></div>
+        </section>
+
+        <section class="profile-information contact-information profile-tab-content" id="emergency" aria-label="Emergency contact" hidden>
+            <div class="information-row"><i class="fa-regular fa-user"></i><span>Full Name</span><strong></strong></div>
+            <div class="information-row"><i class="fa-regular fa-calendar"></i><span>Date of Birth</span><strong></strong></div>
+            <div class="information-row"><i class="fa-solid fa-people-arrows"></i><span>Relationship</span><strong></strong></div>
+            <div class="information-row"><i class="fa-solid fa-envelope"></i><span>Email Address</span><strong></strong></div>
+            <div class="information-row"><i class="fa-solid fa-phone"></i><span>Phone Number</span><strong></strong></div>
+            <div class="information-row"><i class="fa-solid fa-location-dot"></i><span>Address</span><strong></strong></div>
+        </section>
+
+        <section class="profile-information contact-information profile-tab-content" id="guardian" aria-label="Guardian information" hidden>
+            <div class="information-row"><i class="fa-regular fa-user"></i><span>Full Name</span><strong></strong></div>
+            <div class="information-row"><i class="fa-regular fa-calendar"></i><span>Date of Birth</span><strong></strong></div>
+            <div class="information-row"><i class="fa-solid fa-briefcase"></i><span>Occupation</span><strong></strong></div>
+            <div class="information-row"><i class="fa-solid fa-people-arrows"></i><span>Relationship</span><strong></strong></div>
+            <div class="information-row"><i class="fa-solid fa-envelope"></i><span>Email Address</span><strong></strong></div>
+            <div class="information-row"><i class="fa-solid fa-phone"></i><span>Phone Number</span><strong></strong></div>
+            <div class="information-row"><i class="fa-solid fa-location-dot"></i><span>Address</span><strong></strong></div>
+        </section>
+
+        <section class="profile-documents profile-tab-content" id="documents" aria-label="Documents" hidden>
+            <div class="document-row"><i class="fa-regular fa-file-lines"></i><span>Birth Certificate</span><strong></strong><button type="button">View</button></div>
+            <div class="document-row"><i class="fa-regular fa-file-lines"></i><span>Form 137 / Transcript Records</span><strong></strong><button type="button">View</button></div>
+            <div class="document-row"><i class="fa-regular fa-file-lines"></i><span>Good Moral Certificate</span><strong></strong><button type="button">View</button></div>
+            <div class="document-row"><i class="fa-regular fa-image"></i><span>2x2 ID Picture</span><strong></strong><button type="button">View</button></div>
+            <div class="document-row"><i class="fa-regular fa-file-lines"></i><span>Medical Certificate</span><strong></strong><button type="button">Upload</button></div>
+            <button type="button" class="upload-document-button">Upload New Document</button>
+        </section>
+
+        <footer class="profile-note" id="profile-note">For changes in personal data, please submit a request to the Registrar's Office.</footer>
+    </main>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/student-profile.js"></script>
+<script>
+    (function () {
+        function esc(v) {
+            return String(v == null ? '' : v).replace(/[&<>"]/g, function (c) {
+                return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+            });
+        }
+
+        var PERSONAL_MAP = {
+            'Full Name': 'fullName',
+            'Date of Birth': 'birthDate',
+            'Gender': 'gender',
+            'Email Address': 'email',
+            'Phone Number': 'phone',
+            'Address': 'address',
+            'Program': 'program',
+            'Year Level': 'yearLevel',
+            'Section': 'section',
+            'Enrollment Status': 'enrollmentStatus'
+        };
+
+        var CONTACT_MAP = {
+            'Full Name': 'fullName',
+            'Date of Birth': 'birthDate',
+            'Relationship': 'relationship',
+            'Email Address': 'email',
+            'Phone Number': 'phone',
+            'Address': 'address'
+        };
+
+        function docKey(value) {
+            return String(value == null ? '' : value).toLowerCase().replace(/[^a-z0-9]/g, '');
+        }
+
+        function fillRows(section, data, map) {
+            if (!section) return;
+            section.querySelectorAll('.information-row').forEach(function (row) {
+                var label = row.querySelector('span');
+                var strong = row.querySelector('strong');
+                if (!label || !strong) return;
+                var key = map[label.textContent.trim()];
+                if (!key || !data || data[key] == null || String(data[key]) === '') return;
+                strong.textContent = String(data[key]);
+            });
+        }
+
+        function fillDocuments(p) {
+            var rows = document.querySelectorAll('#documents .document-row');
+            if (!rows.length) return;
+            var docs = p.documents || [];
+            var byType = {};
+            docs.forEach(function (d) {
+                if (d && d.type) byType[docKey(d.type)] = d;
+            });
+            rows.forEach(function (row) {
+                var label = row.querySelector('span');
+                var strong = row.querySelector('strong');
+                if (!label || !strong) return;
+                var entry = byType[docKey(label.textContent)];
+                if (entry && entry.status) strong.textContent = entry.status;
+            });
+        }
+
+        API.get('/student/profile').then(function (res) {
+            var p = (res && res.data) ? res.data : (res || {});
+
+            var name = p.fullName || p.name || '';
+            var title = document.querySelector('.profile-summary h1');
+            if (title && name) title.textContent = name;
+
+            var courseSpans = document.querySelectorAll('.profile-course span');
+            if (courseSpans[0]) courseSpans[0].textContent = p.program || '';
+            if (courseSpans[2]) courseSpans[2].textContent = [p.yearLevel, p.section].filter(Boolean).join(' - ');
+
+            var idSpan = document.querySelector('.profile-id span');
+            if (idSpan) idSpan.textContent = p.studentId || '';
+
+            fillRows(document.getElementById('personal'), p, PERSONAL_MAP);
+            fillRows(document.getElementById('emergency'), p.emergencyContact || {}, CONTACT_MAP);
+            fillRows(document.getElementById('guardian'), p.guardian || {}, Object.assign({}, CONTACT_MAP, { 'Occupation': 'occupation' }));
+            fillDocuments(p);
+        }).catch(function () {
+            if (window.showToast) showToast('Failed to load profile', 'error');
+        });
+    })();
+</script>
+<script src="../../js/showToast.js"></script>
+<script src="../../js/copyToClipboard.js"></script>
+<script src="../../js/confirmAction.js"></script>
+<script src="../../js/avatarUpload.js"></script>
+<script src="../../js/validateForm.js"></script>
+<script src="../../js/persistSelect.js"></script>
+<script src="../../js/setYear.js"></script>
+</body>
+</html>

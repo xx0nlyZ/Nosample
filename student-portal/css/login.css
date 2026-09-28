@@ -1,0 +1,105 @@
+@import url("student.css");
+
+.login-card {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    width: min(100%, 760px);
+}
+
+.welcome-panel {
+    display: flex;
+    flex-direction: column;
+    padding: 38px 32px;
+    color: #FFFFFF;
+    background: linear-gradient(160deg, #0B2C5E, #14407F);
+}
+
+.welcome-panel h2 {
+    margin: 0 0 14px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 27px;
+    letter-spacing: 0.5px;
+}
+
+.welcome-panel p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.welcome-foot {
+    margin-top: auto;
+    padding-top: 22px;
+}
+
+.welcome-foot::before {
+    content: "";
+    display: block;
+    width: 46px;
+    height: 2px;
+    margin-bottom: 12px;
+    background: #DCE7F5;
+}
+
+.welcome-foot span {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.form-panel {
+    padding: 36px 32px 30px;
+}
+
+.form-panel h2 {
+    margin: 0 0 22px;
+    color: #0B2C5E;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 22px;
+}
+
+.field-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.field-top a {
+    font-size: 12px;
+}
+
+.remember-row {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin: 2px 0 16px;
+    color: #60728B;
+    font-size: 13px;
+}
+
+.remember-row input {
+    width: 15px;
+    height: 15px;
+    accent-color: #1D4E9B;
+}
+
+@media (max-width: 820px) {
+    .login-card {
+        grid-template-columns: 1fr;
+    }
+
+    .welcome-panel {
+        padding: 26px 28px 22px;
+    }
+
+    .welcome-panel h2 {
+        font-size: 23px;
+    }
+
+    .form-panel {
+        padding: 28px 28px 26px;
+    }
+}
