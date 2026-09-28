@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Active Enrollments | CEC Registrar Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/reg-dashboard.css">
+    <link rel="stylesheet" href="../../css/reg-analytics.css">
+    <link rel="stylesheet" href="../../css/reg-enroll-view.css">
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>STUDENT PORTAL SYSTEM</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Registrar navigation">
+            <a href="../../pages/dashboard/registrar.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="../student-record/student-records.html"><i class="fa-solid fa-users"></i><span>Student Records</span></a>
+            <a href="enrollment-management.html" class="active"><i class="fa-regular fa-file-lines"></i><span>Enrollment Management</span></a>
+            <a href="enrollment-application.html"><i class="fa-regular fa-square-plus"></i><span>Enrollment Application</span></a>
+            <a href="../report/reports.html"><i class="fa-solid fa-chart-simple"></i><span>Reports</span></a>
+            <a href="../document-request/index.html"><i class="fa-regular fa-folder-open"></i><span>Document Requests</span></a>
+            <a href="../announcement/index.html"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../settings/settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+            <a href="../../pages/auth/login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="app-header">
+            <button class="menu-toggle" type="button" id="menu-toggle" aria-label="Toggle sidebar"><i class="fa-solid fa-bars"></i></button>
+            <h1 class="app-title">Registrar Dashboard</h1>
+
+            <label class="app-search">
+                <span class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Search anything</span>
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search anything...">
+            </label>
+
+            <div class="app-user">
+                <span class="app-user-avatar">—</span>
+                <span class="app-user-text">
+                    <strong></strong>
+                    <small>Registrar</small>
+                </span>
+            </div>
+        </header>
+
+        <section class="view-content">
+            <div class="page-head">
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <a href="../../pages/dashboard/registrar.html">Dashboard</a>
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <a href="enrollment-management.html">Enrollment Management</a>
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <span>Active Enrollments</span>
+                </nav>
+                <h1>Active Enrollments</h1>
+                <p class="page-desc">View your current active enrollments for the ongoing school year.</p>
+            </div>
+
+            <section class="stats-grid" aria-label="Enrollment summary">
+                <article class="stat-card">
+                    <div class="stat-info">
+                        <p>Total Enrollments</p>
+                        <strong id="ae-stat-total">0</strong>
+                        <small>Across all school years</small>
+                    </div>
+                    <span class="stat-icon blue"><i class="fa-solid fa-user-graduate"></i></span>
+                </article>
+                <article class="stat-card">
+                    <div class="stat-info">
+                        <p>Active Enrollments</p>
+                        <strong id="ae-stat-active">0</strong>
+                        <small>Current semester</small>
+                    </div>
+                    <span class="stat-icon green"><i class="fa-solid fa-circle-check"></i></span>
+                </article>
+                <article class="stat-card">
+                    <div class="stat-info">
+                        <p>Complete Enrollments</p>
+                        <strong id="ae-stat-complete">0</strong>
+                        <small>Successfully finished</small>
+                    </div>
+                    <span class="stat-icon amber"><i class="fa-solid fa-calendar-check"></i></span>
+                </article>
+                <article class="stat-card">
+                    <div class="stat-info">
+                        <p>Dropped Enrollments</p>
+                        <strong id="ae-stat-dropped">0</strong>
+                        <small>None on record</small>
+                    </div>
+                    <span class="stat-icon red"><i class="fa-solid fa-user-slash"></i></span>
+                </article>
+            </section>
+
+            <section class="enroll-banner" aria-label="Current enrollment">
+                <div class="enroll-banner-details">
+                    <div class="banner-item"><label>School Year</label><strong id="ae-sy"></strong></div>
+                    <div class="banner-item"><label>Semester</label><strong id="ae-sem"></strong></div>
+                    <div class="banner-item"><label>Program</label><strong id="ae-prog"></strong></div>
+                    <div class="banner-item"><label>Year Level</label><strong id="ae-year"></strong></div>
+                    <div class="banner-item"><label>Enrollment Date</label><strong id="ae-date"></strong></div>
+                </div>
+
+                <div class="enroll-banner-side">
+                    <span class="avatar-lg" id="ae-avatar"></span>
+                    <div>
+                        <h3 id="ae-name"></h3>
+                        <p class="sid" id="ae-sid">Student No: </p>
+                        <div class="avatar-actions">
+                            <span class="status-badge status-green" id="ae-status"></span>
+                            <a class="btn btn-view-details" href="enrollment-history.html">View Enrollment Details</a>
+                            <a class="btn btn-enroll-subjects" href="subject-enrollment.html"><i class="fa-solid fa-book-open"></i> Enroll Subjects</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="table-card" aria-label="Enrolled subjects">
+                <div class="table-card-head">
+                    <h3><i class="fa-regular fa-file-lines"></i> Active Enrollments</h3>
+                </div>
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Course Code</th>
+                                <th>Course Title</th>
+                                <th>Units</th>
+                                <th>Schedule</th>
+                                <th>Instructor</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ae-subjects-tbody">
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="success-alert" aria-label="Active enrollments notice">
+                <i class="fa-solid fa-circle-check"></i>
+                <p id="ae-success-note"><strong>Active Enrollments:</strong> </p>
+            </section>
+        </section>
+    </main>
+
+    <script src="../../js/api.js"></script>
+    <script src="../../js/sidebar.js"></script>
+    <script>
+        (function () {
+            document.getElementById('menu-toggle').addEventListener('click', function () {
+                document.body.classList.toggle('sidebar-collapsed');
+            });
+        })();
+    </script>
+    <script>
+        (function () {
+            'use strict';
+
+            function escText(value) {
+                var div = document.createElement('div');
+                div.textContent = String(value == null ? '' : value);
+                return div.innerHTML;
+            }
+
+            function norm(status) {
+                return String(status || '').toLowerCase().replace(/_/g, ' ').replace(/-/g, ' ');
+            }
+
+            function setText(id, value) {
+                var el = document.getElementById(id);
+                if (el && value) el.textContent = value;
+            }
+
+            function render(items) {
+                var total = items && items.length || 0;
+                setText('ae-stat-total', total);
+                var active = 0, complete = 0, dropped = 0;
+                items.forEach(function (item) {
+                    var s = norm(item.status);
+                    if (s.indexOf('drop') !== -1) dropped += 1;
+                    else if (s.indexOf('complete') !== -1) complete += 1;
+                    else if (s.indexOf('approve') !== -1 || s === 'active' || s === 'enrolled') active += 1;
+                });
+                setText('ae-stat-active', active);
+                setText('ae-stat-complete', complete);
+                setText('ae-stat-dropped', dropped);
+
+                var primary = items[0] || {};
+                setText('ae-sy', primary.schoolYear || primary.sy);
+                setText('ae-sem', primary.semester);
+                setText('ae-prog', primary.program || primary.course);
+                setText('ae-year', primary.yearLevel || primary.year);
+                setText('ae-date', primary.date || primary.enrollmentDate || primary.enrolledOn);
+                var name = primary.name || primary.studentName || '';
+                setText('ae-name', name);
+                setText('ae-sid', 'Student No: ' + (primary.studentId != null ? primary.studentId : (primary.id != null ? primary.id : '')));
+                var statusEl = document.getElementById('ae-status');
+                if (statusEl) statusEl.textContent = primary.status || 'Active';
+                var avatar = document.getElementById('ae-avatar');
+                if (avatar && name) {
+                    avatar.textContent = name.split(/\s+/).filter(Boolean).slice(0, 2).map(function (w) { return w.charAt(0); }).join('').toUpperCase();
+                }
+
+                var tbody = document.getElementById('ae-subjects-tbody');
+                var note = document.getElementById('ae-success-note');
+                if (note) {
+                    var activeNum = total;
+                    note.innerHTML = '<strong>Active Enrollments:</strong> ' + escText('You currently have ' + active + ' active enrollment record' + (active === 1 ? '' : 's') + (name ? ' for ' + name + '.' : '.'));
+                }
+                if (!tbody) return;
+                var subjects = (Array.isArray(primary.subjects) && primary.subjects.length) ? primary.subjects : [];
+                if (subjects.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="7" class="empty-cell">No enrolled subjects found.</td></tr>';
+                    return;
+                }
+                tbody.innerHTML = subjects.map(function (s, i) {
+                    return '<tr>' +
+                        '<td class="muted-cell">' + (i + 1) + '</td>' +
+                        '<td>' + escText(s.code || s.courseCode || '') + '</td>' +
+                        '<td>' + escText(s.title || s.courseTitle || s.name || '') + '</td>' +
+                        '<td class="muted-cell">' + escText(s.units) + '</td>' +
+                        '<td class="muted-cell">' + escText(s.schedule || '') + '</td>' +
+                        '<td class="muted-cell">' + escText(s.instructor || '') + '</td>' +
+                        '<td><span class="status-badge status-green">' + escText(s.status || 'Active') + '</span></td>' +
+                        '</tr>';
+                }).join('');
+            }
+
+            function load() {
+                if (!window.API) return;
+                window.API.get('/registrar/enrollments', { status: 'active' }).then(function (res) {
+                    var items = (res && Array.isArray(res)) ? res : ((res && res.data) || []);
+                    render(items);
+                }).catch(function () {
+                    render([]);
+                });
+            }
+
+            load();
+        })();
+    </script>
+</body>
+</html>

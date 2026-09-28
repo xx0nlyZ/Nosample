@@ -1,0 +1,39 @@
+.apps-content {
+    padding: 24px 40px 44px;
+}
+
+/* Outlined View action button */
+.btn-view {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 30px;
+    padding: 0 14px;
+    border: 1px solid var(--blue);
+    border-radius: 5px;
+    color: var(--blue);
+    background: #FFFFFF;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-view:hover {
+    color: #FFFFFF;
+    background: var(--blue);
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 900px) {
+    .apps-content {
+        padding: 24px;
+    }
+}
+
+@media (max-width: 650px) {
+    .apps-content {
+        padding: 20px 14px;
+    }
+}

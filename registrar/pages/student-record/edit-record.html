@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Student Record | CEC Registrar Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/reg-dashboard.css">
+    <link rel="stylesheet" href="../../css/reg-edit.css">
+    <style>
+        .toast-wrap { position:fixed; top:20px; right:20px; z-index:9999; display:flex; flex-direction:column; gap:8px; pointer-events:none; }
+        .toast { display:flex; align-items:center; gap:10px; padding:12px 18px; border-radius:8px; color:#FFFFFF; background:#177245; font-size:13px; font-weight:600; box-shadow:0 4px 16px rgba(0,0,0,0.15); animation:toastIn 0.3s ease; pointer-events:auto; }
+        .toast.error { background:#B3261E; }
+        .toast.info { background:#1D4E9B; }
+        @keyframes toastIn { from{opacity:0;transform:translateX(20px)} to{opacity:1;transform:translateX(0)} }
+        .field input.invalid, .field select.invalid, .field textarea.invalid { border-color:#B3261E; background:#FDF3F2; }
+        .field input.invalid:focus, .field select.invalid:focus, .field textarea.invalid:focus { box-shadow:0 0 0 3px rgba(179,38,30,0.12); }
+        .field-error { color:#B3261E; font-size:11px; margin-top:4px; display:none; }
+        .field-error.visible { display:block; }
+        .char-count { color:var(--muted); font-size:11px; margin-top:4px; text-align:right; }
+        .dropzone.dragover { border-color:var(--blue); background:#E8F1FD; }
+        .dropzone.has-file { border-color:#7BC29A; background:#E3F4EA; }
+        .unsaved-banner { display:none; position:fixed; bottom:0; left:0; right:0; z-index:9995; padding:12px 24px; color:#8A6D00; background:#FFF2CC; border-top:1px solid #E9B84B; font-size:13px; font-weight:600; justify-content:center; gap:10px; align-items:center; }
+        .unsaved-banner.active { display:flex; }
+        .unsaved-banner button { height:28px; padding:0 12px; border:1px solid #8A6D00; border-radius:6px; color:#8A6D00; background:transparent; font-size:12px; font-weight:700; cursor:pointer; }
+        .unsaved-banner button:hover { color:#FFFFFF; background:#8A6D00; }
+        .photo-upload-avatar { display:grid; width:88px; height:88px; flex:0 0 88px; place-items:center; border-radius:50%; color:#FFFFFF; background:var(--blue); font-size:30px; font-weight:700; overflow:hidden; }
+        .photo-upload-avatar img { width:100%; height:100%; object-fit:cover; }
+    </style>
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>STUDENT PORTAL SYSTEM</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Registrar navigation">
+            <a href="../../pages/dashboard/registrar.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="student-records.html" class="active"><i class="fa-solid fa-users"></i><span>Student Records</span></a>
+            <a href="../enrollment-management/enrollment-management.html"><i class="fa-regular fa-file-lines"></i><span>Enrollment Management</span></a>
+            <a href="../enrollment-management/enrollment-application.html"><i class="fa-regular fa-square-plus"></i><span>Enrollment Application</span></a>
+            <a href="../report/reports.html"><i class="fa-solid fa-chart-simple"></i><span>Reports</span></a>
+            <a href="../document-request/index.html"><i class="fa-regular fa-folder-open"></i><span>Document Requests</span></a>
+            <a href="../announcement/index.html"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../settings/settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+            <a href="../../pages/auth/login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <section class="edit-content">
+            <div class="back-bar">
+                <a class="back-link" href="student-profile.html"><i class="fa-solid fa-arrow-left"></i> Back to View Student Record</a>
+                <div class="record-title">
+                    <div>
+                        <h1>Edit Student Record</h1>
+                        <p class="page-desc">Update student information and academic details.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="notice" role="status">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Note: Changes will be saved and reflected in your student record.</span>
+            </div>
+
+            <form id="edit-form" novalidate>
+                <section class="card" aria-label="Personal information">
+                    <h3 class="card-title"><i class="fa-solid fa-user"></i> Personal Information</h3>
+
+                    <div class="form-grid">
+                        <div class="field">
+                            <label for="full-name">Full Name <em>*</em></label>
+                            <input type="text" id="full-name" value="">
+                            <div class="field-error" id="err-full-name">Please enter the student's full name.</div>
+                        </div>
+                        <div class="field">
+                            <label for="gender">Gender <em>*</em></label>
+                            <select id="gender">
+                                <option>Male</option>
+                                <option>Female</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="student-id">Student ID</label>
+                            <input type="text" id="student-id" value="" disabled>
+                        </div>
+                        <div class="field">
+                            <label for="email">Email Address <em>*</em></label>
+                            <div class="input-icon">
+                                <i class="fa-solid fa-at"></i>
+                                <input type="email" id="email" value="">
+                            </div>
+                            <div class="field-error" id="err-email">Please enter a valid email address.</div>
+                        </div>
+                        <div class="field">
+                            <label for="course">Course <em>*</em></label>
+                            <select id="course">
+                                <option>Bachelor of Science in Information Technology</option>
+                                <option>BS Hospitality Management</option>
+                                <option>BS Tourism Management</option>
+                                <option>BS Secondary Education</option>
+                                <option>BS Criminology</option>
+                                <option>Bachelor of Elementary Education</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="contact-number">Contact Number <em>*</em></label>
+                            <input type="tel" id="contact-number" value="">
+                            <div class="field-error" id="err-contact">Please enter a valid contact number.</div>
+                        </div>
+                        <div class="field">
+                            <label for="year-level">Year Level <em>*</em></label>
+                            <select id="year-level">
+                                <option>2nd Year</option>
+                                <option>1st Year</option>
+                                <option>3rd Year</option>
+                                <option>4th Year</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="address">Address <em>*</em></label>
+                            <textarea id="address"></textarea>
+                            <div class="char-count" id="address-count">0 / 250</div>
+                            <div class="field-error" id="err-address">Please enter a valid address.</div>
+                        </div>
+                        <div class="field">
+                            <label for="semester">Semester <em>*</em></label>
+                            <select id="semester">
+                                <option>1st Semester</option>
+                                <option>2nd Semester</option>
+                                <option>Summer</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="date-of-birth">Date of Birth <em>*</em></label>
+                            <div class="input-icon">
+                                <i class="fa-solid fa-calendar-days"></i>
+                                <input type="date" id="date-of-birth" value="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="photo-upload" style="margin-top:22px;">
+                        <div class="photo-upload-avatar" id="upload-avatar"></div>
+                        <div class="dropzone" id="dropzone">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                            <strong>Change Profile Photo</strong>
+                            <small>Click to upload or drag and drop PNG, JPG</small>
+                            <input type="file" id="upload-file" accept="image/*" style="display:none;">
+                        </div>
+                    </div>
+                </section>
+
+                <section class="card" aria-label="Academic information">
+                    <h3 class="card-title"><i class="fa-regular fa-file-lines"></i> Academic Information</h3>
+
+                    <div class="form-grid">
+                        <div class="field">
+                            <label for="course-code">Course Code <em>*</em></label>
+                            <select id="course-code">
+                                <option>IT - 101</option>
+                                <option>IT - 102</option>
+                                <option>IT - 103</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="acad-year-level">Year Level <em>*</em></label>
+                            <select id="acad-year-level">
+                                <option>3rd Year</option>
+                                <option>1st Year</option>
+                                <option>2nd Year</option>
+                                <option>4th Year</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="acad-semester">Semester <em>*</em></label>
+                            <select id="acad-semester">
+                                <option>2nd Semester</option>
+                                <option>1st Semester</option>
+                                <option>Summer</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label for="acad-status">Status <em>*</em></label>
+                            <select id="acad-status" class="select-ok">
+                                <option>Active</option>
+                                <option>On Leave</option>
+                                <option>Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="action-footer">
+                    <h3><i class="fa-solid fa-floppy-disk" style="color:var(--blue);margin-right:6px;"></i> Save Changes</h3>
+                    <div class="action-buttons">
+                        <button type="submit" class="btn btn-primary" id="btn-save"><i class="fa-solid fa-check"></i> Save</button>
+                        <button type="button" class="btn btn-outline" id="btn-cancel"><i class="fa-solid fa-xmark"></i> Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <div class="toast-wrap" id="toast-wrap"></div>
+
+    <div class="unsaved-banner" id="unsaved-banner">
+        <span><i class="fa-solid fa-circle-exclamation"></i> You have unsaved changes.</span>
+        <button id="discard-changes">Discard</button>
+    </div>
+
+    <script src="../../js/api.js"></script>
+    <script src="../../js/sidebar.js"></script>
+    <script>
+        (function () {
+            var form = document.getElementById('edit-form');
+            var toastWrap = document.getElementById('toast-wrap');
+            var unsaved = document.getElementById('unsaved-banner');
+            var dirty = false;
+
+            function showToast(msg, type) {
+                var t = document.createElement('div');
+                t.className = 'toast' + (type ? ' ' + type : '');
+                var icon = type === 'info' ? 'circle-info' : type === 'error' ? 'circle-xmark' : 'circle-check';
+                t.innerHTML = '<i class="fa-solid fa-' + icon + '"></i> ' + msg;
+                toastWrap.appendChild(t);
+                setTimeout(function () { t.style.opacity = '0'; t.style.transition = 'opacity 0.3s'; setTimeout(function () { t.remove(); }, 300); }, 3000);
+            }
+
+            function markDirty() {
+                dirty = true;
+                unsaved.classList.add('active');
+            }
+
+            function clearDirty(redirect) {
+                dirty = false;
+                unsaved.classList.remove('active');
+                if (redirect) {
+                    showToast('Student record saved successfully.');
+                    setTimeout(function () { window.location.href = redirect; }, 1200);
+                }
+            }
+
+            var inputs = form.querySelectorAll('input, select, textarea');
+            inputs.forEach(function (el) {
+                if (el.disabled) return;
+                el.addEventListener('input', markDirty);
+                el.addEventListener('change', markDirty);
+                el.addEventListener('keyup', function () { if (el.id) { el.classList.remove('invalid'); var err = document.getElementById('err-' + el.id); if (err) err.classList.remove('visible'); } });
+            });
+
+            var address = document.getElementById('address');
+            var addressCount = document.getElementById('address-count');
+            function updateCount() {
+                addressCount.textContent = address.value.length + ' / 250';
+            }
+            address.addEventListener('input', function () {
+                if (address.value.length > 250) address.value = address.value.slice(0, 250);
+                updateCount();
+            });
+            updateCount();
+
+            var dropzone = document.getElementById('dropzone');
+            var uploadFile = document.getElementById('upload-file');
+            var uploadAvatar = document.getElementById('upload-avatar');
+            var uploadedPhoto = null;
+
+            function handleFile(file) {
+                if (!file || !file.type.match('image.*')) {
+                    showToast('Please select an image file.', 'error');
+                    return;
+                }
+                if (file.size > 5 * 1024 * 1024) {
+                    showToast('File exceeds 5MB limit.', 'error');
+                    return;
+                }
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    uploadAvatar.innerHTML = '';
+                    var img = document.createElement('img');
+                    img.src = e.target.result;
+                    uploadAvatar.appendChild(img);
+                    document.querySelector('.dropzone strong').textContent = 'Photo selected';
+                    document.querySelector('.dropzone small').textContent = file.name + ' (' + (file.size / 1024).toFixed(1) + ' KB)';
+                    dropzone.classList.add('has-file');
+                    uploadedPhoto = e.target.result;
+                    markDirty();
+                };
+                reader.readAsDataURL(file);
+            }
+
+            dropzone.addEventListener('click', function () { uploadFile.click(); });
+            uploadFile.addEventListener('change', function () { handleFile(uploadFile.files[0]); });
+            ['dragover', 'dragenter'].forEach(function (ev) {
+                dropzone.addEventListener(ev, function (e) { e.preventDefault(); dropzone.classList.add('dragover'); });
+            });
+            ['dragleave', 'dragend'].forEach(function (ev) {
+                dropzone.addEventListener(ev, function (e) { if (!dropzone.contains(e.relatedTarget)) dropzone.classList.remove('dragover'); });
+            });
+            dropzone.addEventListener('drop', function (e) {
+                e.preventDefault();
+                dropzone.classList.remove('dragover');
+                handleFile(e.dataTransfer.files[0]);
+            });
+
+            document.getElementById('btn-cancel').addEventListener('click', function () {
+                if (dirty) {
+                    if (confirm('You have unsaved changes. Leave anyway?')) window.location.href = 'student-profile.html';
+                } else {
+                    window.location.href = 'student-profile.html';
+                }
+            });
+
+            document.getElementById('discard-changes').addEventListener('click', function () { clearDirty(); });
+
+            window.addEventListener('beforeunload', function (e) {
+                if (dirty) { e.preventDefault(); e.returnValue = ''; }
+            });
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                var valid = true;
+
+                form.querySelectorAll('.field input, .field select, .field textarea').forEach(function (el) {
+                    var err = el.id ? document.getElementById('err-' + el.id) : null;
+                    if (el.disabled) return;
+                    var value = el.value.trim();
+                    var isInvalid = false;
+
+                    if (!value) isInvalid = true;
+                    else if (el.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) isInvalid = true;
+                    else if (el.type === 'tel' && !/^[\d+][\d\s-]{6,}$/.test(value)) isInvalid = true;
+                    else if (el.id === 'address' && value.length < 5) isInvalid = true;
+                    else if (el.id === 'full-name' && value.split(' ').length < 2) isInvalid = true;
+
+                    el.classList.toggle('invalid', isInvalid);
+                    if (err) err.classList.toggle('visible', isInvalid);
+                    if (isInvalid) valid = false;
+                });
+
+                if (!valid) {
+                    showToast('Please fix the highlighted fields.', 'error');
+                    return;
+                }
+
+                setTimeout(function () {
+                    clearDirty('student-profile.html');
+                    showToast('Saving record...', 'info');
+                }, 300);
+            });
+        })();
+    </script>
+</body>
+</html>

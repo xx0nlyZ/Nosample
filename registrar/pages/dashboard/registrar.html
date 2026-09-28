@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Dashboard | Cebu Eastern College</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/reg-dashboard.css">
+    <link rel="stylesheet" href="../../css/reg-analytics.css">
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>STUDENT PORTAL SYSTEM</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Registrar navigation">
+            <a href="registrar.html" class="active"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="../student-record/student-records.html"><i class="fa-solid fa-users"></i><span>Student Records</span></a>
+            <a href="../enrollment-management/enrollment-management.html"><i class="fa-regular fa-file-lines"></i><span>Enrollment Management</span></a>
+            <a href="../enrollment-management/enrollment-application.html"><i class="fa-regular fa-square-plus"></i><span>Enrollment Application</span></a>
+            <a href="../report/reports.html"><i class="fa-solid fa-chart-simple"></i><span>Reports</span></a>
+            <a href="../document-request/index.html"><i class="fa-regular fa-folder-open"></i><span>Document Requests</span></a>
+            <a href="../announcement/index.html"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../settings/settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+            <a href="../auth/login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="app-header">
+            <button class="menu-toggle" type="button" id="menu-toggle" aria-label="Toggle sidebar"><i class="fa-solid fa-bars"></i></button>
+            <h1 class="app-title">Registrar Dashboard</h1>
+
+            <label class="app-search">
+                <span class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Search anything</span>
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search anything...">
+            </label>
+
+            <div class="app-user">
+                <span class="app-user-avatar">—</span>
+                <span class="app-user-text">
+                    <strong></strong>
+                    <small>Registrar</small>
+                </span>
+            </div>
+        </header>
+
+        <section class="analytics-content">
+            <section class="welcome-banner">
+                <h2>Welcome back!</h2>
+                <p>Manage enrollment, records, and students services.</p>
+            </section>
+
+            <section class="kpis" aria-label="Key performance indicators">
+                <article class="kpi-card">
+                    <i class="fa-solid fa-user-graduate kpi-icon"></i>
+                    <div>
+                        <span class="kpi-label">Total Students</span>
+                        <strong class="kpi-value" id="kpi-total">0</strong>
+                        <small class="kpi-sub">Currently Enrolled</small>
+                    </div>
+                </article>
+                <article class="kpi-card">
+                    <i class="fa-solid fa-circle-check kpi-icon green"></i>
+                    <div>
+                        <span class="kpi-label">Active Enrollment</span>
+                        <strong class="kpi-value" id="kpi-active-enroll">0</strong>
+                        <small class="kpi-sub">This Semester</small>
+                    </div>
+                </article>
+                <article class="kpi-card">
+                    <i class="fa-regular fa-clock kpi-icon amber"></i>
+                    <div>
+                        <span class="kpi-label">Document Request</span>
+                        <strong class="kpi-value" id="kpi-doc-pending">0</strong>
+                        <small class="kpi-sub">Pending</small>
+                    </div>
+                </article>
+                <article class="kpi-card">
+                    <i class="fa-solid fa-file-circle-check kpi-icon green"></i>
+                    <div>
+                        <span class="kpi-label">Document Released</span>
+                        <strong class="kpi-value" id="kpi-doc-released">0</strong>
+                        <small class="kpi-sub">This Month</small>
+                    </div>
+                </article>
+                <article class="kpi-card">
+                    <i class="fa-solid fa-user-plus kpi-icon"></i>
+                    <div>
+                        <span class="kpi-label">New Student</span>
+                        <strong class="kpi-value" id="kpi-new-student">0</strong>
+                        <small class="kpi-sub">This Semester</small>
+                    </div>
+                </article>
+            </section>
+
+            <section class="analytics-grid">
+                <div class="analytics-main">
+                    <div class="chart-row">
+                        <article class="chart-card">
+                            <h3>Student Status Summary</h3>
+                            <div class="donut-wrap">
+                                <div class="donut" id="donut-status" style="background: conic-gradient(#1D4E9B 0 0%, #2C7BE5 0 0%, #4CAF8D 0 0%, #F2A93B 0 0%);">
+                                    <div class="donut-center">
+                                        <strong>0</strong>
+                                        <span>Students</span>
+                                    </div>
+                                </div>
+                                <ul class="legend">
+                                    <li><i style="background:#1D4E9B"></i>Regular <b>0</b></li>
+                                    <li><i style="background:#2C7BE5"></i>Irregular <b>0</b></li>
+                                    <li><i style="background:#4CAF8D"></i>Returnee <b>0</b></li>
+                                    <li><i style="background:#F2A93B"></i>Others <b>0</b></li>
+                                </ul>
+                            </div>
+                        </article>
+
+                        <article class="chart-card">
+                            <h3>Enrollment By Program</h3>
+                            <div class="donut-wrap">
+                                <div class="donut" id="donut-program" style="background: conic-gradient(#1D4E9B 0 0%, #2C7BE5 0 0%, #4CAF8D 0 0%, #F2A93B 0 0%, #AFC5E2 0 0%);">
+                                    <div class="donut-center">
+                                        <strong>0</strong>
+                                        <span>Students</span>
+                                    </div>
+                                </div>
+                                <ul class="legend">
+                                    <li><i style="background:#1D4E9B"></i>BSIT <b>0</b></li>
+                                    <li><i style="background:#2C7BE5"></i>BSBA <b>0</b></li>
+                                    <li><i style="background:#4CAF8D"></i>BSED <b>0</b></li>
+                                    <li><i style="background:#F2A93B"></i>BEED <b>0</b></li>
+                                    <li><i style="background:#AFC5E2"></i>Others <b>0</b></li>
+                                </ul>
+                            </div>
+                        </article>
+                    </div>
+
+                    <article class="chart-card bar-card">
+                        <h3>Students Per Level</h3>
+                        <div class="bar-chart">
+                            <div class="bar-col">
+                                <small>0</small>
+                                <div class="bar" style="height:0"></div>
+                                <span>1st Year</span>
+                            </div>
+                            <div class="bar-col">
+                                <small>0</small>
+                                <div class="bar" style="height:0"></div>
+                                <span>2nd Year</span>
+                            </div>
+                            <div class="bar-col">
+                                <small>0</small>
+                                <div class="bar" style="height:0"></div>
+                                <span>3rd Year</span>
+                            </div>
+                            <div class="bar-col">
+                                <small>0</small>
+                                <div class="bar" style="height:0"></div>
+                                <span>4th Year</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <aside class="analytics-rail">
+                    <article class="chart-card">
+                        <div class="calendar-head">
+                            <h3>Calendar</h3>
+                            <button type="button" disabled aria-label="Calendar month"><i class="fa-solid fa-chevron-right"></i></button>
+                        </div>
+                        <div class="calendar" role="grid" aria-label="Calendar">
+                            <span class="dow">Mon</span><span class="dow">Tue</span><span class="dow">Wed</span><span class="dow">Thu</span><span class="dow">Fri</span><span class="dow">Sat</span><span class="dow">Sun</span>
+                            <span class="day empty"></span><span class="day empty"></span>
+                            <span class="day">1</span><span class="day">2</span><span class="day">3</span><span class="day">4</span><span class="day">5</span>
+                            <span class="day">6</span><span class="day">7</span><span class="day">8</span><span class="day">9</span><span class="day">10</span><span class="day">11</span><span class="day">12</span>
+                            <span class="day">13</span><span class="day">14</span><span class="day">15</span><span class="day">16</span><span class="day">17</span><span class="day">18</span><span class="day">19</span>
+                            <span class="day">20</span><span class="day">21</span><span class="day">22</span><span class="day">23</span><span class="day">24</span><span class="day">25</span><span class="day">26</span>
+                            <span class="day">27</span><span class="day">28</span><span class="day">29</span><span class="day">30</span><span class="day">31</span><span class="day empty"></span><span class="day empty"></span>
+                        </div>
+                    </article>
+
+                    <article class="chart-card">
+                        <h3>Upcoming Events</h3>
+                        <ul class="events-list">
+                        </ul>
+                    </article>
+                </aside>
+            </section>
+
+            <footer class="app-footer">
+                &copy; 2024 Cebu Eastern College. All rights reserved.
+            </footer>
+        </section>
+    </main>
+
+    <script src="../../js/api.js"></script>
+    <script src="../../js/sidebar.js"></script>
+    <script>
+        (function () {
+            var toggle = document.getElementById('menu-toggle');
+            toggle.addEventListener('click', function () {
+                document.body.classList.toggle('sidebar-collapsed');
+            });
+        })();
+    </script>
+    <script>
+        (function () {
+            'use strict';
+
+            function escText(value) {
+                var div = document.createElement('div');
+                div.textContent = String(value == null ? '' : value);
+                return div.innerHTML;
+            }
+
+            function pick(object, keys) {
+                for (var i = 0; i < keys.length; i += 1) {
+                    if (object[keys[i]] !== undefined && object[keys[i]] !== null) return object[keys[i]];
+                }
+                return 0;
+            }
+
+            function arrayFor(object, keys) {
+                for (var i = 0; i < keys.length; i += 1) {
+                    if (Array.isArray(object[keys[i]])) return object[keys[i]];
+                }
+                return null;
+            }
+
+            function applyDonut(donutEl, values, colors, centerLabel) {
+                if (!donutEl || !values || values.length === 0) return;
+                var total = 0;
+                values.forEach(function (v) { total += (Number(v) || 0); });
+                if (!total) return;
+                var card = donutEl.closest('.chart-card');
+                var acc = 0;
+                var parts = [];
+                values.forEach(function (v, i) {
+                    var pct = (Number(v) || 0) / total * 100;
+                    var start = acc;
+                    acc += pct;
+                    parts.push((colors[i] || '#1D4E9B') + ' ' + start.toFixed(2) + '% ' + acc.toFixed(2) + '%');
+                });
+                donutEl.style.background = 'conic-gradient(' + parts.join(', ') + ')';
+                var center = donutEl.querySelector('.donut-center strong');
+                if (center) center.textContent = total;
+                var centerSpan = donutEl.querySelector('.donut-center span');
+                if (centerSpan && centerLabel) centerSpan.textContent = centerLabel;
+                if (card) {
+                    var legendValues = card.querySelectorAll('.legend li b');
+                    legendValues.forEach(function (b, i) {
+                        if (values[i] !== undefined) b.textContent = values[i];
+                    });
+                }
+            }
+
+            function applyLevelBars(bars) {
+                if (!Array.isArray(bars) || bars.length === 0) return;
+                var cols = document.querySelectorAll('.bar-card .bar-col');
+                var max = 0;
+                bars.forEach(function (b) {
+                    var n = (b && typeof b === 'object') ? (b.count !== undefined && b.count !== null ? Number(b.count) : (Number(b.value) || 0)) : (Number(b) || 0);
+                    if (n > max) max = n;
+                });
+                if (!max) return;
+                cols.forEach(function (col, i) {
+                    var raw = bars[i];
+                    var n = (raw && typeof raw === 'object') ? (raw.count !== undefined ? Number(raw.count) : (Number(raw.value) || 0)) : (Number(raw) || 0);
+                    var small = col.querySelector('small');
+                    var bar = col.querySelector('.bar');
+                    if (small) small.textContent = n;
+                    if (bar) bar.style.height = Math.max(4, Math.round(n / max * 180)) + 'px';
+                });
+            }
+
+            function renderEvents(events) {
+                var list = document.querySelector('.events-list');
+                if (!list) return;
+                if (!Array.isArray(events) || events.length === 0) {
+                    list.innerHTML = '<li style="justify-content:center;color:var(--muted);font-size:12.5px;">No upcoming events.</li>';
+                    return;
+                }
+                list.innerHTML = events.map(function (ev) {
+                    var title = (ev && ev.title) || '';
+                    var date = (ev && ev.date) || '';
+                    var day = '';
+                    var parsed = new Date(date);
+                    if (!isNaN(parsed.getTime())) {
+                        day = String(parsed.getDate());
+                    } else if (date) {
+                        var first = String(date).split(' ')[0];
+                        if (/^\d+$/.test(first)) day = first;
+                    }
+                    return '<li><span class="event-date">' + escText(day) + '</span><div class="event-info"><strong>' + escText(title) + '</strong><small>' + escText(date) + '</small></div></li>';
+                }).join('');
+            }
+
+            function loadMetrics() {
+                if (!window.API) return;
+                window.API.get('/registrar/dashboard/metrics').then(function (res) {
+                    var m = (res && res.data && typeof res.data === 'object') ? res.data : res;
+                    if (!m || typeof m !== 'object') return;
+                    var kpis = m.kpis || {};
+                    var total = document.getElementById('kpi-total');
+                    var active = document.getElementById('kpi-active-enroll');
+                    var docPending = document.getElementById('kpi-doc-pending');
+                    var docReleased = document.getElementById('kpi-doc-released');
+                    var newStudent = document.getElementById('kpi-new-student');
+                    if (total) total.textContent = pick(kpis, ['total']);
+                    if (active) active.textContent = pick(kpis, ['active']);
+                    if (docPending) docPending.textContent = pick(kpis, ['docPending', 'documentsPending', 'pendingDocs', 'documentPending', 'pendingDocuments']);
+                    if (docReleased) docReleased.textContent = pick(kpis, ['docReleased', 'documentsReleased', 'releasedDocs', 'documentReleased', 'releasedDocuments']);
+                    if (newStudent) newStudent.textContent = pick(kpis, ['newStudents', 'newStudent', 'new', 'newlyEnrolled']);
+
+                    var donut = m.donut || {};
+                    var statusVals = arrayFor(donut, ['values', 'data']);
+                    if (statusVals) {
+                        applyDonut(document.getElementById('donut-status'), statusVals, ['#1D4E9B', '#2C7BE5', '#4CAF8D', '#F2A93B'], 'Students');
+                        applyDonut(document.getElementById('donut-program'), statusVals, ['#1D4E9B', '#2C7BE5', '#4CAF8D', '#F2A93B', '#AFC5E2'], 'Students');
+                    } else {
+                        var statusSplit = arrayFor(donut, ['status', 'statusValues', 'studentStatus', 'statusBreakdown']);
+                        if (statusSplit) applyDonut(document.getElementById('donut-status'), statusSplit, ['#1D4E9B', '#2C7BE5', '#4CAF8D', '#F2A93B'], 'Students');
+                        var programSplit = arrayFor(donut, ['program', 'programValues', 'enrollmentByProgram', 'programBreakdown']);
+                        if (programSplit) applyDonut(document.getElementById('donut-program'), programSplit, ['#1D4E9B', '#2C7BE5', '#4CAF8D', '#F2A93B', '#AFC5E2'], 'Students');
+                    }
+
+                    if (Array.isArray(m.levelBars)) applyLevelBars(m.levelBars);
+                    renderEvents(m.events);
+                }).catch(function () {
+                    renderEvents([]);
+                });
+            }
+
+            loadMetrics();
+        })();
+    </script>
+</body>
+</html>

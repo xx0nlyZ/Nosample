@@ -1,0 +1,53 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    min-height: 100%;
+    margin: 0;
+}
+
+body {
+    display: grid;
+    min-height: 100vh;
+    place-items: center;
+    padding: 24px;
+    color: #0B2C5E;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(rgba(71, 90, 114, 0.8), rgba(35, 68, 114, 0.8)), url("../../images/school_bg.jpg") center / cover no-repeat;
+}
+
+.destination-content {
+    width: min(100%, 520px);
+    padding: 48px 40px;
+    border: 1px solid #DCE7F5;
+    border-radius: 12px;
+    background: #FFFFFF;
+    text-align: center;
+}
+
+.destination-content h1 {
+    margin: 0 0 12px;
+    color: #0B2C5E;
+    font-size: 32px;
+}
+
+.destination-content p {
+    margin: 0 0 28px;
+    color: #1D4E9B;
+    font-size: 17px;
+}
+
+.destination-content a {
+    display: inline-block;
+    padding: 12px 22px;
+    border-radius: 5px;
+    color: #FFFFFF;
+    background: #0B2C5E;
+    text-decoration: none;
+}
+
+.destination-content a:hover {
+    background: #1D4E9B;
+}

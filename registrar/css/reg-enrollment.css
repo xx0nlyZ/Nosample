@@ -1,0 +1,369 @@
+.enroll-content {
+    padding: 24px 40px 44px;
+}
+
+/* Page title */
+.page-title {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.page-title-icon {
+    display: grid;
+    width: 46px;
+    height: 46px;
+    flex: 0 0 46px;
+    place-items: center;
+    border-radius: 10px;
+    color: #FFFFFF;
+    background: var(--navy);
+    font-size: 21px;
+}
+
+.page-title h1 {
+    margin: 0;
+    font-size: 26px;
+    letter-spacing: 0.3px;
+}
+
+.page-title .page-desc {
+    margin-top: 5px;
+}
+
+/* Filter selectors */
+.enroll-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.enroll-filters .filter-select {
+    min-width: 180px;
+}
+
+/* KPI icon variants */
+.kpi-icon.green {
+    color: #177245;
+    background: #E3F4EA;
+}
+
+.kpi-icon.amber {
+    color: #8A6D00;
+    background: #FFF2CC;
+}
+
+.kpi-icon.red {
+    color: #B3261E;
+    background: #FBE4E4;
+}
+
+/* ==========================================================================
+   BREAKDOWN LISTS
+   ========================================================================== */
+.breakdown-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.breakdown-card {
+    border: 1px solid #E3E9F2;
+    border-radius: 10px;
+    background: #FFFFFF;
+    overflow: hidden;
+}
+
+.breakdown-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 16px 18px;
+    border-bottom: 1px solid #EEF2F8;
+}
+
+.breakdown-head h3 {
+    margin: 0;
+    font-size: 15px;
+}
+
+.breakdown-head .count-pill {
+    margin-left: 6px;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.count-pill.amber {
+    color: #8A6D00;
+    background: #FFF2CC;
+}
+
+.count-pill.green {
+    color: #177245;
+    background: #E3F4EA;
+}
+
+.breakdown-head > a {
+    font-size: 12.5px;
+}
+
+.breakdown-list {
+    margin: 0;
+    padding: 4px 18px;
+    list-style: none;
+}
+
+.break-row {
+    display: grid;
+    grid-template-columns: minmax(120px, 1fr) 1.2fr 54px;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid #F1F4F9;
+}
+
+.break-row:last-child {
+    border-bottom: 0;
+}
+
+.break-row .prog-label {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.break-row .prog {
+    position: relative;
+    height: 6px;
+    overflow: hidden;
+    border-radius: 6px;
+    background: #E7EDF5;
+}
+
+.break-row .prog span {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 6px;
+    background: var(--blue);
+}
+
+.breakdown-card.pending .prog span {
+    background: #E9B84B;
+}
+
+.breakdown-card.active .prog span {
+    background: #2E9E63;
+}
+
+.break-row b {
+    font-size: 13.5px;
+    text-align: right;
+}
+
+/* ==========================================================================
+   ENROLLMENT REQUESTS TABLE
+   ========================================================================== */
+.table-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 16px;
+    border-bottom: 1px solid #E3E9F2;
+}
+
+.table-toolbar h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.bulk-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.bulk-actions .btn {
+    height: 38px;
+}
+
+.btn-success {
+    border: 0;
+    color: #FFFFFF;
+    background: #177245;
+}
+
+.btn-success:hover {
+    background: #1E8A55;
+}
+
+.btn-danger {
+    border: 0;
+    color: #FFFFFF;
+    background: #B3261E;
+}
+
+.btn-danger:hover {
+    background: #CF3B33;
+}
+
+/* Table heading bar */
+.table-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px;
+    border-bottom: 1px solid #E3E9F2;
+}
+
+.table-head i {
+    color: var(--blue);
+    font-size: 16px;
+}
+
+.table-head h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+/* Row action buttons (View / Edit) */
+.actions-cell .btn-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 30px;
+    padding: 0 12px;
+    border-radius: 6px;
+    font-size: 12.5px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-row.primary {
+    color: #FFFFFF;
+    border: 1px solid var(--blue);
+    background: var(--blue);
+}
+
+.btn-row.primary:hover {
+    background: #163E7A;
+    border-color: #163E7A;
+}
+
+.btn-row.outline {
+    color: var(--navy);
+    border: 1px solid #C3D1E4;
+    background: #FFFFFF;
+}
+
+.btn-row.outline:hover {
+    background: var(--pale-blue);
+}
+
+.pagination-ellipsis {
+    align-self: center;
+    padding: 0 4px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.data-table input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    accent-color: var(--blue);
+}
+
+.actions-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.row-action {
+    height: 28px;
+    padding: 0 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.row-action.approve {
+    border: 1px solid #7BC29A;
+    color: #177245;
+    background: #F0FAF4;
+}
+
+.row-action.approve:hover {
+    color: #FFFFFF;
+    background: #177245;
+}
+
+.row-action.reject {
+    border: 1px solid #E3A29D;
+    color: #B3261E;
+    background: #FDF3F2;
+}
+
+.row-action.reject:hover {
+    color: #FFFFFF;
+    background: #B3261E;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 1180px) {
+    .breakdown-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 900px) {
+    .enroll-content {
+        padding: 24px;
+    }
+}
+
+@media (max-width: 650px) {
+    .enroll-content {
+        padding: 20px 14px;
+    }
+
+    .page-title {
+        align-items: flex-start;
+    }
+
+    .page-title h1 {
+        font-size: 20px;
+    }
+
+    .table-toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .bulk-actions {
+        width: 100%;
+    }
+
+    .bulk-actions .btn {
+        flex: 1;
+    }
+
+    .break-row {
+        grid-template-columns: 1fr 60px;
+    }
+
+    .break-row .prog {
+        display: none;
+    }
+}

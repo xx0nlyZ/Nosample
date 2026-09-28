@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings | CEC Registrar Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/reg-dashboard.css">
+    <link rel="stylesheet" href="../../css/reg-analytics.css">
+    <link rel="stylesheet" href="../../css/reg-enrollment.css">
+    <link rel="stylesheet" href="../../css/reg-settings.css">
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>STUDENT PORTAL SYSTEM</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Registrar navigation">
+            <a href="../../pages/dashboard/registrar.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="../student-record/student-records.html"><i class="fa-solid fa-users"></i><span>Student Records</span></a>
+            <a href="../enrollment-management/enrollment-management.html"><i class="fa-regular fa-file-lines"></i><span>Enrollment Management</span></a>
+            <a href="../enrollment-management/enrollment-application.html"><i class="fa-regular fa-square-plus"></i><span>Enrollment Application</span></a>
+            <a href="../report/reports.html"><i class="fa-solid fa-chart-simple"></i><span>Reports</span></a>
+            <a href="../document-request/index.html"><i class="fa-regular fa-folder-open"></i><span>Document Requests</span></a>
+            <a href="../announcement/index.html"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="settings.html" class="active"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+            <a href="../../pages/auth/login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="app-header">
+            <button class="menu-toggle" type="button" id="menu-toggle" aria-label="Toggle sidebar"><i class="fa-solid fa-bars"></i></button>
+            <h1 class="app-title">Registrar Dashboard</h1>
+
+            <label class="app-search">
+                <span class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Search anything</span>
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search anything...">
+            </label>
+
+            <div class="app-user">
+                <span class="app-user-avatar">&mdash;</span>
+                <span class="app-user-text">
+                    <strong>&nbsp;</strong>
+                    <small>Registrar</small>
+                </span>
+            </div>
+        </header>
+
+        <section class="settings-content">
+            <div class="page-head">
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <a href="../../pages/dashboard/registrar.html">Dashboard</a>
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <span>Settings</span>
+                </nav>
+                <div class="page-title">
+                    <span class="page-title-icon"><i class="fa-solid fa-gear"></i></span>
+                    <div>
+                        <h1>Settings</h1>
+                        <p class="page-desc">Manage your account, security, notification and preferences.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-layout">
+                <nav class="settings-nav" aria-label="Settings categories">
+                    <a href="#" data-target="panel-account" class="active"><i class="fa-regular fa-user"></i> Account Settings</a>
+                    <a href="#" data-target="panel-security"><i class="fa-solid fa-shield-halved"></i> Security</a>
+                    <a href="#" data-target="panel-notifications"><i class="fa-regular fa-bell"></i> Notifications</a>
+                    <a href="#" data-target="panel-preferences"><i class="fa-solid fa-sliders"></i> Preferences</a>
+                    <a href="#" data-target="panel-session"><i class="fa-solid fa-laptop"></i> Session Management</a>
+                    <a href="#" data-target="panel-history"><i class="fa-solid fa-clock-rotate-left"></i> Login History</a>
+                </nav>
+
+                <!-- =================================================================
+                     PANEL 1: ACCOUNT SETTINGS
+                     ================================================================= -->
+                <div class="settings-panel active" id="panel-account" aria-label="Account settings">
+                    <div class="setting-card">
+                        <div class="setting-title">
+                            <h3><i class="fa-regular fa-user" aria-hidden="true"></i> Account Settings</h3>
+                        </div>
+
+                        <div class="account-grid">
+                            <div>
+                                <form id="account-form">
+                                    <div class="form-group">
+                                        <label for="full-name">Full Name</label>
+                                        <input type="text" id="full-name" value="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email-address">Email Address</label>
+                                        <div class="input-with-btn">
+                                            <input type="email" id="email-address" value="">
+                                            <button type="button" class="btn-verify" id="btn-verify-email">Verify</button>
+                                        </div>
+                                        <span class="verify-badge" id="verify-badge"><i class="fa-solid fa-circle-check" aria-hidden="true"></i><span id="verify-badge-text"></span></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="username">Username</label>
+                                        <input type="text" id="username" value="" disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="address">Address</label>
+                                        <input type="text" id="address" value="">
+                                    </div>
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk" aria-hidden="true"></i> Save Changes</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="photo-panel">
+                                <div class="profile-photo" id="profile-photo">
+                                    <i class="fa-regular fa-user" aria-hidden="true"></i>
+                                    <span class="photo-badge"><i class="fa-solid fa-camera" aria-hidden="true"></i></span>
+                                </div>
+                                <button type="button" class="btn-pill outline-blue" id="btn-change-photo"><i class="fa-solid fa-camera" aria-hidden="true"></i> Change Photo</button>
+                                <input type="file" id="photo-input" accept="image/*" style="display:none">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- =================================================================
+                     PANEL 2: SECURITY
+                     ================================================================= -->
+                <div class="settings-panel" id="panel-security" aria-label="Security settings">
+                    <!-- Sub-view: Overview -->
+                    <div class="settings-subview active" id="sec-overview">
+                        <div class="setting-card">
+                            <div class="setting-title">
+                                <h3><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Security</h3>
+                            </div>
+
+                            <div class="security-card">
+                                <div class="security-row">
+                                    <span class="row-icon"><i class="fa-solid fa-lock" aria-hidden="true"></i></span>
+                                    <div class="row-text">
+                                        <strong>Password</strong>
+                                        <small></small>
+                                    </div>
+                                    <span class="row-end">
+                                        <button type="button" class="btn btn-outline" data-sec-nav="sec-password"><i class="fa-solid fa-pen" aria-hidden="true"></i> Change Password</button>
+                                    </span>
+                                </div>
+                                <div class="security-row">
+                                    <span class="row-icon"><i class="fa-solid fa-bell" aria-hidden="true"></i></span>
+                                    <div class="row-text">
+                                        <strong>Login Alerts</strong>
+                                        <small>Get notified of new logins to your account.</small>
+                                    </div>
+                                    <span class="row-end">
+                                        <button type="button" class="link-pill" data-sec-nav="sec-alerts"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sub-view: Change Password -->
+                    <div class="settings-subview" id="sec-password">
+                        <div class="setting-card">
+                            <div class="mini-breadcrumb">
+                                <a data-sec-nav="sec-overview">Security</a>
+                                <i class="fa-solid fa-chevron-right"></i>
+                                <span>Change Password</span>
+                            </div>
+
+                            <div class="setting-title">
+                                <h3><i class="fa-solid fa-lock" aria-hidden="true"></i> Change Password</h3>
+                            </div>
+
+                            <form id="password-form">
+                                <div class="form-stack">
+                                    <div class="form-group">
+                                        <label for="current-password">Current Password</label>
+                                        <input type="password" id="current-password" placeholder="Enter current password">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="new-password">New Password</label>
+                                        <input type="password" id="new-password" placeholder="Enter new password">
+                                    </div>
+                                    <div class="strength-meter">
+                                        <div class="strength-track"><span class="sg-bar" id="strength-bar"></span></div>
+                                        <span class="strength-label" id="strength-label"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="confirm-password">Confirm New Password</label>
+                                        <input type="password" id="confirm-password" placeholder="Re-enter new password">
+                                    </div>
+                                </div>
+                                <div class="form-actions center">
+                                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk" aria-hidden="true"></i> Save Changes</button>
+                                </div>
+                                <p class="form-hint">Use a strong password with letters, numbers, and symbol.</p>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Sub-view: Login Alerts -->
+                    <div class="settings-subview" id="sec-alerts">
+                        <div class="setting-card">
+                            <div class="mini-breadcrumb">
+                                <a data-sec-nav="sec-overview">Security</a>
+                                <i class="fa-solid fa-chevron-right"></i>
+                                <span>Login Alert</span>
+                            </div>
+
+                            <div class="setting-title">
+                                <h3><i class="fa-solid fa-bell" aria-hidden="true"></i> Login Alert</h3>
+                            </div>
+
+                            <div class="checkbox-list">
+                                <label class="checkbox-option">
+                                    <input type="checkbox">
+                                    <span class="opt-text"><strong>New device login</strong></span>
+                                </label>
+                                <label class="checkbox-option">
+                                    <input type="checkbox">
+                                    <span class="opt-text"><strong>Unfamiliar location login</strong></span>
+                                </label>
+                                <label class="checkbox-option">
+                                    <input type="checkbox">
+                                    <span class="opt-text"><strong>Every login activity</strong></span>
+                                </label>
+                            </div>
+
+                            <div class="alerts-input-row">
+                                <div class="form-group">
+                                    <label for="alert-email">Target Email Address</label>
+                                    <input type="email" id="alert-email" value="">
+                                </div>
+                                <div class="alerts-btn">
+                                    <button type="button" class="btn btn-primary" id="btn-save-alerts"><i class="fa-solid fa-envelope" aria-hidden="true"></i> Save Alert Preferences</button>
+                                </div>
+                            </div>
+
+                            <p class="warning-foot">Get notified instantly <b>if someone accesses your account</b>.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- =================================================================
+                     PANEL 3: NOTIFICATIONS
+                     ================================================================= -->
+                <div class="settings-panel" id="panel-notifications" aria-label="Notification settings">
+                    <div class="setting-card">
+                        <div class="setting-title">
+                            <h3><i class="fa-regular fa-bell" aria-hidden="true"></i> Notifications</h3>
+                        </div>
+
+                        <div>
+                            <div class="option-row">
+                                <span class="row-icon"><i class="fa-regular fa-file-lines" aria-hidden="true"></i></span>
+                                <div class="row-text">
+                                    <strong>New Enrollment Requests</strong>
+                                    <small>Get notified when new enrollment requests are submitted.</small>
+                                </div>
+                                <span class="toggle"><input type="checkbox" id="noti-1"><span class="slider"></span></span>
+                            </div>
+
+                            <div class="option-row">
+                                <span class="row-icon"><i class="fa-solid fa-file-circle-check" aria-hidden="true"></i></span>
+                                <div class="row-text">
+                                    <strong>Documents Approvals</strong>
+                                    <small>Get notified when documents are approved.</small>
+                                </div>
+                                <span class="toggle"><input type="checkbox" id="noti-2"><span class="slider"></span></span>
+                            </div>
+
+                            <div class="option-row">
+                                <span class="row-icon"><i class="fa-solid fa-bullhorn" aria-hidden="true"></i></span>
+                                <div class="row-text">
+                                    <strong>System Announcements</strong>
+                                    <small>Get notified about system updates and announcements.</small>
+                                </div>
+                                <span class="toggle"><input type="checkbox" id="noti-3"><span class="slider"></span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- =================================================================
+                     PANEL 4: PREFERENCES
+                     ================================================================= -->
+                <div class="settings-panel" id="panel-preferences" aria-label="Preferences">
+                    <div class="setting-card">
+                        <div class="setting-title">
+                            <h3><i class="fa-solid fa-sliders" aria-hidden="true"></i> Preferences</h3>
+                        </div>
+
+                        <div class="pref-list">
+                            <div class="pref-row">
+                                <span class="row-icon"><i class="fa-solid fa-globe" aria-hidden="true"></i></span>
+                                <div class="row-text">
+                                    <strong>Language</strong>
+                                    <small>Choose your preferred language.</small>
+                                </div>
+                                <div class="pref-control">
+                                    <select class="filter-select" aria-label="Select language">
+                                        <option>English</option>
+                                        <option>Bisaya (Cebuano)</option>
+                                        <option>Tagalog</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="pref-row">
+                                <span class="row-icon"><i class="fa-regular fa-calendar" aria-hidden="true"></i></span>
+                                <div class="row-text">
+                                    <strong>Date Format</strong>
+                                    <small>Choose your preferred date format.</small>
+                                </div>
+                                <div class="pref-control">
+                                    <select class="filter-select" aria-label="Select date format">
+                                        <option>MM/DD/YYYY</option>
+                                        <option>DD/MM/YYYY</option>
+                                        <option>YYYY-MM-DD</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-card">
+                        <div class="setting-title">
+                            <h3><i class="fa-solid fa-palette" aria-hidden="true"></i> Appearance</h3>
+                        </div>
+
+                        <div class="settings-subhead" style="margin-top:0"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> Appearance</div>
+                        <small>Customize the look and feel of your portal.</small>
+
+                        <div class="settings-subhead">Theme Selection</div>
+                        <div class="theme-choices" id="theme-choices">
+                            <div class="theme-card" data-theme="light">
+                                <i class="fa-solid fa-sun" aria-hidden="true"></i>
+                                <strong>Light Mode</strong>
+                                <span class="radio-dot"></span>
+                            </div>
+                            <div class="theme-card" data-theme="dark">
+                                <i class="fa-solid fa-moon" aria-hidden="true"></i>
+                                <strong>Dark Mode</strong>
+                                <span class="radio-dot"></span>
+                            </div>
+                        </div>
+
+                        <div class="settings-subhead">Color Scheme</div>
+                        <div class="color-dot-row" id="color-scheme">
+                            <button type="button" class="color-dot blue" data-color="blue" aria-label="Blue"></button>
+                            <button type="button" class="color-dot purple" data-color="purple" aria-label="Purple"></button>
+                            <button type="button" class="color-dot green" data-color="green" aria-label="Green"></button>
+                            <button type="button" class="color-dot yellow" data-color="yellow" aria-label="Yellow"></button>
+                            <button type="button" class="color-dot red" data-color="red" aria-label="Red"></button>
+                        </div>
+
+                        <div class="settings-subhead">Font Size</div>
+                        <div class="segmented" id="font-size-group">
+                            <button type="button" data-font="14">Small</button>
+                            <button type="button" data-font="16">Medium</button>
+                            <button type="button" data-font="18">Large</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- =================================================================
+                     PANEL 5: SESSION MANAGEMENT
+                     ================================================================= -->
+                <div class="settings-panel" id="panel-session" aria-label="Session management">
+                    <div class="setting-card">
+                        <div class="setting-title">
+                            <h3><i class="fa-solid fa-laptop" aria-hidden="true"></i> Session Management</h3>
+                            <span class="session-status" id="session-status"></span>
+                        </div>
+
+                        <div class="pref-list">
+                            <div class="pref-row">
+                                <span class="row-icon"><i class="fa-solid fa-desktop" aria-hidden="true"></i></span>
+                                <div class="row-text">
+                                    <strong></strong>
+                                    <small></small>
+                                </div>
+                                <span class="badge-this-device"></span>
+                            </div>
+
+                            <div class="pref-row">
+                                <span class="row-icon"><i class="fa-regular fa-clock" aria-hidden="true"></i></span>
+                                <div class="row-text">
+                                    <strong>Last Active</strong>
+                                    <small id="last-active-time"></small>
+                                </div>
+                            </div>
+
+                            <div class="pref-row">
+                                <span class="row-icon"><i class="fa-solid fa-hourglass-half" aria-hidden="true"></i></span>
+                                <div class="row-text">
+                                    <strong>Session Timeout</strong>
+                                    <small>You will be automatically logged out after a period of inactivity.</small>
+                                </div>
+                                <div class="pref-control">
+                                    <select class="filter-select" id="timeout-select" aria-label="Select timeout duration">
+                                        <option value="15">15 minutes</option>
+                                        <option value="30">30 minutes</option>
+                                        <option value="60">60 minutes</option>
+                                        <option value="never">Never</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- =================================================================
+                     PANEL 6: LOGIN HISTORY (compact + full sub-views)
+                     ================================================================= -->
+                <div class="settings-panel" id="panel-history" aria-label="Login history">
+                    <!-- Sub-view: Compact -->
+                    <div class="settings-subview active" id="hist-compact">
+                        <div class="setting-card">
+                            <div class="setting-title">
+                                <h3><i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i> Login History</h3>
+                            </div>
+
+                            <div class="table-wrap">
+                                <table class="data-table login-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Date & Time</th>
+                                            <th>Device</th>
+                                            <th>IP Address</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+
+                            <button type="button" class="btn-view-full" id="btn-view-full-history"><i class="fa-regular fa-clock" aria-hidden="true"></i> View Full Login History</button>
+                        </div>
+                    </div>
+
+                    <!-- Sub-view: Full -->
+                    <div class="settings-subview" id="hist-full">
+                        <div class="back-bar">
+                            <button type="button" class="back-btn" id="btn-back-history" aria-label="Back"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i></button>
+                            <div>
+                                <h1>Login History</h1>
+                                <p>View your complete login history for your account.</p>
+                            </div>
+                        </div>
+
+                        <div class="login-filter-panel">
+                            <div class="login-filter-title">
+                                <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+                                <div>
+                                    <strong>Login History</strong>
+                                    <small>All login attempts for your account.</small>
+                                </div>
+                            </div>
+                            <div class="login-filter-actions">
+                                <div class="search-input">
+                                    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                                    <input type="search" id="hist-search" placeholder="Search history...">
+                                </div>
+                                <select class="filter-select" id="hist-status-filter" aria-label="Filter by status">
+                                    <option value="">All Status</option>
+                                    <option value="success">Success</option>
+                                    <option value="failed">Failed</option>
+                                </select>
+                                <select class="filter-select" id="hist-device-filter" aria-label="Filter by device">
+                                    <option value="">All Devices</option>
+                                    <option value="Windows - Chrome">Windows - Chrome</option>
+                                    <option value="Windows - Edge">Windows - Edge</option>
+                                    <option value="MacOS - Safari">MacOS - Safari</option>
+                                    <option value="Android - Chrome">Android - Chrome</option>
+                                </select>
+                                <button type="button" class="btn btn-outline" id="btn-export-csv"><i class="fa-solid fa-cloud-arrow-up" aria-hidden="true"></i> Export CSV</button>
+                            </div>
+                        </div>
+
+                        <section class="setting-card" aria-label="Full login history data">
+                            <div class="table-wrap">
+                                <table class="data-table login-table" id="full-history-table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Date & Time</th>
+                                            <th>Device</th>
+                                            <th>IP Address</th>
+                                            <th>Status</th>
+                                            <th>Location</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="full-history-body"></tbody>
+                                </table>
+                            </div>
+
+                            <div class="table-footer">
+                                <p class="pagination-info" id="hist-pagination-info">No entries</p>
+                                <div class="pagination" id="hist-pagination"></div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <div class="toast" id="toast"><i class="fa-solid fa-check-circle" aria-hidden="true"></i> <span id="toast-msg">Settings saved</span></div>
+
+    <script src="../../js/api.js"></script>
+    <script src="../../js/sidebar.js"></script>
+    <script src="js/settings.js"></script>
+    <script>
+        (function () {
+            var toggle = document.getElementById('menu-toggle');
+            toggle.addEventListener('click', function () {
+                document.body.classList.toggle('sidebar-collapsed');
+            });
+        })();
+    </script>
+</body>
+</html>

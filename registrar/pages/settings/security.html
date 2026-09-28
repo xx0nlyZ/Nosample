@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security | CEC Registrar Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/reg-dashboard.css">
+    <link rel="stylesheet" href="../../css/reg-analytics.css">
+    <link rel="stylesheet" href="../../css/reg-enrollment.css">
+    <link rel="stylesheet" href="../../css/reg-settings.css">
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>STUDENT PORTAL SYSTEM</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Registrar navigation">
+            <a href="../../pages/dashboard/registrar.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="../student-record/student-records.html"><i class="fa-solid fa-users"></i><span>Student Records</span></a>
+            <a href="../enrollment-management/enrollment-management.html"><i class="fa-regular fa-file-lines"></i><span>Enrollment Management</span></a>
+            <a href="../enrollment-management/enrollment-application.html"><i class="fa-regular fa-square-plus"></i><span>Enrollment Application</span></a>
+            <a href="../report/reports.html"><i class="fa-solid fa-chart-simple"></i><span>Reports</span></a>
+            <a href="../document-request/index.html"><i class="fa-regular fa-folder-open"></i><span>Document Requests</span></a>
+            <a href="../announcement/index.html"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="settings.html" class="active"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+            <a href="../../pages/auth/login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="app-header">
+            <button class="menu-toggle" type="button" id="menu-toggle" aria-label="Toggle sidebar"><i class="fa-solid fa-bars"></i></button>
+            <h1 class="app-title">Registrar Dashboard</h1>
+
+            <label class="app-search">
+                <span class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Search anything</span>
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search anything...">
+            </label>
+
+            <div class="app-user">
+                <span class="app-user-avatar">&mdash;</span>
+                <span class="app-user-text">
+                    <strong>&nbsp;</strong>
+                    <small>Registrar</small>
+                </span>
+            </div>
+        </header>
+
+        <section class="settings-content">
+            <div class="page-head">
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <a href="../../pages/dashboard/registrar.html">Dashboard</a>
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <a href="settings.html">Settings</a>
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <span>Security</span>
+                </nav>
+                <div class="page-title">
+                    <span class="page-title-icon"><i class="fa-solid fa-gear"></i></span>
+                    <div>
+                        <h1>Settings</h1>
+                        <p class="page-desc">Manage your account, security, notification and preferences.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-layout">
+                <nav class="settings-nav" aria-label="Settings categories">
+                    <a href="settings.html"><i class="fa-regular fa-user"></i> Account Settings</a>
+                    <a href="security.html" class="active"><i class="fa-solid fa-shield-halved"></i> Security</a>
+                    <a href="notifications.html"><i class="fa-regular fa-bell"></i> Notifications</a>
+                    <a href="preferences.html"><i class="fa-solid fa-sliders"></i> Preferences</a>
+                    <a href="session-management.html"><i class="fa-solid fa-laptop"></i> Session Management</a>
+                    <a href="login-history.html"><i class="fa-solid fa-clock-rotate-left"></i> Login History</a>
+                </nav>
+
+                <div>
+                    <section class="setting-card" aria-label="Security overview">
+                        <div class="setting-title">
+                            <h3><i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Security</h3>
+                        </div>
+
+                        <div class="security-card">
+                            <div class="security-row">
+                                <span class="row-icon"><i class="fa-solid fa-lock" aria-hidden="true"></i></span>
+                                <div class="row-text">
+                                    <strong>Password</strong>
+                                    <small></small>
+                                </div>
+                                <span class="row-end">
+                                    <a class="btn btn-outline" href="change-password.html"><i class="fa-solid fa-pen" aria-hidden="true"></i> Change Password</a>
+                                </span>
+                            </div>
+                            <div class="security-row">
+                                <span class="row-icon"><i class="fa-solid fa-bell" aria-hidden="true"></i></span>
+                                <div class="row-text">
+                                    <strong>Login Alerts</strong>
+                                    <small>Get notified of new logins to your account.</small>
+                                </div>
+                                <span class="row-end">
+                                    <a class="link-pill" href="login-alerts.html"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+                                </span>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="../../js/api.js"></script>
+    <script src="../../js/sidebar.js"></script>
+    <script>
+        (function () {
+            var toggle = document.getElementById('menu-toggle');
+            toggle.addEventListener('click', function () {
+                document.body.classList.toggle('sidebar-collapsed');
+            });
+        })();
+    </script>
+</body>
+</html>

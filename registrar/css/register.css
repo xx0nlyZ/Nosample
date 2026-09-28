@@ -1,0 +1,16 @@
+@import url("registrar-auth.css");
+
+.reg-title {
+    margin: 0 0 6px;
+    color: #0B2C5E;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 22px;
+    text-align: center;
+}
+
+.reg-sub {
+    margin: 0 0 22px;
+    color: #60728B;
+    font-size: 13px;
+    text-align: center;
+}

@@ -1,0 +1,174 @@
+.sel-content {
+    padding: 24px 40px 44px;
+}
+
+/* ==========================================================================
+   STUDENT HEADER CARD
+   ========================================================================== */
+.student-card {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding: 18px 22px;
+    border: 1px solid #E3E9F2;
+    border-radius: 10px;
+    background: #FFFFFF;
+}
+
+.student-card .avatar-lg {
+    display: grid;
+    width: 60px;
+    height: 60px;
+    flex: 0 0 60px;
+    place-items: center;
+    border-radius: 50%;
+    color: var(--blue);
+    background: var(--pale-blue);
+    font-size: 21px;
+    font-weight: 800;
+}
+
+.student-card h3 {
+    margin: 0;
+    color: var(--navy);
+    font-size: 17px;
+}
+
+.sc-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 16px;
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 12.5px;
+}
+
+.sc-meta b {
+    color: var(--navy);
+}
+
+.sc-back {
+    margin-left: auto;
+}
+
+.sc-back i {
+    margin-right: 6px;
+}
+
+/* ==========================================================================
+   SPLIT PANES
+   ========================================================================== */
+.split-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    align-items: start;
+    gap: 16px;
+}
+
+.pane {
+    border: 1px solid #E3E9F2;
+    border-radius: 10px;
+    background: #FFFFFF;
+    overflow: hidden;
+}
+
+.pane-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 14px 18px;
+    border-bottom: 1px solid #EEF2F8;
+}
+
+.pane-head h3 {
+    margin: 0;
+    font-size: 15px;
+}
+
+.pane-head .pane-sub {
+    margin-top: 2px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.pane-search {
+    margin: 14px 16px 0;
+}
+
+.data-table input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    accent-color: var(--blue);
+}
+
+/* Selected subjects */
+.sel-table th,
+.sel-table td {
+    white-space: normal;
+}
+
+.total-units {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 6px 16px 0;
+    padding: 14px 0;
+    border-top: 1px solid #EEF2F8;
+    color: var(--navy);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.total-units em {
+    color: var(--muted);
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+}
+
+.total-units span.count {
+    color: var(--blue);
+    font-size: 20px;
+}
+
+.pane-actions {
+    padding: 16px;
+    border-top: 1px solid #EEF2F8;
+}
+
+.pane-actions .btn {
+    width: 100%;
+    background: var(--blue);
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 900px) {
+    .sel-content {
+        padding: 24px;
+    }
+
+    .split-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sc-back {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 650px) {
+    .sel-content {
+        padding: 20px 14px;
+    }
+
+    .student-card {
+        padding: 16px;
+    }
+}

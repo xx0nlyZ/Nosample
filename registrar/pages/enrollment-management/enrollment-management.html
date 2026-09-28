@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enrollment Management | CEC Registrar Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/reg-dashboard.css">
+    <link rel="stylesheet" href="../../css/reg-analytics.css">
+    <link rel="stylesheet" href="../../css/reg-enrollment.css">
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>STUDENT PORTAL SYSTEM</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Registrar navigation">
+            <a href="../../pages/dashboard/registrar.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="../student-record/student-records.html"><i class="fa-solid fa-users"></i><span>Student Records</span></a>
+            <a href="enrollment-management.html" class="active"><i class="fa-regular fa-file-lines"></i><span>Enrollment Management</span></a>
+            <a href="enrollment-application.html"><i class="fa-regular fa-square-plus"></i><span>Enrollment Application</span></a>
+            <a href="../report/reports.html"><i class="fa-solid fa-chart-simple"></i><span>Reports</span></a>
+            <a href="../document-request/index.html"><i class="fa-regular fa-folder-open"></i><span>Document Requests</span></a>
+            <a href="../announcement/index.html"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../settings/settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+            <a href="../../pages/auth/login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="app-header">
+            <button class="menu-toggle" type="button" id="menu-toggle" aria-label="Toggle sidebar"><i class="fa-solid fa-bars"></i></button>
+            <h1 class="app-title">Registrar Dashboard</h1>
+
+            <label class="app-search">
+                <span class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Search anything</span>
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search anything...">
+            </label>
+
+            <div class="app-user">
+                <span class="app-user-avatar">—</span>
+                <span class="app-user-text">
+                    <strong></strong>
+                    <small>Registrar</small>
+                </span>
+            </div>
+        </header>
+
+        <section class="enroll-content">
+            <div class="page-head">
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <a href="../../pages/dashboard/registrar.html">Dashboard</a>
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <span>Enrollment Management</span>
+                </nav>
+                <div class="page-title">
+                    <span class="page-title-icon"><i class="fa-solid fa-graduation-cap"></i></span>
+                    <div>
+                        <h1>Enrollment Management</h1>
+                        <p class="page-desc">Process and monitor student enrollments, approvals, and registration activities.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="enroll-filters">
+                <select class="filter-select" aria-label="Select school year">
+                    <option>2026 - 2027</option>
+                    <option>2025 - 2026</option>
+                    <option>2024 - 2025</option>
+                </select>
+                <select class="filter-select" aria-label="Select semester">
+                    <option>1st Semester</option>
+                    <option>2nd Semester</option>
+                    <option>Summer</option>
+                </select>
+            </div>
+
+            <section class="kpis" aria-label="Enrollment summary">
+                <article class="kpi-card">
+                    <i class="fa-solid fa-user-graduate kpi-icon"></i>
+                    <div>
+                        <span class="kpi-label">Total Enrollments</span>
+                        <strong class="kpi-value" id="kpi-enroll-total">0</strong>
+                        <small class="kpi-sub">vs last semester</small>
+                    </div>
+                </article>
+                <article class="kpi-card">
+                    <i class="fa-solid fa-circle-check kpi-icon green"></i>
+                    <div>
+                        <span class="kpi-label">Approved</span>
+                        <strong class="kpi-value" id="kpi-enroll-approved">0</strong>
+                        <small class="kpi-sub">of total</small>
+                    </div>
+                </article>
+                <article class="kpi-card">
+                    <i class="fa-regular fa-clock kpi-icon amber"></i>
+                    <div>
+                        <span class="kpi-label">Pending</span>
+                        <strong class="kpi-value" id="kpi-enroll-pending">0</strong>
+                        <small class="kpi-sub">of total</small>
+                    </div>
+                </article>
+                <article class="kpi-card">
+                    <i class="fa-solid fa-circle-xmark kpi-icon red"></i>
+                    <div>
+                        <span class="kpi-label">Rejected</span>
+                        <strong class="kpi-value" id="kpi-enroll-rejected">0</strong>
+                        <small class="kpi-sub">of total</small>
+                    </div>
+                </article>
+            </section>
+
+            <section class="breakdown-grid">
+                <article class="breakdown-card pending">
+                    <div class="breakdown-head">
+                        <h3>Pending Enrollments <span class="count-pill amber" id="pending-breakdown-count">0</span></h3>
+                        <a href="pending-enrollees.html">View all</a>
+                    </div>
+                    <ul class="breakdown-list" id="pending-breakdown">
+                    </ul>
+                </article>
+
+                <article class="breakdown-card active">
+                    <div class="breakdown-head">
+                        <h3>Active Enrollments <span class="count-pill green" id="active-breakdown-count">0</span></h3>
+                        <a href="active-enrollees.html">View all</a>
+                    </div>
+                    <ul class="breakdown-list" id="active-breakdown">
+                    </ul>
+                </article>
+            </section>
+
+            <section class="table-card" aria-label="Enrollment requests">
+                <div class="table-toolbar">
+                    <h3>Enrollment Requests</h3>
+                    <div class="bulk-actions">
+                        <button type="button" class="btn btn-success"><i class="fa-solid fa-check"></i> Approve</button>
+                        <button type="button" class="btn btn-danger"><i class="fa-solid fa-xmark"></i> Reject</button>
+                    </div>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" aria-label="Select all"></th>
+                                <th>Student ID</th>
+                                <th>Name</th>
+                                <th>Program</th>
+                                <th>Year Level</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="enrol-tbody">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="table-footer">
+                    <p class="pagination-info" id="enrol-info">0 enrollment requests</p>
+                    <div class="pagination">
+                        <button type="button" disabled>&lt;</button>
+                        <button type="button" class="active">1</button>
+                        <button type="button">2</button>
+                        <button type="button">3</button>
+                        <button type="button">4</button>
+                        <span class="pagination-ellipsis">...</span>
+                        <button type="button">&gt;</button>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <script src="../../js/api.js"></script>
+    <script src="../../js/sidebar.js"></script>
+    <script>
+        (function () {
+            var toggle = document.getElementById('menu-toggle');
+            toggle.addEventListener('click', function () {
+                document.body.classList.toggle('sidebar-collapsed');
+            });
+        })();
+    </script>
+    <script>
+        (function () {
+            'use strict';
+
+            function escText(value) {
+                var div = document.createElement('div');
+                div.textContent = String(value == null ? '' : value);
+                return div.innerHTML;
+            }
+
+            function norm(status) {
+                return String(status || '').toLowerCase().replace(/_/g, ' ').replace(/-/g, ' ');
+            }
+
+            function isApproved(s) { var v = norm(s); return v.indexOf('approve') !== -1 || v === 'active' || v === 'enrolled' || v === 'accepted'; }
+            function isPending(s) { var v = norm(s); return v.indexOf('pending') !== -1 || v.indexOf('verif') !== -1 || v === 'applied' || v === 'submitted'; }
+            function isRejected(s) { var v = norm(s); return v.indexOf('reject') !== -1 || v.indexOf('denied') !== -1 || v.indexOf('declined') !== -1; }
+
+            function statusHtml(status) {
+                var s = norm(status);
+                var cls = 'status-amber';
+                if (isApproved(status)) cls = 'status-green';
+                else if (isRejected(status)) cls = 'status-red';
+                else if (s && s !== 'pending') cls = 'status-blue';
+                return '<span class="status-badge ' + cls + '">' + escText(status || 'Pending') + '</span>';
+            }
+
+            function breakdownHtml(list, items) {
+                if (!list) return;
+                if (!items || items.length === 0) {
+                    list.innerHTML = '<li class="break-row"><span class="prog-label" style="grid-column:1/-1;color:var(--muted);">No enrollment records.</span></li>';
+                    return;
+                }
+                var counts = {};
+                items.forEach(function (item) {
+                    var prog = item.program || item.course || 'Other';
+                    counts[prog] = (counts[prog] || 0) + 1;
+                });
+                var max = 0;
+                var names = Object.keys(counts);
+                names.forEach(function (k) { if (counts[k] > max) max = counts[k]; });
+                list.innerHTML = names.map(function (k) {
+                    var width = max ? Math.round(counts[k] / max * 100) : 0;
+                    return '<li class="break-row"><span class="prog-label">' + escText(k) + '</span><span class="prog"><span style="width:' + width + '%"></span></span><b>' + counts[k] + '</b></li>';
+                }).join('');
+            }
+
+            function render(items) {
+                var tbody = document.getElementById('enrol-tbody');
+                var info = document.getElementById('enrol-info');
+                var kpiTotal = document.getElementById('kpi-enroll-total');
+                var kpiApproved = document.getElementById('kpi-enroll-approved');
+                var kpiPending = document.getElementById('kpi-enroll-pending');
+                var kpiRejected = document.getElementById('kpi-enroll-rejected');
+                var pendingCount = document.getElementById('pending-breakdown-count');
+                var activeCount = document.getElementById('active-breakdown-count');
+                var pendingList = document.getElementById('pending-breakdown');
+                var activeList = document.getElementById('active-breakdown');
+
+                var total = items.length;
+                var approved = 0, pending = 0, rejected = 0;
+                var pendingRows = [], activeRows = [];
+                items.forEach(function (item) {
+                    if (isApproved(item.status)) { approved += 1; activeRows.push(item); }
+                    else if (isPending(item.status)) { pending += 1; pendingRows.push(item); }
+                    else if (isRejected(item.status)) { rejected += 1; }
+                    else { activeRows.push(item); }
+                });
+
+                if (kpiTotal) kpiTotal.textContent = total;
+                if (kpiApproved) kpiApproved.textContent = approved;
+                if (kpiPending) kpiPending.textContent = pending;
+                if (kpiRejected) kpiRejected.textContent = rejected;
+                if (pendingCount) pendingCount.textContent = pendingRows.length;
+                if (activeCount) activeCount.textContent = activeRows.length;
+                breakdownHtml(pendingList, pendingRows);
+                breakdownHtml(activeList, activeRows);
+
+                if (!tbody) return;
+                if (total === 0) {
+                    tbody.innerHTML = '<tr><td colspan="7" class="empty-cell">No enrollment requests found.</td></tr>';
+                    if (info) info.textContent = '0 enrollment requests';
+                    return;
+                }
+                tbody.innerHTML = items.map(function (item) {
+                    return '<tr>' +
+                        '<td><input type="checkbox" aria-label="Select row"></td>' +
+                        '<td class="muted-cell">' + escText(item.studentId != null ? item.studentId : (item.id != null ? item.id : '')) + '</td>' +
+                        '<td>' + escText(item.name || item.studentName || '') + '</td>' +
+                        '<td>' + escText(item.program || item.course || '') + '</td>' +
+                        '<td class="muted-cell">' + escText(item.yearLevel || item.year || '') + '</td>' +
+                        '<td>' + statusHtml(item.status) + '</td>' +
+                        '<td><div class="actions-cell"><a class="btn-row primary" href="active-enrollments.html"><i class="fa-regular fa-eye"></i> View</a></div></td>' +
+                        '</tr>';
+                }).join('');
+                if (info) info.textContent = total + ' enrollment request' + (total === 1 ? '' : 's');
+            }
+
+            function load() {
+                if (!window.API) return;
+                window.API.get('/registrar/enrollments', { status: 'all' }).then(function (res) {
+                    var items = (res && Array.isArray(res)) ? res : ((res && res.data) || []);
+                    render(items);
+                }).catch(function () {
+                    render([]);
+                });
+            }
+
+            load();
+        })();
+    </script>
+</body>
+</html>

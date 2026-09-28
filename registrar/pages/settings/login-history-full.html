@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Login History | CEC Registrar Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/reg-dashboard.css">
+    <link rel="stylesheet" href="../../css/reg-analytics.css">
+    <link rel="stylesheet" href="../../css/reg-enrollment.css">
+    <link rel="stylesheet" href="../../css/reg-settings.css">
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>STUDENT PORTAL SYSTEM</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Registrar navigation">
+            <a href="../../pages/dashboard/registrar.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="../student-record/student-records.html"><i class="fa-solid fa-users"></i><span>Student Records</span></a>
+            <a href="../enrollment-management/enrollment-management.html"><i class="fa-regular fa-file-lines"></i><span>Enrollment Management</span></a>
+            <a href="../enrollment-management/enrollment-application.html"><i class="fa-regular fa-square-plus"></i><span>Enrollment Application</span></a>
+            <a href="../report/reports.html"><i class="fa-solid fa-chart-simple"></i><span>Reports</span></a>
+            <a href="../document-request/index.html"><i class="fa-regular fa-folder-open"></i><span>Document Requests</span></a>
+            <a href="../announcement/index.html"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="settings.html" class="active"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+            <a href="../../pages/auth/login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="app-header">
+            <button class="menu-toggle" type="button" id="menu-toggle" aria-label="Toggle sidebar"><i class="fa-solid fa-bars"></i></button>
+            <h1 class="app-title">Registrar Dashboard</h1>
+
+            <label class="app-search">
+                <span class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Search anything</span>
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search anything...">
+            </label>
+
+            <div class="app-user">
+                <span class="app-user-avatar">&mdash;</span>
+                <span class="app-user-text">
+                    <strong>&nbsp;</strong>
+                    <small>Registrar</small>
+                </span>
+            </div>
+        </header>
+
+        <section class="settings-content">
+            <div class="back-bar">
+                <a class="back-btn" href="login-history.html" aria-label="Back"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i></a>
+                <div>
+                    <h1>Login History</h1>
+                    <p>View your complete login history for your account.</p>
+                </div>
+            </div>
+
+            <div class="login-filter-panel">
+                <div class="login-filter-title">
+                    <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+                    <div>
+                        <strong>Login History</strong>
+                        <small>All login attempts for your account.</small>
+                    </div>
+                </div>
+                <div class="login-filter-actions">
+                    <select class="filter-select" aria-label="Filter by date">
+                        <option>All Dates</option>
+                        <option>Last 7 days</option>
+                        <option>Last 30 days</option>
+                    </select>
+                    <button type="button" class="btn btn-outline blue"><i class="fa-solid fa-cloud-arrow-up" aria-hidden="true"></i> Exports</button>
+                </div>
+            </div>
+
+            <section class="table-card" aria-label="Login history data">
+                <div class="table-wrap">
+                    <table class="data-table login-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Date & Time</th>
+                                <th>Device</th>
+                                <th>IP Address</th>
+                                <th>Status</th>
+                                <th>Location</th>
+                            </tr>
+                        </thead>
+                        <tbody id="login-hist-full-body"></tbody>
+                    </table>
+                </div>
+
+                <div class="table-footer">
+                    <p class="pagination-info" id="hist-full-info">No entries</p>
+                    <div class="pagination" id="hist-full-pagination"></div>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <script src="../../js/api.js"></script>
+    <script src="../../js/sidebar.js"></script>
+    <script>
+        (function () {
+            var toggle = document.getElementById('menu-toggle');
+            toggle.addEventListener('click', function () {
+                document.body.classList.toggle('sidebar-collapsed');
+            });
+        })();
+    </script>
+    <script>
+        (function () {
+            'use strict';
+
+            var PAGE_SIZE = 5;
+            var items = [];
+            var page = 1;
+
+            function escText(value) {
+                var div = document.createElement('div');
+                div.textContent = String(value == null ? '' : value);
+                return div.innerHTML;
+            }
+
+            function render() {
+                var body = document.getElementById('login-hist-full-body');
+                var pagination = document.getElementById('hist-full-pagination');
+                var info = document.getElementById('hist-full-info');
+                if (!body) return;
+                var totalPages = Math.max(1, Math.ceil(items.length / PAGE_SIZE));
+                if (page > totalPages) page = totalPages;
+                var start = (page - 1) * PAGE_SIZE;
+                var pageRows = items.slice(start, start + PAGE_SIZE);
+
+                if (pageRows.length === 0) {
+                    body.innerHTML = '<tr><td colspan="6" class="empty-cell">No login history found.</td></tr>';
+                } else {
+                    body.innerHTML = pageRows.map(function (row, i) {
+                        var cls = row.status === 'success' ? 'status-green' : 'status-red';
+                        var label = row.status === 'success' ? 'Success' : 'Failed';
+                        return '<tr>' +
+                            '<td class="muted-cell">' + (start + i + 1) + '</td>' +
+                            '<td class="muted-cell">' + escText(row.date) + '</td>' +
+                            '<td>' + escText(row.device) + '</td>' +
+                            '<td class="muted-cell">' + escText(row.ip) + '</td>' +
+                            '<td><span class="status-badge ' + cls + '">' + label + '</span></td>' +
+                            '<td class="muted-cell">' + escText(row.location) + '</td>' +
+                            '</tr>';
+                    }).join('');
+                }
+
+                var end = items.length === 0 ? 0 : Math.min(start + PAGE_SIZE, items.length);
+                if (info) {
+                    info.textContent = items.length === 0 ? 'No entries' : 'Showing ' + (start + 1) + ' to ' + end + ' of ' + items.length + ' entries';
+                }
+
+                if (!pagination) return;
+                if (totalPages <= 1) {
+                    pagination.innerHTML = '';
+                } else {
+                    var html = '<button type="button" ' + (page === 1 ? 'disabled' : '') + ' data-page="prev">&lt;</button>';
+                    for (var p = 1; p <= totalPages; p += 1) {
+                        html += '<button type="button" class="' + (page === p ? 'active' : '') + '" data-page="' + p + '">' + p + '</button>';
+                    }
+                    html += '<button type="button" ' + (page === totalPages ? 'disabled' : '') + ' data-page="next">&gt;</button>';
+                    pagination.innerHTML = html;
+                    pagination.querySelectorAll('button[data-page]').forEach(function (btn) {
+                        btn.addEventListener('click', function () {
+                            var val = btn.getAttribute('data-page');
+                            if (val === 'prev') page -= 1;
+                            else if (val === 'next') page += 1;
+                            else page = parseInt(val, 10);
+                            render();
+                        });
+                    });
+                }
+            }
+
+            function load() {
+                if (!window.API) return;
+                window.API.get('/registrar/login-history').then(function (res) {
+                    items = (res && Array.isArray(res)) ? res : ((res && res.data) || []);
+                    page = 1;
+                    render();
+                }).catch(function () {
+                    items = [];
+                    page = 1;
+                    render();
+                });
+            }
+
+            load();
+        })();
+    </script>
+</body>
+</html>

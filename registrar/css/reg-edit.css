@@ -1,0 +1,276 @@
+.edit-content {
+    padding: 24px 40px 44px;
+}
+
+/* Back bar + title */
+.back-bar {
+    margin-bottom: 20px;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    color: var(--navy);
+    font-size: 13.5px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    color: var(--blue);
+}
+
+.record-title h1 {
+    margin: 0;
+    font-size: 26px;
+    letter-spacing: 0.3px;
+}
+
+.record-title .page-desc {
+    margin-top: 5px;
+}
+
+/* Notice banner */
+.notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 16px;
+    padding: 12px 16px;
+    border: 1px solid #C6DCF5;
+    border-radius: 8px;
+    color: #1D4E9B;
+    background: #E8F1FD;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.notice i {
+    margin-top: 2px;
+    font-size: 15px;
+}
+
+/* Cards */
+.card {
+    margin-bottom: 16px;
+    padding: 20px 22px;
+    border: 1px solid #E3E9F2;
+    border-radius: 10px;
+    background: #FFFFFF;
+}
+
+.card-title {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin: 0 0 18px;
+    font-size: 17px;
+}
+
+.card-title i {
+    color: var(--blue);
+    font-size: 15px;
+}
+
+/* Form fields */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.form-grid .full {
+    grid-column: 1 / -1;
+}
+
+.field label {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--muted);
+    font-size: 12.5px;
+    font-weight: 700;
+}
+
+.field label em {
+    color: #B3261E;
+    font-style: normal;
+}
+
+.field input,
+.field select,
+.field textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #CDD9E8;
+    border-radius: 8px;
+    color: var(--navy);
+    background: #FFFFFF;
+    font-size: 13.5px;
+    font-family: inherit;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+    border-color: var(--blue);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(29, 78, 155, 0.12);
+}
+
+.field input:disabled {
+    color: var(--muted);
+    background: #F1F4F9;
+    cursor: not-allowed;
+}
+
+.field textarea {
+    min-height: 74px;
+    resize: vertical;
+}
+
+/* Input with leading icon */
+.input-icon {
+    position: relative;
+}
+
+.input-icon i {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    color: var(--muted);
+    font-size: 13px;
+    pointer-events: none;
+}
+
+.input-icon input {
+    padding-left: 34px;
+}
+
+/* Green-highlighted status select */
+.field .select-ok {
+    border-color: #7BC29A;
+    color: #177245;
+    background: #E3F4EA;
+    font-weight: 700;
+}
+
+/* Photo upload */
+.photo-upload {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 18px;
+    margin-top: 4px;
+}
+
+.upload-avatar {
+    display: grid;
+    width: 88px;
+    height: 88px;
+    flex: 0 0 88px;
+    place-items: center;
+    border-radius: 50%;
+    color: #FFFFFF;
+    background: var(--blue);
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.dropzone {
+    flex: 1;
+    min-width: 240px;
+    padding: 24px 20px;
+    border: 1.5px dashed #B9CBE2;
+    border-radius: 10px;
+    background: #FAFCFF;
+    text-align: center;
+}
+
+.dropzone i {
+    margin-bottom: 8px;
+    color: var(--blue);
+    font-size: 22px;
+}
+
+.dropzone strong {
+    display: block;
+    color: var(--navy);
+    font-size: 14px;
+}
+
+.dropzone small {
+    display: block;
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* Action footer */
+.action-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 16px 20px;
+    border: 1px solid #E3E9F2;
+    border-radius: 10px;
+    background: #FFFFFF;
+}
+
+.action-footer h3 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.action-buttons .btn {
+    height: 38px;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 900px) {
+    .edit-content {
+        padding: 24px;
+    }
+}
+
+@media (max-width: 650px) {
+    .edit-content {
+        padding: 20px 14px;
+    }
+
+    .record-title h1 {
+        font-size: 20px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-grid .full {
+        grid-column: auto;
+    }
+
+    .action-footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .action-buttons {
+        width: 100%;
+    }
+
+    .action-buttons .btn {
+        flex: 1;
+    }
+}

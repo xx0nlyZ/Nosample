@@ -1,0 +1,812 @@
+.profile-content {
+    padding: 24px 40px 44px;
+}
+
+/* ==========================================================================
+   BACK BAR + PAGE TITLE
+   ========================================================================== */
+.back-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    color: var(--navy);
+    font-size: 13.5px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    color: var(--blue);
+}
+
+.record-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.record-title h1 {
+    margin: 0;
+    font-size: 26px;
+    letter-spacing: 0.3px;
+}
+
+.record-title .page-desc {
+    margin-top: 5px;
+}
+
+/* ==========================================================================
+   HERO CARD
+   ========================================================================== */
+.hero-card {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 20px;
+    padding: 20px 22px;
+    border: 1px solid #E3E9F2;
+    border-radius: 10px;
+    background: #FFFFFF;
+}
+
+.hero-avatar {
+    display: grid;
+    width: 86px;
+    height: 86px;
+    flex: 0 0 86px;
+    place-items: center;
+    border-radius: 50%;
+    color: #FFFFFF;
+    background: var(--blue);
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.hero-info .hero-name {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 6px;
+    font-size: 22px;
+}
+
+.hero-info .hero-id {
+    margin: 2px 0;
+    color: var(--muted);
+    font-size: 13.5px;
+}
+
+.hero-info .hero-id strong {
+    color: var(--navy);
+}
+
+.hero-info .hero-program {
+    margin: 2px 0 0;
+    color: var(--muted);
+    font-size: 13.5px;
+}
+
+.hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-left: auto;
+}
+
+.meta-chip {
+    min-width: 150px;
+    padding: 9px 14px;
+    border: 1px solid #E3E9F2;
+    border-radius: 8px;
+    background: #F8FAFD;
+}
+
+.meta-chip span {
+    display: block;
+    margin-bottom: 3px;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.meta-chip strong {
+    color: var(--navy);
+    font-size: 13.5px;
+}
+
+/* ==========================================================================
+   TABS (PILL STYLE)
+   ========================================================================== */
+.profile-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    padding: 9px 20px;
+    border: 1px solid #D5E0EE;
+    border-radius: 999px;
+    color: var(--navy);
+    background: #FFFFFF;
+    font-size: 13.5px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.tab-btn:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+}
+
+.tab-btn.active {
+    color: #FFFFFF;
+    border-color: var(--navy);
+    background: var(--navy);
+}
+
+.tab-panel[hidden] {
+    display: none;
+}
+
+/* ==========================================================================
+   SHARED CARDS
+   ========================================================================== */
+.card {
+    margin-bottom: 16px;
+    padding: 20px 22px;
+    border: 1px solid #E3E9F2;
+    border-radius: 10px;
+    background: #FFFFFF;
+}
+
+.card-title {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin: 0 0 16px;
+    font-size: 17px;
+}
+
+.card-title i {
+    color: var(--blue);
+    font-size: 15px;
+}
+
+/* ==========================================================================
+   PERSONAL INFO GRID
+   ========================================================================== */
+.info-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 240px;
+    gap: 24px;
+}
+
+.detail-list {
+    margin: 0;
+}
+
+.detail-item {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 12px;
+    padding: 11px 0;
+    border-bottom: 1px solid #EEF2F8;
+    font-size: 13.5px;
+}
+
+.detail-item:last-child {
+    border-bottom: 0;
+}
+
+.detail-item span {
+    color: var(--muted);
+}
+
+.detail-item strong {
+    color: var(--navy);
+    font-weight: 600;
+}
+
+/* Photo block */
+.photo-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: start;
+    padding: 26px 18px;
+    border: 1px solid #E3E9F2;
+    border-radius: 10px;
+    background: #F8FAFD;
+    text-align: center;
+}
+
+.photo-block .photo-avatar {
+    display: grid;
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 14px;
+    place-items: center;
+    border-radius: 50%;
+    color: #FFFFFF;
+    background: var(--blue);
+    font-size: 34px;
+    font-weight: 700;
+}
+
+.photo-block .btn-blue {
+    margin-top: 12px;
+}
+
+.btn-blue {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    height: 36px;
+    padding: 0 16px;
+    border: 0;
+    border-radius: 7px;
+    color: #FFFFFF;
+    background: var(--blue);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-blue:hover {
+    background: #163E7A;
+}
+
+/* ==========================================================================
+   ACADEMIC HISTORY TABLE
+   ========================================================================== */
+.grade-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.grade-table th {
+    padding: 10px 14px;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    border-bottom: 1px solid #EEF2F8;
+    background: #FFFFFF;
+}
+
+.grade-table td {
+    padding: 11px 14px;
+    color: var(--navy);
+    font-size: 13.5px;
+    white-space: nowrap;
+    border-bottom: 1px solid #EEF2F8;
+}
+
+.grade-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.grade-num {
+    font-weight: 700;
+}
+
+.grade-num.excellent {
+    color: #177245;
+}
+
+/* ==========================================================================
+   SUMMARY METRIC CARDS
+   ========================================================================== */
+.metric-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+    margin-top: 16px;
+}
+
+.metric-card {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 16px 18px;
+    border: 1px solid #E3E9F2;
+    border-radius: 10px;
+    background: #FFFFFF;
+}
+
+.metric-icon {
+    display: grid;
+    width: 46px;
+    height: 46px;
+    flex: 0 0 46px;
+    place-items: center;
+    border-radius: 9px;
+    color: var(--blue);
+    background: var(--pale-blue);
+    font-size: 18px;
+}
+
+.metric-icon.good {
+    color: #177245;
+    background: #E3F4EA;
+}
+
+.metric-text span {
+    display: block;
+    margin-bottom: 3px;
+    color: var(--muted);
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.metric-text strong {
+    color: var(--navy);
+    font-size: 22px;
+    line-height: 1;
+}
+
+.metric-text strong.good {
+    color: #177245;
+}
+
+/* ==========================================================================
+   SEMESTER CARDS (GRADES / ENROLLMENT PANELS)
+   ========================================================================== */
+.semester-card {
+    margin-bottom: 16px;
+    border: 1px solid #E3E9F2;
+    border-radius: 10px;
+    background: #FFFFFF;
+    overflow: hidden;
+}
+
+.sem-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 14px 18px;
+    border-bottom: 1px solid #EEF2F8;
+    background: #F8FAFD;
+}
+
+.sem-head h3 {
+    margin: 0;
+    font-size: 15px;
+}
+
+.sem-head .sem-tag {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* Enrollment timeline */
+.tl-item {
+    display: grid;
+    grid-template-columns: 16px 220px 1fr;
+    gap: 16px;
+    padding: 16px 6px;
+    border-bottom: 1px solid #EEF2F8;
+}
+
+.tl-item:last-child {
+    border-bottom: 0;
+}
+
+.tl-dot {
+    width: 12px;
+    height: 12px;
+    margin-top: 5px;
+    border-radius: 50%;
+    background: var(--blue);
+}
+
+.tl-item.past .tl-dot {
+    background: #AFC5E2;
+}
+
+.tl-term strong {
+    display: block;
+    font-size: 14px;
+}
+
+.tl-term small {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.tl-detail {
+    color: var(--navy);
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+.tl-detail b {
+    color: var(--muted);
+    font-weight: 600;
+}
+
+/* Balance */
+.balance-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid #EEF2F8;
+    font-size: 14px;
+}
+
+.balance-line:last-of-type {
+    border-bottom: 0;
+}
+
+.balance-line span {
+    color: var(--muted);
+}
+
+.balance-line strong {
+    color: var(--navy);
+}
+
+.balance-line.overall strong {
+    color: #B3261E;
+}
+
+/* ==========================================================================
+   RECORD FOOTER
+   ========================================================================== */
+.record-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 18px;
+}
+
+.record-footer .updated {
+    color: var(--muted);
+    font-size: 12.5px;
+}
+
+.record-footer .updated strong {
+    color: var(--navy);
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 900px) {
+    .profile-content {
+        padding: 24px;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-meta {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 650px) {
+    .profile-content {
+        padding: 20px 14px;
+    }
+
+    .record-title h1 {
+        font-size: 20px;
+    }
+
+    .hero-avatar {
+        width: 72px;
+        height: 72px;
+        flex-basis: 72px;
+        font-size: 26px;
+    }
+
+    .detail-item {
+        grid-template-columns: 1fr;
+        gap: 3px;
+    }
+
+    .tl-item {
+        grid-template-columns: 14px 1fr;
+    }
+
+    .tl-detail {
+        grid-column: 1 / -1;
+    }
+}
+
+/* ==========================================================================
+   ACADEMIC HISTORY / ENROLLMENT / GRADES TABS
+   ========================================================================== */
+.panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.panel-head h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.year-card {
+    margin-bottom: 14px;
+    border: 1px solid #E3E9F2;
+    border-radius: 10px;
+    background: #FFFFFF;
+    overflow: hidden;
+}
+
+.year-card > .year-sum {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 14px 18px;
+    cursor: pointer;
+    background: #F8FAFD;
+    list-style: none;
+}
+
+.year-card > .year-sum::-webkit-details-marker {
+    display: none;
+}
+
+.year-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.year-head h3 {
+    margin: 0;
+    font-size: 15.5px;
+}
+
+.sem-pill {
+    padding: 3px 12px;
+    border-radius: 999px;
+    color: #FFFFFF;
+    background: var(--navy);
+    font-size: 11.5px;
+    font-weight: 700;
+}
+
+.sem-pill.amber {
+    color: #8A6D00;
+    background: #FFF2CC;
+}
+
+.chevron {
+    margin-left: auto;
+    color: var(--muted);
+    font-size: 13px;
+    transition: transform 0.2s ease;
+}
+
+.year-card[open] .chevron {
+    transform: rotate(180deg);
+}
+
+.empty-note {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 18px;
+    color: var(--muted);
+    background: #FAFCFF;
+    font-size: 13px;
+}
+
+.term-summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 22px;
+    padding: 12px 18px;
+    border-top: 1px solid #EEF2F8;
+    background: #F8FAFD;
+    font-size: 13px;
+}
+
+.term-summary span {
+    color: var(--muted);
+}
+
+.term-summary strong {
+    color: var(--navy);
+}
+
+.term-summary .green strong {
+    color: #177245;
+}
+
+/* Info / alert banners */
+.info-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 16px;
+    padding: 12px 16px;
+    border: 1px solid #C6DCF5;
+    border-radius: 8px;
+    color: #1D4E9B;
+    background: #E8F1FD;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.info-banner i {
+    margin-top: 2px;
+    font-size: 15px;
+}
+
+/* Blue status badge */
+.status-blue {
+    color: #1D4E9B;
+    background: #E8EFFB;
+}
+
+/* Enrollment grid */
+.enroll-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 14px;
+    margin-top: 18px;
+}
+
+.enroll-item {
+    padding: 14px 16px;
+    border: 1px solid #E3E9F2;
+    border-radius: 8px;
+    background: #F8FAFD;
+}
+
+.enroll-item span {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--muted);
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.enroll-item strong {
+    color: var(--navy);
+    font-size: 13.5px;
+}
+
+.enroll-item .dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-right: 6px;
+    border-radius: 50%;
+    background: #2E9E63;
+}
+
+/* Stat tiles */
+.stat-tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 14px;
+    margin-top: 16px;
+}
+
+.stat-tile {
+    padding: 16px 18px;
+    border-radius: 10px;
+}
+
+.stat-tile p {
+    margin: 0 0 5px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.stat-tile strong {
+    font-size: 24px;
+    line-height: 1;
+}
+
+.tile-green {
+    border: 1px solid #C9E5D2;
+    background: #E3F4EA;
+}
+
+.tile-green p,
+.tile-green strong {
+    color: #177245;
+}
+
+.tile-blue {
+    border: 1px solid #C8D9F0;
+    background: #E8EFFB;
+}
+
+.tile-blue p,
+.tile-blue strong {
+    color: #1D4E9B;
+}
+
+.tile-purple {
+    border: 1px solid #DDD0F2;
+    background: #F0EAFB;
+}
+
+.tile-purple p,
+.tile-purple strong {
+    color: #6B48B8;
+}
+
+.tile-orange {
+    border: 1px solid #F5DDBE;
+    background: #FDF0E1;
+}
+
+.tile-orange p,
+.tile-orange strong {
+    color: #B05E10;
+}
+
+/* Grades filters */
+.grade-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.grade-filters .filter-select {
+    min-width: 190px;
+}
+
+/* Metric card with green background */
+.metric-card.good-card {
+    border-color: #C9E5D2;
+    background: #F0FAF4;
+}
+
+@media (max-width: 650px) {
+    .panel-head {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .grade-filters .filter-select {
+        width: 100%;
+        min-width: 0;
+    }
+}

@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Records | CEC Registrar Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/reg-dashboard.css">
+    <link rel="stylesheet" href="../../css/reg-analytics.css">
+    <link rel="stylesheet" href="../../css/reg-enrollment.css">
+    <style>
+        .table-head { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:16px; border-bottom:1px solid #E3E9F2; }
+        .table-head-left { display:flex; align-items:center; gap:10px; }
+        .table-head i { color:var(--blue); font-size:16px; }
+        .table-head h3 { margin:0; font-size:16px; }
+        .data-table th.sortable { cursor:pointer; user-select:none; }
+        .data-table th.sortable:hover { color:var(--navy); }
+        .data-table th .sort-icon { margin-left:4px; font-size:10px; opacity:0.4; }
+        .data-table th.sortable.asc .sort-icon,
+        .data-table th.sortable.desc .sort-icon { opacity:1; color:var(--blue); }
+        .data-table input[type="checkbox"] { width:15px; height:15px; accent-color:var(--blue); cursor:pointer; }
+        .bulk-bar { display:none; align-items:center; gap:10px; padding:10px 16px; border-bottom:1px solid #E3E9F2; background:#F0F4FA; font-size:13px; }
+        .bulk-bar.active { display:flex; }
+        .bulk-bar strong { color:var(--navy); }
+        .bulk-bar .btn { height:32px; font-size:12px; padding:0 12px; }
+        .btn-add { display:inline-flex; align-items:center; gap:6px; height:36px; padding:0 16px; border:0; border-radius:7px; color:#FFFFFF; background:var(--blue); font-size:13px; font-weight:700; cursor:pointer; white-space:nowrap; }
+        .btn-add:hover { background:#163E7A; }
+        .btn-sm { height:30px; padding:0 12px; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer; border:0; }
+        .btn-sm.red { color:#B3261E; background:#FBE4E4; }
+        .btn-sm.red:hover { color:#FFFFFF; background:#B3261E; }
+        .btn-sm.blue { color:#1D4E9B; background:#E8EFFB; }
+        .btn-sm.blue:hover { color:#FFFFFF; background:#1D4E9B; }
+        .empty-state { display:none; flex-direction:column; align-items:center; gap:8px; padding:40px 20px; color:var(--muted); font-size:14px; text-align:center; }
+        .empty-state.visible { display:flex; }
+        .empty-state i { font-size:32px; color:#C3D1E4; }
+        .empty-state button { margin-top:6px; height:34px; padding:0 16px; border:1px solid var(--blue); border-radius:6px; color:var(--blue); background:#FFFFFF; font-size:12.5px; font-weight:700; cursor:pointer; }
+        .toast-wrap { position:fixed; top:20px; right:20px; z-index:9999; display:flex; flex-direction:column; gap:8px; pointer-events:none; }
+        .toast { display:flex; align-items:center; gap:10px; padding:12px 18px; border-radius:8px; color:#FFFFFF; background:#177245; font-size:13px; font-weight:600; box-shadow:0 4px 16px rgba(0,0,0,0.15); animation:toastIn 0.3s ease; pointer-events:auto; }
+        .toast.error { background:#B3261E; }
+        .toast.info { background:#1D4E9B; }
+        @keyframes toastIn { from{opacity:0;transform:translateX(20px)} to{opacity:1;transform:translateX(0)} }
+        .modal-overlay { display:none; position:fixed; inset:0; z-index:9990; background:rgba(0,0,0,0.45); align-items:center; justify-content:center; }
+        .modal-overlay.active { display:flex; }
+        .modal { width:min(520px,90vw); max-height:85vh; overflow-y:auto; border-radius:12px; background:#FFFFFF; box-shadow:0 12px 40px rgba(0,0,0,0.2); }
+        .modal-head { display:flex; align-items:center; justify-content:space-between; padding:16px 20px; border-bottom:1px solid #E3E9F2; }
+        .modal-head h3 { margin:0; font-size:16px; }
+        .modal-close { width:30px; height:30px; border:0; border-radius:6px; color:var(--muted); background:transparent; cursor:pointer; font-size:16px; }
+        .modal-close:hover { background:#F0F4FA; }
+        .modal-body { padding:20px; }
+        .modal-foot { display:flex; justify-content:flex-end; gap:8px; padding:14px 20px; border-top:1px solid #E3E9F2; }
+        .filter-bar .clear-filters { display:none; height:36px; padding:0 14px; border:1px solid #D5DEE9; border-radius:6px; color:var(--navy); background:#FFFFFF; font-size:12.5px; font-weight:600; cursor:pointer; white-space:nowrap; }
+        .filter-bar.has-filters .clear-filters { display:inline-flex; }
+        .pagination button.page-btn { min-width:32px; }
+    </style>
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>STUDENT PORTAL SYSTEM</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Registrar navigation">
+            <a href="../../pages/dashboard/registrar.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="student-records.html" class="active"><i class="fa-solid fa-users"></i><span>Student Records</span></a>
+            <a href="../enrollment-management/enrollment-management.html"><i class="fa-regular fa-file-lines"></i><span>Enrollment Management</span></a>
+            <a href="../enrollment-management/enrollment-application.html"><i class="fa-regular fa-square-plus"></i><span>Enrollment Application</span></a>
+            <a href="../report/reports.html"><i class="fa-solid fa-chart-simple"></i><span>Reports</span></a>
+            <a href="../document-request/index.html"><i class="fa-regular fa-folder-open"></i><span>Document Requests</span></a>
+            <a href="../announcement/index.html"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../settings/settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+            <a href="../../pages/auth/login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="app-header">
+            <button class="menu-toggle" type="button" id="menu-toggle" aria-label="Toggle sidebar"><i class="fa-solid fa-bars"></i></button>
+            <h1 class="app-title">Registrar Dashboard</h1>
+
+            <label class="app-search">
+                <span class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Search anything</span>
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search anything...">
+            </label>
+
+            <div class="app-user">
+                <span class="app-user-avatar">—</span>
+                <span class="app-user-text">
+                    <strong></strong>
+                    <small>Registrar</small>
+                </span>
+            </div>
+        </header>
+
+        <section class="dashboard-content">
+            <div class="page-head">
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <a href="../../pages/dashboard/registrar.html">Dashboard</a>
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <span>Student Records</span>
+                </nav>
+                <h1>Student Records</h1>
+                <p class="page-desc">Manage and view student information, records, and academic status.</p>
+            </div>
+
+            <section class="kpis" aria-label="Student summary">
+                <article class="kpi-card">
+                    <i class="fa-solid fa-user-graduate kpi-icon"></i>
+                    <div>
+                        <span class="kpi-label">Total Students</span>
+                        <strong class="kpi-value" id="kpi-total">0</strong>
+                        <small class="kpi-sub">vs last semester</small>
+                    </div>
+                </article>
+                <article class="kpi-card">
+                    <i class="fa-solid fa-circle-check kpi-icon green"></i>
+                    <div>
+                        <span class="kpi-label">Active Students</span>
+                        <strong class="kpi-value" id="kpi-active">0</strong>
+                        <small class="kpi-sub">vs last semester</small>
+                    </div>
+                </article>
+                <article class="kpi-card">
+                    <i class="fa-regular fa-clock kpi-icon amber"></i>
+                    <div>
+                        <span class="kpi-label">On Leave</span>
+                        <strong class="kpi-value" id="kpi-leave">0</strong>
+                        <small class="kpi-sub">vs last semester</small>
+                    </div>
+                </article>
+                <article class="kpi-card">
+                    <i class="fa-solid fa-user-xmark kpi-icon red"></i>
+                    <div>
+                        <span class="kpi-label">Inactive</span>
+                        <strong class="kpi-value" id="kpi-inactive">0</strong>
+                        <small class="kpi-sub">vs last semester</small>
+                    </div>
+                </article>
+            </section>
+
+            <section class="table-card" aria-label="Student records table">
+                <div class="table-head">
+                    <div class="table-head-left">
+                        <i class="fa-solid fa-users"></i>
+                        <h3>Student List</h3>
+                    </div>
+                    <button class="btn-add" id="btn-add-student"><i class="fa-solid fa-plus"></i> Add Student</button>
+                </div>
+                <div class="filter-bar" id="filter-bar">
+                    <label class="search-input">
+                        <span class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Search records</span>
+                        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                        <input type="search" placeholder="Search by Name, Student ID or Course..." id="search-input">
+                    </label>
+                    <select class="filter-select" aria-label="Filter by program" id="filter-program">
+                        <option value="">All Programs</option>
+                        <option>BS Information Technology</option>
+                        <option>BS Hospitality Management</option>
+                        <option>BS Tourism Management</option>
+                        <option>BS Secondary Education</option>
+                        <option>BS Criminology</option>
+                        <option>Bachelor of Elementary Education</option>
+                    </select>
+                    <select class="filter-select" aria-label="Filter by year level" id="filter-year">
+                        <option value="">All Year Levels</option>
+                        <option>1st Year</option>
+                        <option>2nd Year</option>
+                        <option>3rd Year</option>
+                        <option>4th Year</option>
+                    </select>
+                    <select class="filter-select" aria-label="Filter by status" id="filter-status">
+                        <option value="">All Status</option>
+                        <option>Active</option>
+                        <option>On Leave</option>
+                        <option>Inactive</option>
+                    </select>
+                    <button class="clear-filters" id="clear-filters"><i class="fa-solid fa-xmark"></i> Clear Filters</button>
+                </div>
+
+                <div class="bulk-bar" id="bulk-bar">
+                    <span><strong id="bulk-count">0</strong> student(s) selected</span>
+                    <button class="btn-sm blue" id="bulk-activate"><i class="fa-solid fa-circle-check"></i> Set Active</button>
+                    <button class="btn-sm blue" id="bulk-leave"><i class="fa-regular fa-clock"></i> Set On Leave</button>
+                    <button class="btn-sm red" id="bulk-deactivate"><i class="fa-solid fa-user-xmark"></i> Set Inactive</button>
+                    <button class="btn-sm red" id="bulk-delete"><i class="fa-solid fa-trash"></i> Delete</button>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th style="width:40px"><input type="checkbox" id="select-all"></th>
+                                <th class="sortable" data-col="id">ID Number <i class="fa-solid fa-sort sort-icon"></i></th>
+                                <th class="sortable" data-col="name">Full Name <i class="fa-solid fa-sort sort-icon"></i></th>
+                                <th class="sortable" data-col="course">Course <i class="fa-solid fa-sort sort-icon"></i></th>
+                                <th class="sortable" data-col="year">Year Level <i class="fa-solid fa-sort sort-icon"></i></th>
+                                <th class="sortable" data-col="status">Status <i class="fa-solid fa-sort sort-icon"></i></th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="student-tbody"></tbody>
+                    </table>
+                    <div class="empty-state" id="empty-state">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <strong>No students found</strong>
+                        <p>Try adjusting your search or filter criteria.</p>
+                        <button id="empty-clear-btn">Clear All Filters</button>
+                    </div>
+                </div>
+
+                <div class="table-footer">
+                    <p class="pagination-info" id="pagination-info">0 students</p>
+                    <div class="pagination" id="pagination"></div>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <div class="toast-wrap" id="toast-wrap"></div>
+
+    <div class="modal-overlay" id="modal-add">
+        <div class="modal">
+            <div class="modal-head">
+                <h3><i class="fa-solid fa-user-plus" style="color:var(--blue);margin-right:8px;"></i> Add New Student</h3>
+                <button class="modal-close" data-close="modal-add"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="new-name">Full Name <em>*</em></label>
+                        <input type="text" id="new-name" placeholder="Enter full name">
+                    </div>
+                    <div class="field">
+                        <label for="new-id">Student ID <em>*</em></label>
+                        <input type="text" id="new-id" placeholder="Enter Student ID">
+                    </div>
+                    <div class="field">
+                        <label for="new-course">Course <em>*</em></label>
+                        <select id="new-course">
+                            <option value="">Select course</option>
+                            <option>BS Information Technology</option>
+                            <option>BS Hospitality Management</option>
+                            <option>BS Tourism Management</option>
+                            <option>BS Secondary Education</option>
+                            <option>BS Criminology</option>
+                            <option>Bachelor of Elementary Education</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="new-year">Year Level <em>*</em></label>
+                        <select id="new-year">
+                            <option value="">Select year</option>
+                            <option>1st Year</option>
+                            <option>2nd Year</option>
+                            <option>3rd Year</option>
+                            <option>4th Year</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label for="new-status">Status <em>*</em></label>
+                        <select id="new-status">
+                            <option value="">Select status</option>
+                            <option>Active</option>
+                            <option>On Leave</option>
+                            <option>Inactive</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-foot">
+                <button class="btn btn-outline" data-close="modal-add">Cancel</button>
+                <button class="btn btn-primary" id="btn-save-student"><i class="fa-solid fa-check"></i> Add Student</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-delete">
+        <div class="modal" style="max-width:400px;">
+            <div class="modal-head">
+                <h3><i class="fa-solid fa-triangle-exclamation" style="color:#B3261E;margin-right:8px;"></i> Confirm Deletion</h3>
+                <button class="modal-close" data-close="modal-delete"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <p style="margin:0;color:var(--navy);font-size:13.5px;">Are you sure you want to delete <strong id="delete-name"></strong>? This action cannot be undone.</p>
+            </div>
+            <div class="modal-foot">
+                <button class="btn btn-outline" data-close="modal-delete">Cancel</button>
+                <button class="btn btn-primary" id="btn-confirm-delete" style="background:#B3261E;"><i class="fa-solid fa-trash"></i> Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/api.js"></script>
+    <script src="../../js/sidebar.js"></script>
+    <script>
+    (function () {
+        var students = [];
+
+        var PAGE_SIZE = 10;
+        var currentPage = 1;
+        var sortCol = '';
+        var sortAsc = true;
+        var deleteTargetIndex = -1;
+        var selectedIds = {};
+
+        var searchEl = document.getElementById('search-input');
+        var filterProg = document.getElementById('filter-program');
+        var filterYear = document.getElementById('filter-year');
+        var filterStatus = document.getElementById('filter-status');
+        var clearBtn = document.getElementById('clear-filters');
+        var filterBar = document.getElementById('filter-bar');
+        var selectAllEl = document.getElementById('select-all');
+        var bulkBar = document.getElementById('bulk-bar');
+        var bulkCount = document.getElementById('bulk-count');
+        var tbody = document.getElementById('student-tbody');
+        var emptyState = document.getElementById('empty-state');
+        var pagInfo = document.getElementById('pagination-info');
+        var pagWrap = document.getElementById('pagination');
+
+        function fetchStudents() {
+            if (!window.API) { renderTable(); return; }
+            var params = { page: 1, size: 10000 };
+            if (searchEl.value.trim()) params.q = searchEl.value.trim();
+            if (filterProg.value) params.course = filterProg.value;
+            if (filterYear.value) params.year = filterYear.value;
+            if (filterStatus.value) params.status = filterStatus.value;
+            window.API.get('/registrar/students', params).then(function (res) {
+                var items = (res && Array.isArray(res)) ? res : ((res && res.data) || []);
+                students = items.map(function (s) {
+                    return {
+                        id: s.id != null ? s.id : '',
+                        name: s.name || '',
+                        course: s.course || '',
+                        year: s.year || '',
+                        status: s.status || 'Inactive'
+                    };
+                });
+                selectedIds = {};
+                currentPage = 1;
+                renderTable();
+            }).catch(function () {
+                students = [];
+                selectedIds = {};
+                currentPage = 1;
+                renderTable();
+                showToast('Failed to load students.', 'error');
+            });
+        }
+
+        function getFiltered() {
+            var q = searchEl.value.toLowerCase().trim();
+            var prog = filterProg.value;
+            var yr = filterYear.value;
+            var st = filterStatus.value;
+            return students.filter(function (s) {
+                if (q && s.name.toLowerCase().indexOf(q) === -1 && s.id.toLowerCase().indexOf(q) === -1 && s.course.toLowerCase().indexOf(q) === -1) return false;
+                if (prog && s.course !== prog) return false;
+                if (yr && s.year !== yr) return false;
+                if (st && s.status !== st) return false;
+                return true;
+            });
+        }
+
+        function getSorted(arr) {
+            if (!sortCol) return arr;
+            var dir = sortAsc ? 1 : -1;
+            var yearOrder = {'1st Year':1,'2nd Year':2,'3rd Year':3,'4th Year':4};
+            var statusOrder = {'Active':1,'On Leave':2,'Inactive':3};
+            return arr.slice().sort(function (a, b) {
+                var va, vb;
+                if (sortCol === 'year') { va = yearOrder[a.year]||0; vb = yearOrder[b.year]||0; }
+                else if (sortCol === 'status') { va = statusOrder[a.status]||0; vb = statusOrder[b.status]||0; }
+                else { va = a[sortCol].toLowerCase(); vb = b[sortCol].toLowerCase(); }
+                if (va < vb) return -1 * dir;
+                if (va > vb) return 1 * dir;
+                return 0;
+            });
+        }
+
+        function statusBadge(s) {
+            var cls = s === 'Active' ? 'status-green' : s === 'On Leave' ? 'status-amber' : 'status-red';
+            return '<span class="status-badge ' + cls + '">' + s + '</span>';
+        }
+
+        function renderTable() {
+            updateFilterBarState();
+            var filtered = getSorted(getFiltered());
+            var total = filtered.length;
+            var totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+            if (currentPage > totalPages) currentPage = totalPages;
+            var start = (currentPage - 1) * PAGE_SIZE;
+            var page = filtered.slice(start, start + PAGE_SIZE);
+
+            var html = '';
+            page.forEach(function (s, i) {
+                var globalIdx = students.indexOf(s);
+                var checked = selectedIds[globalIdx] ? ' checked' : '';
+                html += '<tr>';
+                html += '<td><input type="checkbox" data-idx="' + globalIdx + '"' + checked + '></td>';
+                html += '<td><a class="student-link" href="student-profile.html">' + s.id + '</a></td>';
+                html += '<td>' + s.name + '</td>';
+                html += '<td>' + s.course + '</td>';
+                html += '<td class="muted-cell">' + s.year + '</td>';
+                html += '<td>' + statusBadge(s.status) + '</td>';
+                html += '<td><div class="actions-cell">';
+                html += '<a class="btn-row primary" href="student-profile.html"><i class="fa-regular fa-eye"></i> View</a>';
+                html += '<a class="btn-row outline" href="edit-record.html"><i class="fa-regular fa-pen-to-square"></i> Edit</a>';
+                html += '<button class="btn-sm red btn-delete-row" data-idx="' + globalIdx + '" title="Delete"><i class="fa-solid fa-trash"></i></button>';
+                html += '</div></td>';
+                html += '</tr>';
+            });
+            tbody.innerHTML = html;
+
+            emptyState.classList.toggle('visible', total === 0);
+            tbody.closest('.table-wrap').querySelector('.data-table').style.display = total === 0 ? 'none' : '';
+
+            if (total === 0) {
+                pagInfo.textContent = 'No results found';
+                pagWrap.innerHTML = '';
+                return;
+            }
+
+            var end = Math.min(start + PAGE_SIZE, total);
+            pagInfo.textContent = 'Showing ' + (start + 1) + ' - ' + end + ' of ' + total + ' students';
+
+            var pgHtml = '<button class="page-btn" data-page="prev"' + (currentPage <= 1 ? ' disabled' : '') + '>&lt;</button>';
+            var pages = [];
+            if (totalPages <= 7) {
+                for (var p = 1; p <= totalPages; p++) pages.push(p);
+            } else {
+                pages.push(1);
+                if (currentPage > 3) pages.push('...');
+                for (var p = Math.max(2, currentPage - 1); p <= Math.min(totalPages - 1, currentPage + 1); p++) pages.push(p);
+                if (currentPage < totalPages - 2) pages.push('...');
+                pages.push(totalPages);
+            }
+            pages.forEach(function (p) {
+                if (p === '...') {
+                    pgHtml += '<span class="pagination-ellipsis">...</span>';
+                } else {
+                    pgHtml += '<button class="page-btn' + (p === currentPage ? ' active' : '') + '" data-page="' + p + '">' + p + '</button>';
+                }
+            });
+            pgHtml += '<button class="page-btn" data-page="next"' + (currentPage >= totalPages ? ' disabled' : '') + '>&gt;</button>';
+            pagWrap.innerHTML = pgHtml;
+
+            updateBulkBar();
+            updateKPIs(filtered);
+            updateFilterBarState();
+            updateSortIndicators();
+        }
+
+        function updateKPIs(filtered) {
+            var total = filtered.length;
+            var active = 0, leave = 0, inactive = 0;
+            filtered.forEach(function (s) {
+                if (s.status === 'Active') active++;
+                else if (s.status === 'On Leave') leave++;
+                else inactive++;
+            });
+            document.getElementById('kpi-total').textContent = total;
+            document.getElementById('kpi-active').textContent = active;
+            document.getElementById('kpi-leave').textContent = leave;
+            document.getElementById('kpi-inactive').textContent = inactive;
+        }
+
+        function updateBulkBar() {
+            var count = Object.keys(selectedIds).length;
+            bulkCount.textContent = count;
+            bulkBar.classList.toggle('active', count > 0);
+        }
+
+        function updateFilterBarState() {
+            var hasFilters = searchEl.value.trim() !== '' || filterProg.value !== '' || filterYear.value !== '' || filterStatus.value !== '';
+            filterBar.classList.toggle('has-filters', hasFilters);
+        }
+
+        function updateSortIndicators() {
+            document.querySelectorAll('.data-table th.sortable').forEach(function (th) {
+                th.classList.remove('asc', 'desc');
+                if (th.dataset.col === sortCol) {
+                    th.classList.add(sortAsc ? 'asc' : 'desc');
+                    th.querySelector('.sort-icon').className = 'fa-solid fa-sort-' + (sortAsc ? 'up' : 'down') + ' sort-icon';
+                } else {
+                    th.querySelector('.sort-icon').className = 'fa-solid fa-sort sort-icon';
+                }
+            });
+        }
+
+        function showToast(msg, type) {
+            var wrap = document.getElementById('toast-wrap');
+            var t = document.createElement('div');
+            t.className = 'toast' + (type ? ' ' + type : '');
+            t.innerHTML = '<i class="fa-solid fa-' + (type === 'error' ? 'circle-xmark' : type === 'info' ? 'circle-info' : 'circle-check') + '"></i> ' + msg;
+            wrap.appendChild(t);
+            setTimeout(function () { t.style.opacity = '0'; t.style.transition = 'opacity 0.3s'; setTimeout(function () { t.remove(); }, 300); }, 3000);
+        }
+
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+        searchEl.addEventListener('input', function () { currentPage = 1; renderTable(); });
+        filterProg.addEventListener('change', function () { currentPage = 1; renderTable(); });
+        filterYear.addEventListener('change', function () { currentPage = 1; renderTable(); });
+        filterStatus.addEventListener('change', function () { currentPage = 1; renderTable(); });
+
+        clearBtn.addEventListener('click', function () {
+            searchEl.value = '';
+            filterProg.value = '';
+            filterYear.value = '';
+            filterStatus.value = '';
+            currentPage = 1;
+            renderTable();
+        });
+
+        document.getElementById('empty-clear-btn').addEventListener('click', function () {
+            searchEl.value = '';
+            filterProg.value = '';
+            filterYear.value = '';
+            filterStatus.value = '';
+            currentPage = 1;
+            renderTable();
+        });
+
+        pagWrap.addEventListener('click', function (e) {
+            var btn = e.target.closest('.page-btn');
+            if (!btn || btn.disabled) return;
+            var val = btn.dataset.page;
+            if (val === 'prev') currentPage--;
+            else if (val === 'next') currentPage++;
+            else currentPage = parseInt(val);
+            renderTable();
+        });
+
+        document.querySelectorAll('.data-table th.sortable').forEach(function (th) {
+            th.addEventListener('click', function () {
+                var col = th.dataset.col;
+                if (sortCol === col) { sortAsc = !sortAsc; }
+                else { sortCol = col; sortAsc = true; }
+                renderTable();
+            });
+        });
+
+        selectAllEl.addEventListener('change', function () {
+            var filtered = getSorted(getFiltered());
+            var start = (currentPage - 1) * PAGE_SIZE;
+            var page = filtered.slice(start, start + PAGE_SIZE);
+            if (selectAllEl.checked) {
+                page.forEach(function (s) { selectedIds[students.indexOf(s)] = true; });
+            } else {
+                page.forEach(function (s) { delete selectedIds[students.indexOf(s)]; });
+            }
+            renderTable();
+        });
+
+        tbody.addEventListener('change', function (e) {
+            if (e.target.type === 'checkbox') {
+                var idx = parseInt(e.target.dataset.idx);
+                if (e.target.checked) selectedIds[idx] = true;
+                else delete selectedIds[idx];
+                updateBulkBar();
+            }
+        });
+
+        tbody.addEventListener('click', function (e) {
+            var delBtn = e.target.closest('.btn-delete-row');
+            if (delBtn) {
+                var idx = parseInt(delBtn.dataset.idx);
+                deleteTargetIndex = idx;
+                document.getElementById('delete-name').textContent = students[idx].name;
+                openModal('modal-delete');
+            }
+        });
+
+        document.getElementById('btn-confirm-delete').addEventListener('click', function () {
+            if (deleteTargetIndex >= 0 && window.API) {
+                var student = students[deleteTargetIndex];
+                window.API.del('/registrar/students/' + encodeURIComponent(student.id)).then(function () {
+                    students.splice(deleteTargetIndex, 1);
+                    delete selectedIds[deleteTargetIndex];
+                    deleteTargetIndex = -1;
+                    closeModal('modal-delete');
+                    showToast(student.name + ' has been deleted.', 'error');
+                    renderTable();
+                }).catch(function (err) {
+                    showToast((err && err.message) || 'Failed to delete student.', 'error');
+                });
+            }
+        });
+
+        document.getElementById('btn-add-student').addEventListener('click', function () {
+            document.getElementById('new-name').value = '';
+            document.getElementById('new-id').value = '';
+            document.getElementById('new-course').value = '';
+            document.getElementById('new-year').value = '';
+            document.getElementById('new-status').value = '';
+            openModal('modal-add');
+        });
+
+        document.getElementById('btn-save-student').addEventListener('click', function () {
+            var name = document.getElementById('new-name').value.trim();
+            var id = document.getElementById('new-id').value.trim();
+            var course = document.getElementById('new-course').value;
+            var year = document.getElementById('new-year').value;
+            var status = document.getElementById('new-status').value;
+            if (!name || !id || !course || !year || !status) {
+                showToast('Please fill in all required fields.', 'error');
+                return;
+            }
+            if (!window.API) return;
+            window.API.post('/registrar/students', { name: name, id: id, course: course, year: year, status: status }).then(function () {
+                closeModal('modal-add');
+                showToast(name + ' has been added successfully.');
+                fetchStudents();
+            }).catch(function (err) {
+                showToast((err && err.message) || 'Failed to add student.', 'error');
+            });
+        });
+
+        document.getElementById('bulk-delete').addEventListener('click', function () {
+            var count = Object.keys(selectedIds).length;
+            if (count === 0) return;
+            if (confirm('Are you sure you want to delete ' + count + ' student(s)?')) {
+                var indices = Object.keys(selectedIds).map(Number);
+                if (!window.API) return;
+                var jobs = indices.map(function (i) {
+                    return window.API.del('/registrar/students/' + encodeURIComponent(students[i].id)).catch(function () {});
+                });
+                Promise.all(jobs).then(function () {
+                    selectedIds = {};
+                    showToast(count + ' student(s) deleted.', 'error');
+                    fetchStudents();
+                });
+            }
+        });
+
+        function bulkStatusChange(newStatus) {
+            var count = Object.keys(selectedIds).length;
+            if (count === 0) return;
+            if (!window.API) return;
+            var indices = Object.keys(selectedIds).map(Number);
+            var jobs = indices.map(function (i) {
+                return window.API.patch('/registrar/students/' + encodeURIComponent(students[i].id), { status: newStatus }).catch(function () {});
+            });
+            Promise.all(jobs).then(function () {
+                selectedIds = {};
+                showToast(count + ' student(s) updated to ' + newStatus + '.');
+                fetchStudents();
+            });
+        }
+
+        document.getElementById('bulk-activate').addEventListener('click', function () { bulkStatusChange('Active'); });
+        document.getElementById('bulk-leave').addEventListener('click', function () { bulkStatusChange('On Leave'); });
+        document.getElementById('bulk-deactivate').addEventListener('click', function () { bulkStatusChange('Inactive'); });
+
+        document.querySelectorAll('[data-close]').forEach(function (btn) {
+            btn.addEventListener('click', function () { closeModal(btn.dataset.close); });
+        });
+
+        document.querySelectorAll('.modal-overlay').forEach(function (overlay) {
+            overlay.addEventListener('click', function (e) { if (e.target === overlay) overlay.classList.remove('active'); });
+        });
+
+        document.getElementById('menu-toggle').addEventListener('click', function () {
+            document.body.classList.toggle('sidebar-collapsed');
+        });
+
+        fetchStudents();
+    })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Student Record | CEC Registrar Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/reg-dashboard.css">
+    <link rel="stylesheet" href="../../css/reg-profile.css">
+    <style>
+        .toast-wrap { position:fixed; top:20px; right:20px; z-index:9999; display:flex; flex-direction:column; gap:8px; pointer-events:none; }
+        .toast { display:flex; align-items:center; gap:10px; padding:12px 18px; border-radius:8px; color:#FFFFFF; background:#177245; font-size:13px; font-weight:600; box-shadow:0 4px 16px rgba(0,0,0,0.15); animation:toastIn 0.3s ease; pointer-events:auto; }
+        .toast.info { background:#1D4E9B; }
+        .toast.error { background:#B3261E; }
+        @keyframes toastIn { from{opacity:0;transform:translateX(20px)} to{opacity:1;transform:translateX(0)} }
+        .modal-overlay { display:none; position:fixed; inset:0; z-index:9990; background:rgba(0,0,0,0.45); align-items:center; justify-content:center; }
+        .modal-overlay.active { display:flex; }
+        .modal { width:min(480px,90vw); border-radius:12px; background:#FFFFFF; box-shadow:0 12px 40px rgba(0,0,0,0.2); overflow:hidden; }
+        .modal-head { display:flex; align-items:center; justify-content:space-between; padding:16px 20px; border-bottom:1px solid #E3E9F2; }
+        .modal-head h3 { margin:0; font-size:16px; }
+        .modal-close { width:30px; height:30px; border:0; border-radius:6px; color:var(--muted); background:transparent; cursor:pointer; font-size:16px; }
+        .modal-close:hover { background:#F0F4FA; }
+        .modal-body { padding:22px; text-align:center; }
+        .modal-foot { display:flex; justify-content:flex-end; gap:8px; padding:14px 20px; border-top:1px solid #E3E9F2; }
+        .no-records-note { display:none; padding:18px; margin-bottom:14px; border:1px dashed #C3D1E4; border-radius:10px; color:var(--muted); background:#FAFCFF; font-size:13px; text-align:center; }
+        .no-records-note.visible { display:block; }
+        .photo-preview { width:96px; height:96px; margin:0 auto 14px; border-radius:50%; color:#FFFFFF; background:var(--blue); display:flex; align-items:center; justify-content:center; font-size:34px; font-weight:700; overflow:hidden; }
+        .photo-preview img { width:100%; height:100%; object-fit:cover; }
+        .grade-table tbody.sem-a tr.b { display:none; }
+        .grade-table tbody.sem-b tr.a { display:none; }
+    </style>
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>STUDENT PORTAL SYSTEM</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Registrar navigation">
+            <a href="../../pages/dashboard/registrar.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="student-records.html" class="active"><i class="fa-solid fa-users"></i><span>Student Records</span></a>
+            <a href="../enrollment-management/enrollment-management.html"><i class="fa-regular fa-file-lines"></i><span>Enrollment Management</span></a>
+            <a href="../enrollment-management/enrollment-application.html"><i class="fa-regular fa-square-plus"></i><span>Enrollment Application</span></a>
+            <a href="../report/reports.html"><i class="fa-solid fa-chart-simple"></i><span>Reports</span></a>
+            <a href="../document-request/index.html"><i class="fa-regular fa-folder-open"></i><span>Document Requests</span></a>
+            <a href="../announcement/index.html"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../settings/settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+            <a href="../../pages/auth/login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <section class="profile-content">
+            <div class="back-bar">
+                <div>
+                    <a class="back-link" href="student-records.html"><i class="fa-solid fa-arrow-left"></i> Back to Student Records</a>
+                    <div class="record-title">
+                        <div>
+                            <h1>View Student Record</h1>
+                            <p class="page-desc">Review student information, academic records, and enrollment details.</p>
+                        </div>
+                    </div>
+                </div>
+                <a class="btn btn-outline" href="student-records.html"><i class="fa-solid fa-arrow-left"></i> Back to Student Record</a>
+            </div>
+
+            <section class="hero-card" aria-label="Student summary">
+                <div class="hero-avatar"></div>
+                <div class="hero-info">
+                    <h2 class="hero-name"></h2>
+                    <p class="hero-id">Student ID: <strong></strong></p>
+                    <p class="hero-program"></p>
+                </div>
+                <div class="hero-meta">
+                    <div class="meta-chip"><span>Year Level</span><strong></strong></div>
+                    <div class="meta-chip"><span>Semester</span><strong></strong></div>
+                    <a class="btn-blue" href="edit-record.html"><i class="fa-regular fa-pen-to-square"></i> Edit Record</a>
+                </div>
+            </section>
+
+            <nav class="profile-tabs" aria-label="Record views">
+                <button type="button" class="tab-btn active" data-target="personal">Personal Info</button>
+                <button type="button" class="tab-btn" data-target="academic">Academic History</button>
+                <button type="button" class="tab-btn" data-target="enrollment">Enrollment</button>
+                <button type="button" class="tab-btn" data-target="grades">Grades</button>
+            </nav>
+
+            <section class="tab-panel" id="personal">
+                <div class="card">
+                    <h3 class="card-title"><i class="fa-solid fa-user"></i> Personal Information</h3>
+                    <div class="info-grid">
+                        <div class="detail-list">
+                            <div class="detail-item"><span>Full Name</span><strong></strong></div>
+                            <div class="detail-item"><span>Student ID</span><strong></strong></div>
+                            <div class="detail-item"><span>Course</span><strong></strong></div>
+                            <div class="detail-item"><span>Year Level</span><strong></strong></div>
+                            <div class="detail-item"><span>Semester</span><strong></strong></div>
+                            <div class="detail-item"><span>Date of Birth</span><strong></strong></div>
+                            <div class="detail-item"><span>Gender</span><strong></strong></div>
+                            <div class="detail-item"><span>Email Address</span><strong></strong></div>
+                            <div class="detail-item"><span>Contact Number</span><strong></strong></div>
+                            <div class="detail-item"><span>Address</span><strong></strong></div>
+                        </div>
+                        <div class="photo-block">
+                            <div class="photo-avatar"></div>
+                            <span class="page-desc" style="text-align:center;margin:0;">2x2 ID Photo</span>
+                            <button type="button" class="btn-blue" id="btn-change-photo"><i class="fa-solid fa-camera"></i> Change Photo</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="tab-panel" id="academic" hidden>
+                <div class="panel-head">
+                    <h2>Academic History</h2>
+                    <select class="filter-select" aria-label="Filter by school year" id="acad-year-filter">
+                        <option value="">All Years</option>
+                        <option value="2024">2024 - 2025</option>
+                        <option value="2025">2025 - 2026</option>
+                        <option value="2026">2026 - 2027</option>
+                        <option value="2027">2027 - 2028</option>
+                    </select>
+                </div>
+
+                <div class="no-records-note" id="acad-empty"><i class="fa-solid fa-circle-info"></i> No academic records match this filter.</div>
+
+                <details class="year-card" open data-year="2024">
+                    <summary class="year-sum">
+                        <span class="year-head">
+                            <h3></h3>
+                            <span class="sem-pill"></span>
+                        </span>
+                        <i class="fa-solid fa-chevron-down chevron"></i>
+                    </summary>
+                    <table class="grade-table">
+                        <thead>
+                            <tr>
+                                <th>Course Code</th>
+                                <th>Course Title</th>
+                                <th>Unit</th>
+                                <th>Grade</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <div class="term-summary">
+                        <span>Total Unit: <strong>0</strong></span>
+                        <span>GWA: <strong>0.00</strong></span>
+                        <span class="green">Academic Standing: <strong></strong></span>
+                    </div>
+                </details>
+
+                <details class="year-card" open data-year="2025">
+                    <summary class="year-sum">
+                        <span class="year-head">
+                            <h3></h3>
+                            <span class="sem-pill"></span>
+                        </span>
+                        <i class="fa-solid fa-chevron-down chevron"></i>
+                    </summary>
+                    <table class="grade-table">
+                        <thead>
+                            <tr>
+                                <th>Course Code</th>
+                                <th>Course Title</th>
+                                <th>Unit</th>
+                                <th>Grade</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <div class="term-summary">
+                        <span>Total Unit: <strong>0</strong></span>
+                        <span>GWA: <strong>0.00</strong></span>
+                        <span class="green">Academic Standing: <strong></strong></span>
+                    </div>
+                </details>
+
+                <details class="year-card" data-year="2026">
+                    <summary class="year-sum">
+                        <span class="year-head">
+                            <h3></h3>
+                        </span>
+                        <i class="fa-solid fa-chevron-down chevron"></i>
+                    </summary>
+                    <div class="empty-note"><i class="fa-solid fa-circle-info"></i> No records yet.</div>
+                </details>
+
+                <details class="year-card" data-year="2027">
+                    <summary class="year-sum">
+                        <span class="year-head">
+                            <h3></h3>
+                        </span>
+                        <i class="fa-solid fa-chevron-down chevron"></i>
+                    </summary>
+                    <div class="empty-note"><i class="fa-solid fa-circle-info"></i> No records yet.</div>
+                </details>
+
+                <div class="info-banner" role="status">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <span>Academic history displays track-back of your completed and ongoing subjects from your first year up to the present.</span>
+                </div>
+            </section>
+
+            <section class="tab-panel" id="enrollment" hidden>
+                <div class="card">
+                    <h3 class="card-title"><i class="fa-solid fa-file-circle-check"></i> Current Enrollment <span class="status-badge status-green" style="margin-left:auto;"></span></h3>
+                    <div class="enroll-grid">
+                        <div class="enroll-item"><span>School Year</span><strong></strong></div>
+                        <div class="enroll-item"><span>Year Level</span><strong></strong></div>
+                        <div class="enroll-item"><span>Semester</span><strong></strong></div>
+                        <div class="enroll-item"><span>Enrollment Date</span><strong></strong></div>
+                        <div class="enroll-item"><span>Program</span><strong></strong></div>
+                        <div class="enroll-item"><span>Status</span><strong><span class="dot"></span></strong></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title"><i class="fa-solid fa-clock-rotate-left"></i> Enrollment History</h3>
+                    <table class="grade-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>School Year</th>
+                                <th>Semester</th>
+                                <th>Program</th>
+                                <th>Year Level</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="stat-tiles" aria-label="Enrollment summary">
+                    <div class="stat-tile tile-green"><p>Total Enrollments</p><strong>0</strong></div>
+                    <div class="stat-tile tile-blue"><p>Active</p><strong>0</strong></div>
+                    <div class="stat-tile tile-purple"><p>Completed</p><strong>0</strong></div>
+                    <div class="stat-tile tile-orange"><p>Dropped</p><strong>0</strong></div>
+                </div>
+
+                <div class="info-banner" role="status">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <span>You can view detailed information for each enrollment record by clicking the View button.</span>
+                </div>
+            </section>
+
+            <section class="tab-panel" id="grades" hidden>
+                <div class="grade-filters">
+                    <select class="filter-select" aria-label="Filter by school year" id="grade-year-filter">
+                        <option value="2025">2025 - 2026</option>
+                        <option value="2024">2024 - 2025</option>
+                    </select>
+                    <select class="filter-select" aria-label="Filter by semester" id="grade-sem-filter">
+                        <option value="1">1st Semester</option>
+                        <option value="2">2nd Semester</option>
+                    </select>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title"><i class="fa-regular fa-file-lines"></i> Grades Per Subject</h3>
+                    <table class="grade-table">
+                        <thead>
+                            <tr>
+                                <th>Course Code</th>
+                                <th>Course Title</th>
+                                <th>Unit</th>
+                                <th>Grade</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody id="grades-tbody">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="metric-cards">
+                    <div class="metric-card">
+                        <i class="fa-regular fa-folder metric-icon"></i>
+                        <div class="metric-text">
+                            <span>Total Units</span>
+                            <strong id="grade-units">0</strong>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <i class="fa-solid fa-book metric-icon"></i>
+                        <div class="metric-text">
+                            <span>GWA</span>
+                            <strong id="grade-gwa">0.00</strong>
+                        </div>
+                    </div>
+                    <div class="metric-card good-card">
+                        <i class="fa-solid fa-trophy metric-icon good"></i>
+                        <div class="metric-text">
+                            <span>Academic Standing</span>
+                            <strong class="good"></strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title"><i class="fa-solid fa-list-ol"></i> Grade Legend</h3>
+                    <table class="grade-table">
+                        <thead>
+                            <tr>
+                                <th>Grade</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>1.00 - 1.25</td><td>Excellent</td></tr>
+                            <tr><td>1.26 - 1.75</td><td>Very Good</td></tr>
+                            <tr><td>1.76 - 2.25</td><td>Good</td></tr>
+                            <tr><td>2.26 - 2.75</td><td>Satisfactory</td></tr>
+                            <tr><td>2.76 - 3.00</td><td>Passed</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="info-banner" role="status">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <span>Grades are updated at the end of semester. Please check your registrar for official grade reports.</span>
+                </div>
+            </section>
+
+            <div class="record-footer">
+                <p class="updated">Last updated: <strong></strong></p>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                    <button type="button" class="btn btn-outline" id="btn-print"><i class="fa-solid fa-print"></i> Print</button>
+                    <button type="button" class="btn-blue" id="btn-download"><i class="fa-solid fa-file-arrow-down"></i> Download Report</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="toast-wrap" id="toast-wrap"></div>
+
+    <div class="modal-overlay" id="modal-photo">
+        <div class="modal">
+            <div class="modal-head">
+                <h3><i class="fa-solid fa-camera" style="color:var(--blue);margin-right:8px;"></i> Change Profile Photo</h3>
+                <button class="modal-close" data-close="modal-photo"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="photo-preview" id="photo-preview"></div>
+                <p class="page-desc" style="margin:0 0 4px;">Upload a new 2x2 ID photo</p>
+                <label class="btn-blue" style="cursor:pointer;margin-top:14px;">
+                    <i class="fa-solid fa-cloud-arrow-up"></i> Choose File
+                    <input type="file" id="photo-file" accept="image/*" style="display:none;">
+                </label>
+                <small style="display:block;margin-top:10px;color:var(--muted);font-size:12px;">PNG or JPG, max 5MB</small>
+            </div>
+            <div class="modal-foot">
+                <button class="btn btn-outline" data-close="modal-photo">Cancel</button>
+                <button class="btn btn-primary" id="btn-save-photo"><i class="fa-solid fa-check"></i> Save Photo</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/api.js"></script>
+    <script src="../../js/sidebar.js"></script>
+    <script>
+        (function () {
+            var tabs = document.querySelectorAll('.tab-btn');
+            var panels = document.querySelectorAll('.tab-panel');
+            tabs.forEach(function (tab) {
+                tab.addEventListener('click', function () {
+                    tabs.forEach(function (t) { t.classList.remove('active'); });
+                    tab.classList.add('active');
+                    var target = tab.getAttribute('data-target');
+                    panels.forEach(function (p) { p.hidden = (p.id !== target); });
+                });
+            });
+
+            function showToast(msg, type) {
+                var wrap = document.getElementById('toast-wrap');
+                var t = document.createElement('div');
+                t.className = 'toast' + (type ? ' ' + type : '');
+                var icon = type === 'info' ? 'circle-info' : type === 'error' ? 'circle-xmark' : 'circle-check';
+                t.innerHTML = '<i class="fa-solid fa-' + icon + '"></i> ' + msg;
+                wrap.appendChild(t);
+                setTimeout(function () { t.style.opacity = '0'; t.style.transition = 'opacity 0.3s'; setTimeout(function () { t.remove(); }, 300); }, 3000);
+            }
+
+            function openModal(id) { document.getElementById(id).classList.add('active'); }
+            function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+            var yearFilter = document.getElementById('acad-year-filter');
+            var yearCards = Array.prototype.slice.call(document.querySelectorAll('.year-card'));
+            var acadEmpty = document.getElementById('acad-empty');
+
+            var SY = { '2024': ['2024 - 2025'], '2025': ['2025 - 2026'], '2026': ['2026 - 2027'], '2027': ['2027 - 2028'] };
+
+            function applyYearFilter() {
+                var val = yearFilter.value;
+                var anyVisible = false;
+                yearCards.forEach(function (card) {
+                    var show = !val || card.dataset.year === val;
+                    card.style.display = show ? '' : 'none';
+                    if (show) anyVisible = true;
+                });
+                acadEmpty.classList.toggle('visible', !anyVisible);
+            }
+
+            yearFilter.addEventListener('change', applyYearFilter);
+
+            var gradeYear = document.getElementById('grade-year-filter');
+            var gradeSem = document.getElementById('grade-sem-filter');
+            var gradesTbody = document.getElementById('grades-tbody');
+            var gradesUnits = document.getElementById('grade-units');
+            var gradesGwa = document.getElementById('grade-gwa');
+
+            var GRADE_DATA = {};
+
+            var GRADE_ROW = {};
+
+            function renderGrades() {
+                var key = gradeYear.value + '-' + gradeSem.value;
+                var data = GRADE_DATA[key];
+                if (!data) return;
+                var html = '';
+                data.rows.forEach(function (code) {
+                    var r = GRADE_ROW[code];
+                    html += '<tr><td>' + r[0] + '</td><td>' + r[1] + '</td><td>' + r[2] + '</td><td class="grade-num excellent">' + r[3] + '</td><td><span class="status-badge status-green">' + r[4] + '</span></td></tr>';
+                });
+                gradesTbody.innerHTML = html;
+                gradesUnits.textContent = data.units;
+                gradesGwa.textContent = data.gwa;
+            }
+
+            gradeYear.addEventListener('change', renderGrades);
+            gradeSem.addEventListener('change', renderGrades);
+
+            document.getElementById('btn-download').addEventListener('click', function () {
+                showToast('Report is being generated...', 'info');
+                setTimeout(function () { showToast('Student record report downloaded.'); }, 1500);
+            });
+
+            document.getElementById('btn-print').addEventListener('click', function () { window.print(); });
+
+            var photoFile = document.getElementById('photo-file');
+            var photoPreview = document.getElementById('photo-preview');
+            var pendingPhoto = null;
+
+            document.getElementById('btn-change-photo').addEventListener('click', function () {
+                photoPreview.textContent = '';
+                photoPreview.querySelector('img') && photoPreview.querySelector('img').remove();
+                pendingPhoto = null;
+                openModal('modal-photo');
+            });
+
+            photoFile.addEventListener('change', function () {
+                if (!photoFile.files || !photoFile.files[0]) return;
+                var file = photoFile.files[0];
+                if (file.size > 5 * 1024 * 1024) {
+                    showToast('File exceeds 5MB limit.', 'error');
+                    return;
+                }
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    photoPreview.innerHTML = '';
+                    var img = document.createElement('img');
+                    img.src = e.target.result;
+                    photoPreview.appendChild(img);
+                    pendingPhoto = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+
+            document.getElementById('btn-save-photo').addEventListener('click', function () {
+                if (!pendingPhoto) {
+                    showToast('No photo selected.', 'error');
+                    return;
+                }
+                var heroAvatar = document.querySelector('.hero-avatar');
+                if (heroAvatar) {
+                    heroAvatar.innerHTML = '';
+                    var img = document.createElement('img');
+                    img.src = pendingPhoto;
+                    img.style.cssText = 'width:100%;height:100%;border-radius:50%;object-fit:cover;';
+                    heroAvatar.appendChild(img);
+                }
+                var photoAvatar = document.querySelector('.photo-block .photo-avatar');
+                if (photoAvatar) {
+                    photoAvatar.innerHTML = '';
+                    var img2 = document.createElement('img');
+                    img2.src = pendingPhoto;
+                    img2.style.cssText = 'width:100%;height:100%;border-radius:50%;object-fit:cover;';
+                    photoAvatar.appendChild(img2);
+                }
+                closeModal('modal-photo');
+                showToast('Profile photo updated successfully.');
+            });
+
+            document.querySelectorAll('[data-close]').forEach(function (btn) {
+                btn.addEventListener('click', function () { closeModal(btn.dataset.close); });
+            });
+
+            document.querySelectorAll('.modal-overlay').forEach(function (overlay) {
+                overlay.addEventListener('click', function (e) { if (e.target === overlay) overlay.classList.remove('active'); });
+            });
+        })();
+    </script>
+</body>
+</html>

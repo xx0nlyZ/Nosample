@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subject Enrollment | CEC Registrar Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/reg-dashboard.css">
+    <link rel="stylesheet" href="../../css/reg-analytics.css">
+    <link rel="stylesheet" href="../../css/reg-subject-enroll.css">
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>STUDENT PORTAL SYSTEM</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Registrar navigation">
+            <a href="../../pages/dashboard/registrar.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="../student-record/student-records.html"><i class="fa-solid fa-users"></i><span>Student Records</span></a>
+            <a href="enrollment-management.html"><i class="fa-regular fa-file-lines"></i><span>Enrollment Management</span></a>
+            <a href="enrollment-application.html" class="active"><i class="fa-regular fa-square-plus"></i><span>Enrollment Application</span></a>
+            <a href="../report/reports.html"><i class="fa-solid fa-chart-simple"></i><span>Reports</span></a>
+            <a href="../document-request/index.html"><i class="fa-regular fa-folder-open"></i><span>Document Requests</span></a>
+            <a href="../announcement/index.html"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../settings/settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+            <a href="../../pages/auth/login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="app-header">
+            <button class="menu-toggle" type="button" id="menu-toggle" aria-label="Toggle sidebar"><i class="fa-solid fa-bars"></i></button>
+            <h1 class="app-title">Registrar Dashboard</h1>
+
+            <label class="app-search">
+                <span class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Search anything</span>
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search anything...">
+            </label>
+
+            <div class="app-user">
+                <span class="app-user-avatar">—</span>
+                <span class="app-user-text">
+                    <strong></strong>
+                    <small>Registrar</small>
+                </span>
+            </div>
+        </header>
+
+        <section class="sel-content">
+            <div class="page-head">
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <a href="../../pages/dashboard/registrar.html">Dashboard</a>
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <a href="../student-record/student-records.html">Student Records</a>
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <span>Subject Enrollment</span>
+                </nav>
+                <h1>Subject Enrollment</h1>
+            </div>
+
+            <section class="student-card" aria-label="Student being enrolled">
+                <span class="avatar-lg"></span>
+                <div class="sc-info">
+                    <h3></h3>
+                    <div class="sc-meta">
+                        <span>Student ID: <b></b></span>
+                        <span>Course: <b></b></span>
+                        <span>Year Level: <b></b></span>
+                        <span>Section: <b></b></span>
+                    </div>
+                </div>
+                <a class="btn btn-outline sc-back" href="../student-record/student-records.html"><i class="fa-solid fa-arrow-left"></i> Back to Student Records</a>
+            </section>
+
+            <section class="split-grid">
+                <div class="pane" aria-label="Available subjects">
+                    <div class="pane-head">
+                        <div>
+                            <h3>Available Subjects</h3>
+                            <span class="pane-sub">Select the subjects to enroll</span>
+                        </div>
+                        <span class="status-badge status-blue">1st Semester</span>
+                    </div>
+
+                    <label class="search-input pane-search">
+                        <span class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Search subjects</span>
+                        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                        <input type="search" placeholder="Search subjects...">
+                    </label>
+
+                    <div class="table-wrap">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" aria-label="Select all subjects"></th>
+                                    <th>Subject Code</th>
+                                    <th>Subject Name</th>
+                                    <th>Units</th>
+                                    <th>Schedule</th>
+                                    <th>Instructor</th>
+                                </tr>
+                            </thead>
+<tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="pane" aria-label="Selected subjects">
+                    <div class="pane-head">
+                        <div>
+                            <h3>Selected Subjects</h3>
+                            <span class="pane-sub">0 subjects ready to confirm</span>
+                        </div>
+                        <span class="status-badge status-green"><i class="fa-solid fa-check"></i> 0 items</span>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table class="data-table sel-table">
+                            <thead>
+                                <tr>
+                                    <th>Subject Code</th>
+                                    <th>Subject Name</th>
+                                    <th>Units</th>
+                                    <th>Schedule</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="total-units">
+                        <span>Total Units</span>
+                        <span class="count">0/15</span>
+                    </div>
+
+                    <div class="pane-actions">
+                        <button type="button" class="btn btn-primary" onclick="location.href='student-profile.html'"><i class="fa-solid fa-check"></i> Confirm Subjects</button>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <script src="../../js/api.js"></script>
+    <script src="../../js/sidebar.js"></script>
+    <script>
+        (function () {
+            document.getElementById('menu-toggle').addEventListener('click', function () {
+                document.body.classList.toggle('sidebar-collapsed');
+            });
+        })();
+    </script>
+</body>
+</html>

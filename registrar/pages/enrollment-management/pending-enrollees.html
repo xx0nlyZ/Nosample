@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pending Enrollees | CEC Registrar Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/reg-dashboard.css">
+    <link rel="stylesheet" href="../../css/reg-analytics.css">
+    <link rel="stylesheet" href="../../css/reg-enrollment.css">
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>STUDENT PORTAL SYSTEM</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Registrar navigation">
+            <a href="../../pages/dashboard/registrar.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="../student-record/student-records.html"><i class="fa-solid fa-users"></i><span>Student Records</span></a>
+            <a href="enrollment-management.html" class="active"><i class="fa-regular fa-file-lines"></i><span>Enrollment Management</span></a>
+            <a href="enrollment-application.html"><i class="fa-regular fa-square-plus"></i><span>Enrollment Application</span></a>
+            <a href="../report/reports.html"><i class="fa-solid fa-chart-simple"></i><span>Reports</span></a>
+            <a href="../document-request/index.html"><i class="fa-regular fa-folder-open"></i><span>Document Requests</span></a>
+            <a href="../announcement/index.html"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../settings/settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+            <a href="../../pages/auth/login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="app-header">
+            <button class="menu-toggle" type="button" id="menu-toggle" aria-label="Toggle sidebar"><i class="fa-solid fa-bars"></i></button>
+            <h1 class="app-title">Registrar Dashboard</h1>
+
+            <label class="app-search">
+                <span class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Search anything</span>
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search anything...">
+            </label>
+
+            <div class="app-user">
+                <span class="app-user-avatar">—</span>
+                <span class="app-user-text">
+                    <strong></strong>
+                    <small>Registrar</small>
+                </span>
+            </div>
+        </header>
+
+        <section class="enroll-content">
+            <div class="page-head">
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <a href="../../pages/dashboard/registrar.html">Dashboard</a>
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <a href="enrollment-management.html">Enrollment Management</a>
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <span>Pending Enrollees</span>
+                </nav>
+                <div class="page-title">
+                    <span class="page-title-icon"><i class="fa-regular fa-clock"></i></span>
+                    <div>
+                        <h1>Pending Enrollees</h1>
+                        <p class="page-desc">Review and process student enrollment applications awaiting approval.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="enroll-filters">
+                <select class="filter-select" aria-label="Select school year">
+                    <option>2026 - 2027</option>
+                    <option>2025 - 2026</option>
+                    <option>2024 - 2025</option>
+                </select>
+                <select class="filter-select" aria-label="Select semester">
+                    <option>1st Semester</option>
+                    <option>2nd Semester</option>
+                    <option>Summer</option>
+                </select>
+            </div>
+
+            <section class="table-card" aria-label="Pending enrollees list">
+                <div class="table-toolbar">
+                    <h3>Pending Enrollees</h3>
+                    <div class="bulk-actions">
+                        <button type="button" class="btn btn-success"><i class="fa-solid fa-check"></i> Approve</button>
+                        <button type="button" class="btn btn-danger"><i class="fa-solid fa-xmark"></i> Reject</button>
+                    </div>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" aria-label="Select all"></th>
+                                <th>Student ID</th>
+                                <th>Name</th>
+                                <th>Program</th>
+                                <th>Year Level</th>
+                                <th>Date Applied</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pen-enrollees-tbody">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="table-footer">
+                    <p class="pagination-info" id="pen-enrollees-info">0 pending enrollees</p>
+                    <div class="pagination">
+                        <button type="button" disabled>&lt;</button>
+                        <button type="button" class="active">1</button>
+                        <button type="button">&gt;</button>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <script src="../../js/api.js"></script>
+    <script src="../../js/sidebar.js"></script>
+    <script>
+        (function () {
+            document.getElementById('menu-toggle').addEventListener('click', function () {
+                document.body.classList.toggle('sidebar-collapsed');
+            });
+        })();
+    </script>
+    <script>
+        (function () {
+            'use strict';
+
+            function escText(value) {
+                var div = document.createElement('div');
+                div.textContent = String(value == null ? '' : value);
+                return div.innerHTML;
+            }
+
+            function render(items) {
+                var tbody = document.getElementById('pen-enrollees-tbody');
+                var info = document.getElementById('pen-enrollees-info');
+                if (!tbody) return;
+                var total = items && items.length || 0;
+                if (total === 0) {
+                    tbody.innerHTML = '<tr><td colspan="7" class="empty-cell">No pending enrollees.</td></tr>';
+                    if (info) info.textContent = '0 pending enrollees';
+                    return;
+                }
+                tbody.innerHTML = items.map(function (item) {
+                    return '<tr>' +
+                        '<td><input type="checkbox" aria-label="Select row"></td>' +
+                        '<td class="muted-cell">' + escText(item.studentId != null ? item.studentId : (item.id != null ? item.id : '')) + '</td>' +
+                        '<td>' + escText(item.name || item.studentName || '') + '</td>' +
+                        '<td>' + escText(item.program || item.course || '') + '</td>' +
+                        '<td class="muted-cell">' + escText(item.yearLevel || item.year || '') + '</td>' +
+                        '<td class="muted-cell">' + escText(item.date || item.dateApplied || item.appliedDate || '') + '</td>' +
+                        '<td><div class="actions-cell"><a class="btn-row primary" href="enrollment-management.html"><i class="fa-regular fa-eye"></i> Review</a></div></td>' +
+                        '</tr>';
+                }).join('');
+                if (info) info.textContent = total + ' pending enrollee' + (total === 1 ? '' : 's');
+            }
+
+            function load() {
+                if (!window.API) return;
+                window.API.get('/registrar/enrollments', { status: 'pending' }).then(function (res) {
+                    var items = (res && Array.isArray(res)) ? res : ((res && res.data) || []);
+                    render(items);
+                }).catch(function () {
+                    render([]);
+                });
+            }
+
+            load();
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports | CEC Registrar Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/reg-dashboard.css">
+    <link rel="stylesheet" href="../../css/reg-analytics.css">
+    <link rel="stylesheet" href="../../css/reg-reports.css">
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>STUDENT PORTAL SYSTEM</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Registrar navigation">
+            <a href="../../pages/dashboard/registrar.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="../student-record/student-records.html"><i class="fa-solid fa-users"></i><span>Student Records</span></a>
+            <a href="../enrollment-management/enrollment-management.html"><i class="fa-regular fa-file-lines"></i><span>Enrollment Management</span></a>
+            <a href="../enrollment-management/enrollment-application.html"><i class="fa-regular fa-square-plus"></i><span>Enrollment Application</span></a>
+            <a href="reports.html" class="active"><i class="fa-solid fa-chart-simple"></i><span>Reports</span></a>
+            <a href="../document-request/index.html"><i class="fa-regular fa-folder-open"></i><span>Document Requests</span></a>
+            <a href="../announcement/index.html"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../settings/settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+            <a href="../../pages/auth/login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="app-header">
+            <button class="menu-toggle" type="button" id="menu-toggle" aria-label="Toggle sidebar"><i class="fa-solid fa-bars"></i></button>
+            <h1 class="app-title">Registrar Dashboard</h1>
+
+            <label class="app-search">
+                <span class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Search anything</span>
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search anything...">
+            </label>
+
+            <div class="app-user">
+                <span class="app-user-avatar">—</span>
+                <span class="app-user-text">
+                    <strong></strong>
+                    <small>Registrar</small>
+                </span>
+            </div>
+        </header>
+
+        <section class="reports-content">
+            <div class="page-head">
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <a href="../../pages/dashboard/registrar.html">Dashboard</a>
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <span>Reports</span>
+                </nav>
+                <h1>Recently Enrolled Students</h1>
+                <p class="page-desc">View and manage all reports available in the system.</p>
+            </div>
+
+            <div class="reports-filter-bar">
+                <label class="search-input">
+                    <span class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Search</span>
+                    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                    <input type="search" placeholder="Search reports..." id="report-search">
+                </label>
+                <select class="filter-select" aria-label="Filter by program">
+                    <option>All Programs</option>
+                    <option>BS Information Technology</option>
+                    <option>BS Business Administration</option>
+                    <option>BS Education</option>
+                </select>
+                <select class="filter-select" aria-label="Filter by year level">
+                    <option>All Year Levels</option>
+                    <option>1st Year</option>
+                    <option>2nd Year</option>
+                    <option>3rd Year</option>
+                    <option>4th Year</option>
+                </select>
+                <select class="filter-select" aria-label="Filter by status">
+                    <option>All Status</option>
+                    <option>Completed</option>
+                    <option>Pending</option>
+                </select>
+                <button type="button" class="btn btn-export"><i class="fa-solid fa-download"></i> Export</button>
+            </div>
+
+            <section class="table-card" aria-label="Reports data table">
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Report Name</th>
+                                <th>Category</th>
+                                <th>Description</th>
+                                <th>Generated Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="report-tbody">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="table-footer">
+                    <p class="pagination-info" id="report-info">0 Reports</p>
+                    <div class="pagination">
+                        <button type="button" class="active">1</button>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <script src="../../js/api.js"></script>
+    <script src="../../js/sidebar.js"></script>
+    <script>
+        (function () {
+            document.getElementById('menu-toggle').addEventListener('click', function () {
+                document.body.classList.toggle('sidebar-collapsed');
+            });
+        })();
+    </script>
+    <script>
+        (function () {
+            'use strict';
+
+            function escText(value) {
+                var div = document.createElement('div');
+                div.textContent = String(value == null ? '' : value);
+                return div.innerHTML;
+            }
+
+            function statusHtml(status) {
+                var s = String(status || '').toLowerCase();
+                var cls = s.indexOf('complete') !== -1 || s.indexOf('generated') !== -1 || s.indexOf('ready') !== -1 ? 'status-green' : 'status-amber';
+                if (s.indexOf('fail') !== -1 || s.indexOf('error') !== -1 || s.indexOf('cancel') !== -1) cls = 'status-red';
+                return '<span class="status-badge ' + cls + '">' + escText(status || '') + '</span>';
+            }
+
+            function render(items) {
+                var tbody = document.getElementById('report-tbody');
+                var info = document.getElementById('report-info');
+                if (!tbody) return;
+                var total = items && items.length || 0;
+                if (total === 0) {
+                    tbody.innerHTML = '<tr><td colspan="7" class="empty-cell">No reports found.</td></tr>';
+                    if (info) info.textContent = '0 Reports';
+                    return;
+                }
+                tbody.innerHTML = items.map(function (r, i) {
+                    return '<tr>' +
+                        '<td class="muted-cell">' + (i + 1) + '</td>' +
+                        '<td>' + escText(r.name || r.reportName || '') + '</td>' +
+                        '<td>' + escText(r.category || r.type || '') + '</td>' +
+                        '<td>' + escText(r.description || '') + '</td>' +
+                        '<td class="muted-cell">' + escText(r.generatedDate || r.date || r.dateGenerated || '') + '</td>' +
+                        '<td>' + statusHtml(r.status) + '</td>' +
+                        '<td><div class="actions-cell"><a class="btn-row primary" href="reports.html"><i class="fa-solid fa-download"></i> Download</a></div></td>' +
+                        '</tr>';
+                }).join('');
+                if (info) info.textContent = total + ' Report' + (total === 1 ? '' : 's');
+            }
+
+            function load() {
+                if (!window.API) return;
+                var params = {};
+                var q = document.getElementById('report-search');
+                if (q && q.value.trim()) params.q = q.value.trim();
+                window.API.get('/registrar/reports', params).then(function (res) {
+                    var items = (res && Array.isArray(res)) ? res : ((res && res.data) || []);
+                    render(items);
+                }).catch(function () {
+                    render([]);
+                });
+            }
+
+            var search = document.getElementById('report-search');
+            if (search) {
+                var timer = null;
+                search.addEventListener('input', function () {
+                    if (timer) window.clearTimeout(timer);
+                    timer = window.setTimeout(load, 350);
+                });
+            }
+
+            load();
+        })();
+    </script>
+</body>
+</html>

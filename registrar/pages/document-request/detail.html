@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Request Details | CEC Registrar Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/reg-dashboard.css">
+    <link rel="stylesheet" href="../../css/reg-analytics.css">
+    <link rel="stylesheet" href="../../css/reg-enrollment.css">
+    <link rel="stylesheet" href="../../css/reg-document.css">
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>STUDENT PORTAL SYSTEM</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Registrar navigation">
+            <a href="../../pages/dashboard/registrar.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="../student-record/student-records.html"><i class="fa-solid fa-users"></i><span>Student Records</span></a>
+            <a href="../enrollment-management/enrollment-management.html"><i class="fa-regular fa-file-lines"></i><span>Enrollment Management</span></a>
+            <a href="../enrollment-management/enrollment-application.html"><i class="fa-regular fa-square-plus"></i><span>Enrollment Application</span></a>
+            <a href="../report/reports.html"><i class="fa-solid fa-chart-simple"></i><span>Reports</span></a>
+            <a href="index.html" class="active"><i class="fa-regular fa-folder-open"></i><span>Document Requests</span></a>
+            <a href="../announcement/index.html"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../settings/settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+            <a href="../../pages/auth/login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="app-header">
+            <button class="menu-toggle" type="button" id="menu-toggle" aria-label="Toggle sidebar"><i class="fa-solid fa-bars"></i></button>
+            <h1 class="app-title">Registrar Dashboard</h1>
+
+            <label class="app-search">
+                <span class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Search anything</span>
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search anything...">
+            </label>
+
+            <div class="app-user">
+                <span class="app-user-avatar">—</span>
+                <span class="app-user-text">
+                    <strong></strong>
+                    <small>Registrar</small>
+                </span>
+            </div>
+        </header>
+
+        <section class="doc-content">
+            <div class="page-head">
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <a href="../../pages/dashboard/registrar.html">Dashboard</a>
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <a href="index.html">Document Requests</a>
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <span></span>
+                </nav>
+            </div>
+
+            <div class="detail-hero">
+                <div class="detail-hero-left">
+                    <span class="detail-hero-icon"><i class="fa-regular fa-file-lines" aria-hidden="true"></i></span>
+                    <div>
+                        <h1 class="detail-hero-title"></h1>
+                        <div class="detail-hero-sub">
+                            <span>Reference No: <span class="ref-no"></span></span>
+                            <span class="status-badge status-amber"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="date-chip">
+                    <i class="fa-regular fa-calendar-days" aria-hidden="true"></i>
+                    <div>
+                        <span class="chip-label">Date Requested</span>
+                        <span class="chip-value"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detail-grid">
+                <article class="detail-card" aria-label="Request information">
+                    <div class="detail-card-head">
+                        <i class="fa-regular fa-clipboard" aria-hidden="true"></i>
+                        <h3>Request Information</h3>
+                    </div>
+                    <dl class="kv-list">
+                        <li>
+                            <dt>Request Type</dt>
+                            <dd></dd>
+                        </li>
+                        <li>
+                            <dt>Purpose</dt>
+                            <dd></dd>
+                        </li>
+                        <li>
+                            <dt>Delivery Method</dt>
+                            <dd></dd>
+                        </li>
+                        <li>
+                            <dt>Additional Notes</dt>
+                            <dd class="muted"></dd>
+                        </li>
+                    </dl>
+                </article>
+
+                <article class="detail-card" aria-label="Status update timeline">
+                    <div class="detail-card-head">
+                        <i class="fa-solid fa-arrow-trend-up" aria-hidden="true"></i>
+                        <h3>Status Update</h3>
+                    </div>
+                    <ol class="timeline">
+                    </ol>
+                </article>
+            </div>
+
+            <div class="action-bar">
+                <a class="btn btn-outline" href="pending.html"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back to List</a>
+                <button type="button" class="btn btn-danger" onclick="window.location.href='cancel-confirm.html'"><i class="fa-solid fa-ban" aria-hidden="true"></i> Cancel Request</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="../../js/api.js"></script>
+    <script src="../../js/sidebar.js"></script>
+    <script>
+        (function () {
+            var toggle = document.getElementById('menu-toggle');
+            toggle.addEventListener('click', function () {
+                document.body.classList.toggle('sidebar-collapsed');
+            });
+        })();
+    </script>
+</body>
+</html>
