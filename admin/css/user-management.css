@@ -1,0 +1,98 @@
+.summary-card {
+    margin-bottom: 18px;
+}
+
+.summary-bar-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 14px;
+    padding: 15px 18px;
+    border-bottom: 1px solid #EEF2F8;
+    background: #F8FAFD;
+}
+
+.summary-bar-head h2 {
+    margin: 0;
+    font-size: 16px;
+}
+
+.summary-bar-head p {
+    margin: 3px 0 0;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.count-pills {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.count-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 13px;
+    border-radius: 20px;
+    font-size: 12.5px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.count-pill strong {
+    font-size: 13.5px;
+}
+
+.pill-blue {
+    color: #1D4E9B;
+    background: #E2ECFA;
+}
+
+.pill-green {
+    color: #177245;
+    background: #E3F4EA;
+}
+
+.pill-red {
+    color: #B3261E;
+    background: #FBE4E4;
+}
+
+.pill-yellow {
+    color: #8A6D00;
+    background: #FFF2CC;
+}
+
+.control-bar {
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.audit-table input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    accent-color: var(--blue);
+    cursor: pointer;
+}
+
+.cell-id {
+    color: var(--muted);
+    font-size: 12.5px;
+    white-space: nowrap;
+}
+
+.username-cell {
+    color: var(--muted);
+    font-size: 12.5px;
+    white-space: nowrap;
+}
+
+@media (max-width: 650px) {
+    .count-pill {
+        padding: 5px 10px;
+        font-size: 11.5px;
+    }
+}

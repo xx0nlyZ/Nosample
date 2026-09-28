@@ -1,0 +1,369 @@
+/* ==========================================================================
+   PROFILE VIEW
+   ========================================================================== */
+.profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+    gap: 18px;
+    align-items: start;
+}
+
+.profile-card {
+    border: 1px solid #E3E9F2;
+    border-radius: 8px;
+    background: #FFFFFF;
+    overflow: hidden;
+}
+
+.profile-card-head {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 15px 18px;
+    border-bottom: 1px solid #EEF2F8;
+}
+
+.profile-card-head h3 {
+    margin: 0;
+    font-size: 15px;
+}
+
+.profile-card-head i {
+    color: var(--blue);
+    font-size: 16px;
+}
+
+/* Summar-top summary card */
+.profile-summary {
+    padding: 30px 20px;
+    text-align: center;
+}
+
+.summary-avatar {
+    display: grid;
+    width: 110px;
+    height: 110px;
+    margin: 0 auto 16px;
+    place-items: center;
+    border: 3px solid #FFFFFF;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px var(--blue);
+    color: #FFFFFF;
+    background: var(--blue);
+    font-size: 42px;
+    font-weight: 700;
+}
+
+.profile-summary h2 {
+    margin: 0;
+    font-size: 20px;
+    letter-spacing: 0.2px;
+}
+
+.profile-summary .role-sub {
+    margin: 5px 0 18px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 9px 18px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-primary {
+    border-color: var(--blue);
+    color: #FFFFFF;
+    background: var(--blue);
+}
+
+.btn-primary:hover {
+    background: var(--navy);
+}
+
+.btn-outline {
+    border-color: var(--line);
+    color: var(--blue);
+    background: #FFFFFF;
+}
+
+.btn-outline:hover {
+    background: var(--pale-blue);
+}
+
+/* Two-column field layout */
+.info-body {
+    padding: 10px 18px 18px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 22px;
+}
+
+.info-field label {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+}
+
+.info-field p {
+    margin: 0;
+    color: var(--navy);
+    font-size: 14px;
+    line-height: 1.45;
+}
+
+/* Education list */
+.edu-list {
+    list-style: none;
+    margin: 0;
+    padding: 8px 18px 16px;
+}
+
+.edu-item {
+    padding: 13px 0;
+    border-bottom: 1px solid #EEF2F8;
+}
+
+.edu-item:last-child {
+    border-bottom: 0;
+}
+
+.edu-item h4 {
+    margin: 0;
+    font-size: 14px;
+}
+
+.edu-item .edu-school {
+    margin: 3px 0 2px;
+    color: var(--blue);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.edu-item .edu-years {
+    margin: 0;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* Contact address */
+.address-body {
+    padding: 8px 18px 18px;
+}
+
+.address-body p {
+    margin: 0;
+    color: var(--navy);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   EDIT PROFILE
+   ========================================================================== */
+.profile-head-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.back-btn {
+    display: grid;
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+    place-items: center;
+    border: 1px solid #D5DEE9;
+    border-radius: 50%;
+    color: var(--navy);
+    background: #FFFFFF;
+    font-size: 16px;
+}
+
+.back-btn:hover {
+    border-color: var(--blue);
+    color: #FFFFFF;
+    background: var(--blue);
+}
+
+.edit-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 18px;
+    align-items: start;
+}
+
+.edit-left {
+    display: grid;
+    gap: 18px;
+}
+
+.photo-card {
+    padding: 26px 20px 24px;
+    text-align: center;
+}
+
+.photo-upload {
+    position: relative;
+    display: inline-block;
+}
+
+.photo-img {
+    display: grid;
+    width: 120px;
+    height: 120px;
+    place-items: center;
+    border-radius: 50%;
+    color: #FFFFFF;
+    background: var(--blue);
+    font-size: 46px;
+    font-weight: 700;
+}
+
+.camera-badge {
+    position: absolute;
+    right: 0;
+    bottom: 4px;
+    display: grid;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    border: 3px solid #FFFFFF;
+    border-radius: 50%;
+    color: #FFFFFF;
+    background: var(--blue);
+    font-size: 14px;
+}
+
+.photo-card .btn-outline {
+    margin-top: 16px;
+}
+
+.summary-rows {
+    padding: 10px 18px 16px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 11px 0;
+    border-bottom: 1px solid #EEF2F8;
+    font-size: 13px;
+}
+
+.summary-row:last-child {
+    border-bottom: 0;
+}
+
+.summary-row .label {
+    color: var(--muted);
+    font-weight: 700;
+}
+
+.summary-row .value {
+    color: var(--navy);
+    text-align: right;
+}
+
+.form-card {
+    padding: 22px;
+}
+
+.form-section + .form-section {
+    margin-top: 26px;
+}
+
+.form-section h4 {
+    margin: 0 0 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #EEF2F8;
+    font-size: 14px;
+    letter-spacing: 0.3px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 20px;
+}
+
+.form-field label {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--navy);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.form-field label .req {
+    color: #B3261E;
+}
+
+.form-field input,
+.form-field select {
+    width: 100%;
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    outline: 0;
+    color: var(--navy);
+    background: #FFFFFF;
+    font-size: 13px;
+}
+
+.form-field input:focus,
+.form-field select:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 2px var(--pale-blue);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 26px;
+    padding-top: 18px;
+    border-top: 1px solid #EEF2F8;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 1050px) {
+    .profile-grid,
+    .edit-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 560px) {
+    .info-grid,
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-actions {
+        justify-content: stretch;
+    }
+
+    .form-actions .btn {
+        flex: 1;
+    }
+}

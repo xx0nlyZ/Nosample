@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Announcements | Cebu Eastern College</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/announcements.css">
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>FACULTY PORTAL</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Faculty navigation">
+            <div class="nav-section">My Classes</div>
+            <a href="../dashboard/faculty-dashboard.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="../schedule/schedule-day.html"><i class="fa-regular fa-calendar-day"></i><span>My Schedule</span></a>
+            <a href="../classes/class-list.html"><i class="fa-solid fa-table-list"></i><span>Class List</span></a>
+            <a href="../assignments/assignments.html"><i class="fa-solid fa-list-check"></i><span>Assignments</span></a>
+
+            <div class="nav-section">Students</div>
+            <a href="../students/student-records.html"><i class="fa-solid fa-users"></i><span>Student List</span></a>
+            <a href="../grades/grade-management.html"><i class="fa-solid fa-file-pen"></i><span>Grades</span></a>
+            <a href="../attendance/attendance-dashboard.html"><i class="fa-solid fa-clipboard-check"></i><span>Attendance</span></a>
+
+            <div class="nav-section">Academic</div>
+            <a href="announcements.html" class="active"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+            <a href="../dashboard/upcoming-deadlines.html"><i class="fa-regular fa-clock"></i><span>Upcoming Deadlines</span></a>
+
+            <div class="nav-section">Personal</div>
+            <a href="../profile/profile.html"><i class="fa-regular fa-user"></i><span>Profile</span></a>
+            <a href="../settings/settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../auth/login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <label class="search-box">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search courses, sections or anything...">
+            </label>
+
+            <select class="semester-select" aria-label="Semester">
+                <option selected>1st Trimester | 1st Year</option>
+                <option>2nd Trimester | 1st Year</option>
+                <option>3rd Trimester | 1st Year</option>
+            </select>
+
+            <button class="header-icon" type="button" aria-label="Notifications">
+                <i class="fa-regular fa-bell" aria-hidden="true"></i>
+                <span class="notif-dot"></span>
+            </button>
+
+            <button class="profile-button" type="button">
+                <span class="profile-avatar">CB</span>
+                <span class="profile-info">
+                    <strong>Mr. Charles Bacus</strong>
+                    <small>Faculty</small>
+                </span>
+            </button>
+        </header>
+
+        <section class="dashboard-content">
+            <div class="page-head head-row">
+                <div>
+                    <h1>Announcements</h1>
+                    <p class="page-desc">Stay updated with official school and department announcements.</p>
+                </div>
+                <div class="head-actions">
+                    <button class="category-filter active" type="button">All</button>
+                    <a href="create-announcement.html" class="btn-add"><i class="fa-solid fa-plus"></i> Create Announcement</a>
+                </div>
+            </div>
+
+            <label class="search-bar">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" id="keyword-search" placeholder="Filter or search by keyword...">
+            </label>
+
+            <div class="table-card">
+                <div class="table-heading">
+                    <h3>Official Announcements</h3>
+                </div>
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Posted By</th>
+                                <th>Date Posted</th>
+                                <th>Priority</th>
+                            </tr>
+                        </thead>
+                        <tbody id="announcements-body"></tbody>
+                    </table>
+                </div>
+                <div class="table-footer">
+                    <p class="pagination-info" id="paginationInfo">Showing 0 to 0</p>
+                    <div class="pagination">
+                        <button class="page-btn" type="button" aria-label="Previous page"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button class="page-btn active" type="button">1</button>
+                        <button class="page-btn" type="button">2</button>
+                        <button class="page-btn" type="button">3</button>
+                        <button class="page-btn" type="button" aria-label="Next page"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="../../js/api.js"></script>
+    <script src="../../js/facultyIdentity.js"></script>
+    <script>
+        const searchInput = document.getElementById('keyword-search');
+        const tbody = document.getElementById('announcements-body');
+        const paginationInfo = document.getElementById('paginationInfo');
+
+        function toItems(res) { return (res && Array.isArray(res)) ? res : ((res && res.data) || []); }
+        function esc(v) { return String(v == null ? '' : v).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+        function priorityClass(p) {
+            var v = String(p || '').toLowerCase();
+            if (v === 'high') return 'priority-high';
+            if (v === 'low') return 'priority-low';
+            return 'priority-normal';
+        }
+
+        function renderRows(items) {
+            if (!items.length) {
+                tbody.innerHTML = '<tr><td colspan="4" class="muted-cell">No announcements found</td></tr>';
+                return;
+            }
+            var html = '';
+            items.forEach(function (a) {
+                html += '<tr>';
+                html += '<td class="announcement-title">' + esc(a.title) + '</td>';
+                html += '<td class="muted-cell">' + esc(a.postedBy) + '</td>';
+                html += '<td class="muted-cell">' + esc(a.datePosted || a.date) + '</td>';
+                html += '<td><span class="priority-badge ' + priorityClass(a.priority) + '">' + esc(a.priority || 'Normal') + '</span></td>';
+                html += '</tr>';
+            });
+            tbody.innerHTML = html;
+        }
+
+        function applySearch() {
+            const q = searchInput.value.trim().toLowerCase();
+            const rows = tbody.querySelectorAll('tr');
+            let visible = 0;
+            rows.forEach(function (row) {
+                const text = row.textContent.toLowerCase();
+                const show = !q || text.includes(q);
+                row.style.display = show ? '' : 'none';
+                if (show) visible++;
+            });
+            paginationInfo.textContent = visible === 0 ? 'No announcements found' : 'Showing 1 to ' + visible;
+        }
+
+        searchInput.addEventListener('input', applySearch);
+
+        API.get('/faculty/announcements').then(function (res) {
+            renderRows(toItems(res));
+            applySearch();
+        }).catch(function () {
+            renderRows([]);
+            if (window.showToast) showToast('Failed to load announcements', 'error');
+        });
+    </script>
+<script src="../../js/showToast.js"></script>
+<script src="../../js/copyToClipboard.js"></script>
+<script src="../../js/confirmAction.js"></script>
+<script src="../../js/avatarUpload.js"></script>
+<script src="../../js/validateForm.js"></script>
+<script src="../../js/persistSelect.js"></script>
+<script src="../../js/setYear.js"></script>
+
+</body>
+</html>

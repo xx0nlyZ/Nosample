@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Assignment | Cebu Eastern College</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/assignments.css">
+    <style>
+        .toast-wrap {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            pointer-events: none;
+        }
+
+        .toast {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 18px;
+            border-radius: 8px;
+            color: #FFFFFF;
+            background: #177245;
+            font-size: 13px;
+            font-weight: 600;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            animation: toastIn 0.3s ease;
+            pointer-events: auto;
+        }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+    </style>
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>FACULTY PORTAL</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Faculty navigation">
+            <div class="nav-section">My Classes</div>
+            <a href="../dashboard/faculty-dashboard.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="../schedule/schedule-day.html"><i class="fa-regular fa-calendar-day"></i><span>My Schedule</span></a>
+            <a href="../classes/class-list.html"><i class="fa-solid fa-table-list"></i><span>Class List</span></a>
+            <a href="assignments.html" class="active"><i class="fa-solid fa-list-check"></i><span>Assignments</span></a>
+
+            <div class="nav-section">Students</div>
+            <a href="../students/student-records.html"><i class="fa-solid fa-users"></i><span>Student List</span></a>
+            <a href="../grades/grade-management.html"><i class="fa-solid fa-file-pen"></i><span>Grades</span></a>
+            <a href="../attendance/attendance-dashboard.html"><i class="fa-solid fa-clipboard-check"></i><span>Attendance</span></a>
+
+            <div class="nav-section">Academic</div>
+            <a href="../announcements/announcements.html"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+            <a href="../dashboard/upcoming-deadlines.html"><i class="fa-regular fa-clock"></i><span>Upcoming Deadlines</span></a>
+
+            <div class="nav-section">Personal</div>
+            <a href="../profile/profile.html"><i class="fa-regular fa-user"></i><span>Profile</span></a>
+            <a href="../settings/settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../auth/login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <label class="search-box">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search anything...">
+            </label>
+
+            <select class="semester-select" aria-label="Semester">
+                <option selected>1st Trimester | 1st Year</option>
+                <option>2nd Trimester | 1st Year</option>
+                <option>3rd Trimester | 1st Year</option>
+            </select>
+
+            <button class="header-icon" type="button" aria-label="Notifications">
+                <i class="fa-regular fa-bell" aria-hidden="true"></i>
+                <span class="notif-dot"></span>
+            </button>
+
+            <button class="profile-button" type="button">
+                <span class="profile-avatar">CB</span>
+                <span class="profile-info">
+                    <strong>Mr. Charles Bacus</strong>
+                    <small>Faculty</small>
+                </span>
+            </button>
+        </header>
+
+        <section class="dashboard-content">
+            <a href="assignments.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Assignments</a>
+            <div class="page-head">
+                <h1>Edit Assignment</h1>
+            </div>
+
+            <form id="assignment-form" novalidate>
+                <div class="form-card">
+                    <h3 class="card-title"><i class="fa-solid fa-circle-info"></i> General Details</h3>
+                    <div class="form-grid">
+                        <div class="form-group full">
+                            <label class="form-label" for="assignment-title">Assignment Title <span class="required">*</span></label>
+                            <input type="text" id="assignment-title" class="form-control" placeholder="e.g. HTML/CSS Portfolio Project">
+                            <p class="field-error" data-error-for="assignment-title">Assignment title is required.</p>
+                        </div>
+                        <div class="form-group full">
+                            <label class="form-label" for="course-section">Course / Section <span class="required">*</span></label>
+                            <select id="course-section" class="form-control">
+                                <option>Web Development (1A)</option>
+                                <option>Data Structures (2A)</option>
+                                <option>Operating Systems (2A)</option>
+                                <option>Computer Programming 1 (1B)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h3 class="card-title"><i class="fa-solid fa-align-left"></i> Instructions</h3>
+                    <div class="form-group">
+                        <label class="form-label" for="instructions">Instructions <span class="required">*</span></label>
+                        <div class="editor">
+                            <div class="editor-toolbar" role="toolbar" aria-label="Formatting tools">
+                                <button type="button" title="Bold"><i class="fa-solid fa-bold"></i></button>
+                                <button type="button" title="Italic"><i class="fa-solid fa-italic"></i></button>
+                                <button type="button" title="Underline"><i class="fa-solid fa-underline"></i></button>
+                                <button type="button" title="Bulleted list"><i class="fa-solid fa-list-ul"></i></button>
+                                <button type="button" title="Numbered list"><i class="fa-solid fa-list-ol"></i></button>
+                                <button type="button" title="Link"><i class="fa-solid fa-link"></i></button>
+                            </div>
+                            <textarea id="instructions" class="form-control" placeholder="Describe what students need to do for this assignment..."></textarea>
+                        </div>
+                        <p class="field-error" data-error-for="instructions">Instructions are required.</p>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h3 class="card-title"><i class="fa-solid fa-calendar-check"></i> Submission and Grading</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label" for="due-date">Due Date <span class="required">*</span></label>
+                            <input type="date" id="due-date" class="form-control">
+                            <p class="field-error" data-error-for="due-date">Due date is required.</p>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="total-points">Total Points <span class="required">*</span></label>
+                            <input type="number" id="total-points" class="form-control" value="100" min="1" step="1">
+                            <p class="field-error" data-error-for="total-points">Enter a valid point value.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h3 class="card-title"><i class="fa-solid fa-paperclip"></i> Attached Files</h3>
+                    <div class="attach-list"></div>
+                    <button type="button" class="upload-new" id="upload-new"><i class="fa-solid fa-upload"></i> Upload New File</button>
+                    <input type="file" id="file-input" hidden multiple>
+                </div>
+
+                <div class="form-card">
+                    <h3 class="card-title"><i class="fa-solid fa-toggle-on"></i> Allowed Submission Types</h3>
+                    <div class="check-group">
+                        <label class="check-item">
+                            <input type="checkbox" id="allow-upload" checked>
+                            <span>File Upload</span>
+                        </label>
+                        <label class="check-item">
+                            <input type="checkbox" id="allow-url">
+                            <span>URL</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h3 class="card-title"><i class="fa-solid fa-clock"></i> Late Submission Policy</h3>
+                    <div class="form-group">
+                        <label class="form-label" for="late-policy">Instructions for late submissions</label>
+                        <textarea id="late-policy" class="form-control" placeholder="Describe how late submissions are handled or penalized..."></textarea>
+                    </div>
+                </div>
+
+                <div class="form-footer">
+                    <a href="assignments.html" class="btn-cancel">Cancel</a>
+                    <button type="submit" class="btn-save" id="save-assignment"><i class="fa-solid fa-floppy-disk"></i> Save Assignment</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <div class="toast-wrap" id="toast-wrap"></div>
+
+    <script src="../../js/api.js"></script>
+    <script src="../../js/facultyIdentity.js"></script>
+    <script>
+        function showToast(message) {
+            const wrap = document.getElementById('toast-wrap');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            wrap.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s';
+                setTimeout(() => toast.remove(), 300);
+            }, 2500);
+        }
+
+        function param(name) { var m = new RegExp('[?&]' + name + '=([^&]*)').exec(location.search); return m ? decodeURIComponent(m[1]) : ''; }
+        function esc(v) { return String(v == null ? '' : v).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+        var assignmentId = param('id');
+
+        function attachmentCard(name, size) {
+            var card = document.createElement('div');
+            card.className = 'attach-card';
+            card.innerHTML = '<span class="attach-icon"><i class="fa-solid fa-file"></i></span>' +
+                '<div class="attach-info"><strong>' + esc(name) + '</strong><small>' + esc(size || '') + '</small></div>' +
+                '<div class="attach-actions"><button type="button" class="icon-btn" title="Remove file"><i class="fa-solid fa-trash-can"></i></button></div>';
+            return card;
+        }
+
+        function renderAttachments(list) {
+            var listEl = document.querySelector('.attach-list');
+            listEl.innerHTML = '';
+            (list || []).forEach(function (f) {
+                if (typeof f === 'string') listEl.appendChild(attachmentCard(f, ''));
+                else listEl.appendChild(attachmentCard(f.name || f.filename || '', f.size || ''));
+            });
+        }
+
+        document.getElementById('upload-new').addEventListener('click', () => document.getElementById('file-input').click());
+
+        document.getElementById('file-input').addEventListener('change', function () {
+            const list = document.querySelector('.attach-list');
+            Array.prototype.forEach.call(this.files, function (file) {
+                list.appendChild(attachmentCard(file.name, (file.size / 1024).toFixed(1) + ' KB'));
+            });
+            this.value = '';
+        });
+
+        document.querySelector('.attach-list').addEventListener('click', function (e) {
+            if (e.target.closest('.icon-btn')) {
+                e.target.closest('.attach-card').remove();
+            }
+        });
+
+        const form = document.getElementById('assignment-form');
+
+        function setError(inputId, show) {
+            const input = document.getElementById(inputId);
+            const error = document.querySelector(`[data-error-for="${inputId}"]`);
+            if (!input || !error) return;
+            input.classList.toggle('invalid', show);
+            error.classList.toggle('visible', show);
+        }
+
+        function loadAssignment() {
+            if (!assignmentId) return;
+            API.get('/faculty/assignments/' + encodeURIComponent(assignmentId)).then(function (res) {
+                var a = (res && res.data) ? res.data : (res || {});
+                if (a.title != null) document.getElementById('assignment-title').value = a.title;
+                if (a.courseSection != null) document.getElementById('course-section').value = a.courseSection;
+                else if (a.subject != null) document.getElementById('course-section').value = a.subject;
+                if (a.instructions != null) document.getElementById('instructions').value = a.instructions;
+                if (a.dueDate != null) document.getElementById('due-date').value = String(a.dueDate).slice(0, 10);
+                if (a.totalPoints != null) document.getElementById('total-points').value = a.totalPoints;
+                if (a.latePolicy != null) document.getElementById('late-policy').value = a.latePolicy;
+                renderAttachments(a.attachments);
+            }).catch(function () {
+                if (window.showToast) showToast('Failed to load assignment');
+            });
+        }
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            let valid = true;
+
+            const title = document.getElementById('assignment-title');
+            const titleOk = title.value.trim() !== '';
+            setError('assignment-title', !titleOk);
+            valid = valid && titleOk;
+
+            const instr = document.getElementById('instructions');
+            const instrOk = instr.value.trim() !== '';
+            setError('instructions', !instrOk);
+            valid = valid && instrOk;
+
+            const due = document.getElementById('due-date');
+            const dueOk = due.value !== '';
+            setError('due-date', !dueOk);
+            valid = valid && dueOk;
+
+            const points = document.getElementById('total-points');
+            const pointsOk = points.value !== '' && Number(points.value) > 0;
+            setError('total-points', !pointsOk);
+            valid = valid && pointsOk;
+
+            if (!valid) {
+                showToast('Please fill in the required fields.');
+                return;
+            }
+
+            const btn = document.getElementById('save-assignment');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Saving...';
+
+            const attachments = Array.prototype.map.call(document.querySelectorAll('.attach-card .attach-info strong'), function (el) { return el.textContent; });
+            const body = {
+                title: title.value.trim(),
+                courseSection: document.getElementById('course-section').value,
+                instructions: instr.value.trim(),
+                dueDate: due.value,
+                totalPoints: points.value,
+                latePolicy: document.getElementById('late-policy').value.trim(),
+                allowUpload: document.getElementById('allow-upload').checked,
+                allowUrl: document.getElementById('allow-url').checked,
+                attachments: attachments
+            };
+
+            var req = assignmentId ? API.put('/faculty/assignments/' + encodeURIComponent(assignmentId), body) : API.post('/faculty/assignments', body);
+
+            req.then(function () {
+                showToast('Assignment saved successfully.');
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save Assignment';
+                setTimeout(() => window.location.href = 'assignments.html', 900);
+            }).catch(function () {
+                showToast('Failed to save assignment.');
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save Assignment';
+            });
+        });
+
+        ['assignment-title', 'instructions', 'due-date', 'total-points'].forEach(id => {
+            document.getElementById(id).addEventListener('input', () => setError(id, false));
+        });
+
+        loadAssignment();
+    </script>
+<script src="../../js/showToast.js"></script>
+<script src="../../js/copyToClipboard.js"></script>
+<script src="../../js/confirmAction.js"></script>
+<script src="../../js/avatarUpload.js"></script>
+<script src="../../js/validateForm.js"></script>
+<script src="../../js/persistSelect.js"></script>
+<script src="../../js/setYear.js"></script>
+
+</body>
+</html>

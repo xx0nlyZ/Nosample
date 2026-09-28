@@ -1,0 +1,125 @@
+@import url("class-list.css");
+
+/* ==========================================================================
+   PAGE HEAD (with back arrow)
+   ========================================================================== */
+.back-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.back-icon-btn {
+    display: grid;
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+    place-items: center;
+    border: 1px solid #D5DEE9;
+    border-radius: 8px;
+    color: var(--navy);
+    background: #FFFFFF;
+    font-size: 15px;
+}
+
+.back-icon-btn:hover {
+    border-color: var(--blue);
+    color: #FFFFFF;
+    background: var(--blue);
+}
+
+/* ==========================================================================
+   EXPLAINER ROW (semester + section)
+   ========================================================================== */
+.filter-bar .filter-select {
+    min-width: 190px;
+}
+
+/* ==========================================================================
+   HEADING SEARCH
+   ========================================================================== */
+.heading-search {
+    position: relative;
+    width: min(300px, 100%);
+}
+
+.heading-search i {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.heading-search input {
+    width: 100%;
+    height: 36px;
+    padding: 0 12px 0 32px;
+    border: 1px solid #D5DEE9;
+    border-radius: 6px;
+    outline: none;
+    color: var(--navy);
+    font-size: 12.5px;
+}
+
+.heading-search input:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(29, 78, 155, 0.12);
+}
+
+/* ==========================================================================
+   SUBJECT CODE BADGES
+   ========================================================================== */
+.subject-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.subject-badge i {
+    font-size: 11px;
+}
+
+.badge-blue {
+    color: #1D4E9B;
+    background: #E2ECFA;
+}
+
+.badge-green {
+    color: #177245;
+    background: #E3F4EA;
+}
+
+.badge-yellow {
+    color: #8A6D00;
+    background: #FFF2CC;
+}
+
+.badge-light-green {
+    color: #167866;
+    background: #DFF2EC;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 640px) {
+    .back-head {
+        align-items: stretch;
+    }
+
+    .table-heading {
+        align-items: flex-start;
+    }
+
+    .heading-search {
+        width: 100%;
+    }
+}

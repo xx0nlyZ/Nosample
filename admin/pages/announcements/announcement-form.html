@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compose Announcement | Cebu Eastern College</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/dashboard.css">
+    <link rel="stylesheet" href="../../css/announcement-form.css">
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>ADMIN PORTAL</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Admin navigation">
+            <div class="nav-section">Management</div>
+            <a href="../dashboard/admin.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="../logs/audit-overview.html"><i class="fa-solid fa-chart-column"></i><span>Audit Overview</span></a>
+            <a href="../logs/activity-logs.html"><i class="fa-solid fa-clock-rotate-left"></i><span>Activity Logs</span></a>
+            <a href="../users/user-management.html"><i class="fa-solid fa-user-gear"></i><span>User Management</span></a>
+
+            <div class="nav-section">Academic</div>
+            <a href="announcements.html" class="active"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+            <a href="../reports/detailed-report.html"><i class="fa-solid fa-chart-simple"></i><span>Reports &amp; Analytics</span></a>
+
+            <div class="nav-section">System</div>
+            <a href="../maintenance/backup-maintenance.html"><i class="fa-solid fa-database"></i><span>Backup &amp; Maintenance</span></a>
+
+            <div class="nav-section">Account</div>
+            <a href="../profile/profile.html"><i class="fa-regular fa-user"></i><span>Profile</span></a>
+            <a href="../settings/settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../auth/sign-in.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <h1 class="page-title">Announcements</h1>
+
+            <label class="search-box">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search anything...">
+            </label>
+
+            <button class="header-icon" type="button" aria-label="Notifications">
+                <i class="fa-regular fa-bell" aria-hidden="true"></i>
+                <span class="notif-dot"></span>
+            </button>
+
+            <button class="profile-button" type="button">
+                <span class="profile-avatar"></span> <span class="profile-info">
+                    <strong></strong>
+                    <small></small>
+                </span>
+            </button>
+        </header>
+
+        <section class="dashboard-content">
+            <div class="page-head head-row">
+                <div class="profile-head-row">
+                    <a class="back-btn" href="announcements.html" aria-label="Back to Announcements"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i></a>
+                    <div>
+                        <h1 id="page-title">Compose New Announcement</h1>
+                        <p class="page-desc" id="page-desc">Publish a new announcement to your audience.</p>
+                    </div>
+                </div>
+            </div>
+
+            <article class="card form-card">
+                <div class="card-head">
+                    <div>
+                        <h3 id="card-title">Announcement Details</h3>
+                        <p>Compose your announcement content below</p>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form id="ann-form" novalidate>
+                        <div class="form-field">
+                            <label for="subject">Subject</label>
+                            <input type="text" class="form-input" id="subject" name="subject" placeholder="e.g., Campus Event Update">
+                        </div>
+
+                        <div class="form-field">
+                            <label class="field-label">Schedule Release</label>
+                            <div class="schedule-inline">
+                                <div class="schedule-mode">
+                                    <label><input type="radio" name="schedule" value="now" checked> Now</label>
+                                    <label><input type="radio" name="schedule" value="date"> Date</label>
+                                </div>
+                                <div class="schedule-controls is-now" id="schedule-controls">
+                                    <input type="date" id="release-date" name="releaseDate" aria-label="Release date">
+                                    <select id="release-time" name="releaseTime" aria-label="Release time">
+                                        <option value="08:00 AM">08:00 AM</option>
+                                        <option value="09:30 AM">09:30 AM</option>
+                                        <option value="10:30 AM" selected>10:30 AM</option>
+                                        <option value="12:00 PM">12:00 PM</option>
+                                        <option value="02:00 PM">02:00 PM</option>
+                                        <option value="04:30 PM">04:30 PM</option>
+                                        <option value="06:00 PM">06:00 PM</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-field">
+                            <span class="field-label">Target Audience</span>
+                            <div class="audience-list" id="audience-list">
+                                <button type="button" class="audience-pill" data-audience="Students">Students</button>
+                                <button type="button" class="audience-pill" data-audience="Faculty">Faculty</button>
+                                <button type="button" class="audience-pill" data-audience="Staff">Staff</button>
+                                <button type="button" class="audience-pill" data-audience="Parents">Parents</button>
+                                <button type="button" class="audience-pill" data-audience="All Users">All Users</button>
+                            </div>
+                            <span class="field-hint">Select the audiences that will receive this announcement.</span>
+                        </div>
+
+                        <div class="form-field">
+                            <span class="field-label">Content</span>
+                            <div class="rte" id="rte">
+                                <div class="rte-toolbar" aria-label="Formatting toolbar" role="toolbar">
+                                    <button type="button" class="rte-btn" data-cmd="bold" title="Bold" aria-label="Bold"><i class="fa-solid fa-bold"></i></button>
+                                    <button type="button" class="rte-btn" data-cmd="italic" title="Italic" aria-label="Italic"><i class="fa-solid fa-italic"></i></button>
+                                    <button type="button" class="rte-btn" data-cmd="underline" title="Underline" aria-label="Underline"><i class="fa-solid fa-underline"></i></button>
+                                    <button type="button" class="rte-btn" data-cmd="strikeThrough" title="Strikethrough" aria-label="Strikethrough"><i class="fa-solid fa-strikethrough"></i></button>
+                                    <span class="rte-btn sep"></span>
+                                    <input type="color" id="text-color" title="Text Color" aria-label="Text color" style="width:18px;height:18px;border:0;padding:0;cursor:pointer">
+                                    <span class="rte-btn sep"></span>
+                                    <button type="button" class="rte-btn" data-cmd="justifyLeft" title="Align Left" aria-label="Align left"><i class="fa-solid fa-align-left"></i></button>
+                                    <button type="button" class="rte-btn" data-cmd="justifyCenter" title="Align Center" aria-label="Align center"><i class="fa-solid fa-align-center"></i></button>
+                                    <button type="button" class="rte-btn" data-cmd="justifyRight" title="Align Right" aria-label="Align right"><i class="fa-solid fa-align-right"></i></button>
+                                    <span class="rte-btn sep"></span>
+                                    <button type="button" class="rte-btn" data-cmd="insertUnorderedList" title="Bullet List" aria-label="Bullet list"><i class="fa-solid fa-list-ul"></i></button>
+                                    <button type="button" class="rte-btn" data-cmd="insertOrderedList" title="Numbered List" aria-label="Numbered list"><i class="fa-solid fa-list-ol"></i></button>
+                                    <span class="rte-btn sep"></span>
+                                    <button type="button" class="rte-btn" data-cmd="insertImage" title="Insert Image" aria-label="Insert image"><i class="fa-solid fa-image"></i></button>
+                                    <span class="rte-btn sep"></span>
+                                    <button type="button" class="rte-btn" data-cmd="undo" title="Undo" aria-label="Undo"><i class="fa-solid fa-rotate-left"></i></button>
+                                    <button type="button" class="rte-btn" data-cmd="redo" title="Redo" aria-label="Redo"><i class="fa-solid fa-rotate-right"></i></button>
+                                </div>
+                                <div class="rte-area" id="rte-area" contenteditable="true" data-placeholder="Write your announcement content here..."></div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" id="cancel-btn">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="submit-btn"><i class="fa-solid fa-bullhorn" aria-hidden="true"></i> Post</button>
+                    </div>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <script src="../../js/api.js"></script>
+    <script src="../../js/adminIdentity.js"></script>
+    <script src="../../js/announcement-form.js"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Announcements | Cebu Eastern College</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/dashboard.css">
+    <link rel="stylesheet" href="../../css/announcements.css">
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>ADMIN PORTAL</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Admin navigation">
+            <div class="nav-section">Management</div>
+            <a href="../dashboard/admin.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="../logs/audit-overview.html"><i class="fa-solid fa-chart-column"></i><span>Audit Overview</span></a>
+            <a href="../logs/activity-logs.html"><i class="fa-solid fa-clock-rotate-left"></i><span>Activity Logs</span></a>
+            <a href="../users/user-management.html"><i class="fa-solid fa-user-gear"></i><span>User Management</span></a>
+
+            <div class="nav-section">Academic</div>
+            <a href="announcements.html" class="active"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+            <a href="../reports/detailed-report.html"><i class="fa-solid fa-chart-simple"></i><span>Reports &amp; Analytics</span></a>
+
+            <div class="nav-section">System</div>
+            <a href="../maintenance/backup-maintenance.html"><i class="fa-solid fa-database"></i><span>Backup &amp; Maintenance</span></a>
+
+            <div class="nav-section">Account</div>
+            <a href="../profile/profile.html"><i class="fa-regular fa-user"></i><span>Profile</span></a>
+            <a href="../settings/settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../auth/sign-in.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <h1 class="page-title">Announcements</h1>
+
+            <label class="search-box">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search anything...">
+            </label>
+
+            <button class="header-icon" type="button" aria-label="Notifications">
+                <i class="fa-regular fa-bell" aria-hidden="true"></i>
+                <span class="notif-dot"></span>
+            </button>
+
+            <button class="profile-button" type="button">
+                <span class="profile-avatar"></span> <span class="profile-info">
+                    <strong></strong>
+                    <small></small>
+                </span>
+            </button>
+        </header>
+
+        <section class="dashboard-content">
+            <div class="ann-head-row">
+                <div class="cat-tabs">
+                    <button type="button" class="tab-pill active" data-tab="all">All</button>
+                    <button type="button" class="tab-pill" data-tab="live">Live</button>
+                    <button type="button" class="tab-pill" data-tab="scheduled">Scheduled</button>
+                    <button type="button" class="tab-pill" data-tab="expired">Expired</button>
+                </div>
+
+                <label class="filter-field ann-search">
+                    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                    <input type="search" id="ann-search" placeholder="Search announcements..." aria-label="Search announcements">
+                </label>
+
+                <a class="btn btn-primary" href="announcement-form.html"><i class="fa-solid fa-plus" aria-hidden="true"></i> Create announcement</a>
+            </div>
+
+            <article class="card table-card ann-card">
+                <div class="table-scroll">
+                    <div class="ann-row-head">
+                        <span>Subject</span>
+                        <span>Status</span>
+                        <span>Created By</span>
+                        <span>Created On</span>
+                        <span>Actions</span>
+                    </div>
+                    <div id="ann-list"></div>
+                </div>
+            </article>
+        </section>
+    </main>
+
+    <script src="../../js/api.js"></script>
+    <script src="../../js/adminIdentity.js"></script>
+    <script src="../../js/announcements.js"></script>
+</body>
+</html>

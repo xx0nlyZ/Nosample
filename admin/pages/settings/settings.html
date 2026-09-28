@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Settings | Cebu Eastern College</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/settings.css">
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>ADMIN PORTAL</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Admin navigation">
+            <div class="nav-section">Management</div>
+            <a href="../dashboard/admin.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="../logs/audit-overview.html"><i class="fa-solid fa-chart-column"></i><span>Audit Overview</span></a>
+            <a href="../logs/activity-logs.html"><i class="fa-solid fa-clock-rotate-left"></i><span>Activity Logs</span></a>
+            <a href="../users/user-management.html"><i class="fa-solid fa-user-gear"></i><span>User Management</span></a>
+
+            <div class="nav-section">Academic</div>
+            <a href="../announcements/announcements.html"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+            <a href="../reports/detailed-report.html"><i class="fa-solid fa-chart-simple"></i><span>Reports &amp; Analytics</span></a>
+
+            <div class="nav-section">System</div>
+            <a href="../maintenance/backup-maintenance.html"><i class="fa-solid fa-database"></i><span>Backup &amp; Maintenance</span></a>
+
+            <div class="nav-section">Account</div>
+            <a href="../profile/profile.html"><i class="fa-regular fa-user"></i><span>Profile</span></a>
+            <a href="settings.html" class="active"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../auth/sign-in.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <label class="search-box">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search students, subjects, or anything...">
+            </label>
+
+            <button class="header-icon" type="button" aria-label="Notifications">
+                <i class="fa-regular fa-bell" aria-hidden="true"></i>
+                <span class="notif-dot"></span>
+            </button>
+
+            <button class="profile-button" type="button">
+                <span class="profile-avatar"></span> <span class="profile-info">
+                    <strong></strong>
+                    <small></small>
+                </span>
+            </button>
+        </header>
+
+        <section class="dashboard-content">
+            <div class="page-head">
+                <h1>Settings</h1>
+                <p class="page-desc">Manage your account, security, notifications and preferences.</p>
+            </div>
+
+            <div class="settings-layout">
+                <nav class="settings-nav" aria-label="Settings">
+                    <div class="nav-title">Settings Menu</div>
+                    <a href="settings.html" class="active"><i class="fa-solid fa-user"></i> Account Settings</a>
+                    <a href="security.html"><i class="fa-solid fa-shield-halved"></i> Security</a>
+                    <a href="notifications.html"><i class="fa-regular fa-bell"></i> Notifications</a>
+                    <a href="preferences.html"><i class="fa-solid fa-sliders"></i> Preferences</a>
+                    <a href="session-management.html"><i class="fa-solid fa-laptop"></i> Session Management</a>
+                    <a href="login-history.html"><i class="fa-solid fa-list"></i> Login History</a>
+                </nav>
+
+                <div class="settings-content">
+                    <div class="card">
+                        <div class="card-head">
+                            <h3>Account Setting</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="account-grid">
+                                <div>
+                                    <form id="account-form" novalidate>
+                                        <div class="form-field">
+                                            <label class="form-label" for="full-name">Full Name</label>
+                                            <input type="text" id="full-name" class="form-input" value="">
+                                        </div>
+                                        <div class="form-field">
+                                            <label class="form-label" for="email">Email Address</label>
+                                            <div class="input-group">
+                                                <input type="email" id="email" class="form-input" value="">
+                                                <button type="button" class="btn-verify" id="verify-btn">Verify</button>
+                                            </div>
+                                        </div>
+                                        <div class="form-field">
+                                            <label class="form-label" for="username">Username</label>
+                                            <input type="text" id="username" class="form-input" value="" readonly>
+                                        </div>
+                                        <div class="form-field">
+                                            <label class="form-label" for="address">Address</label>
+                                            <input type="text" id="address" class="form-input" value="">
+                                        </div>
+                                        <div class="form-actions">
+                                            <button type="submit" class="btn btn-primary" id="save-btn"><i class="fa-solid fa-floppy-disk"></i> Save Changes</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="photo-col">
+                                    <h4>Profile Photo</h4>
+                                    <div class="photo-widget">
+                                        <div class="photo-editor" id="photo-editor">
+                                            <i class="fa-regular fa-user" aria-hidden="true"></i>
+                                            <img id="photo-img" class="photo-img" alt="Profile photo" hidden>
+                                            <span class="camera-badge"><i class="fa-solid fa-camera"></i></span>
+                                        </div>
+                                        <button type="button" class="btn btn-outline" id="photo-btn"><i class="fa-solid fa-image"></i> Change Photo</button>
+                                        <input type="file" id="photo-input" hidden accept="image/*">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="../../js/api.js"></script>
+    <script src="../../js/adminIdentity.js"></script>
+    <script src="../../js/admin-settings.js"></script>
+</body>
+</html>

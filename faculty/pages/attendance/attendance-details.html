@@ -1,0 +1,264 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Details | Cebu Eastern College</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/attendance-details.css">
+</head>
+<body class="dashboard-page">
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <img src="../../../images/cec-logo.png" alt="Cebu Eastern College logo">
+            <strong>CEC</strong>
+            <span>FACULTY PORTAL</span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Faculty navigation">
+            <div class="nav-section">My Classes</div>
+            <a href="../dashboard/faculty-dashboard.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="../schedule/schedule-day.html"><i class="fa-regular fa-calendar-day"></i><span>My Schedule</span></a>
+            <a href="../classes/class-list.html"><i class="fa-solid fa-table-list"></i><span>Class List</span></a>
+            <a href="../assignments/assignments.html"><i class="fa-solid fa-list-check"></i><span>Assignments</span></a>
+
+            <div class="nav-section">Students</div>
+            <a href="../students/student-records.html"><i class="fa-solid fa-users"></i><span>Student List</span></a>
+            <a href="../grades/grade-management.html"><i class="fa-solid fa-file-pen"></i><span>Grades</span></a>
+            <a href="attendance-dashboard.html" class="active"><i class="fa-solid fa-clipboard-check"></i><span>Attendance</span></a>
+
+            <div class="nav-section">Academic</div>
+            <a href="../announcements/announcements.html"><i class="fa-solid fa-bullhorn"></i><span>Announcements</span></a>
+            <a href="../dashboard/upcoming-deadlines.html"><i class="fa-regular fa-clock"></i><span>Upcoming Deadlines</span></a>
+
+            <div class="nav-section">Personal</div>
+            <a href="../profile/profile.html"><i class="fa-regular fa-user"></i><span>Profile</span></a>
+            <a href="../settings/settings.html"><i class="fa-solid fa-gear"></i><span>Settings</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="../auth/login.html"><i class="fa-solid fa-arrow-right-from-bracket"></i><span>Logout</span></a>
+        </div>
+    </aside>
+
+    <main class="dashboard-main">
+        <header class="dashboard-header">
+            <label class="search-box">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input type="search" placeholder="Search anything...">
+            </label>
+
+            <select class="semester-select" aria-label="Semester">
+                <option selected>1st Trimester | 1st Year</option>
+                <option>2nd Trimester | 1st Year</option>
+                <option>3rd Trimester | 1st Year</option>
+            </select>
+
+            <button class="header-icon" type="button" aria-label="Notifications">
+                <i class="fa-regular fa-bell" aria-hidden="true"></i>
+                <span class="notif-dot"></span>
+            </button>
+
+            <button class="profile-button" type="button">
+                <span class="profile-avatar">CB</span>
+                <span class="profile-info">
+                    <strong>Mr. Charles Bacus</strong>
+                    <small>Faculty</small>
+                </span>
+            </button>
+        </header>
+
+        <section class="dashboard-content">
+            <nav class="crumb-bar" aria-label="Breadcrumb">
+                <a href="attendance-dashboard.html"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back to Attendance</a>
+                <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                <span>Attendance Details</span>
+            </nav>
+
+            <div class="page-head">
+                <h1>Attendance Details</h1>
+                <p class="page-desc">View attendance records and statistics for this class.</p>
+            </div>
+
+            <div class="summary-bar">
+                <div class="class-summary">
+                    <span class="summary-icon"><i class="fa-solid fa-chalkboard-user" aria-hidden="true"></i></span>
+                    <div>
+                        <strong id="classSummaryName">&mdash;</strong>
+                        <span class="summary-meta" id="classSummaryMeta">&mdash;</span>
+                    </div>
+                </div>
+
+                <select class="semester-select" aria-label="Semester">
+                    <option selected>1st Trimester AY 2025 - 2026</option>
+                    <option>2nd Trimester AY 2025 - 2026</option>
+                    <option>3rd Trimester AY 2025 - 2026</option>
+                </select>
+            </div>
+
+            <section class="stats-grid" aria-label="Class attendance statistics">
+                <article class="stat-card">
+                    <div class="stat-info">
+                        <p>Total Students</p>
+                        <strong id="statTotalStudents">0</strong>
+                        <small>Enrolled this term</small>
+                    </div>
+                    <span class="stat-icon"><i class="fa-solid fa-user-graduate" aria-hidden="true"></i></span>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-info">
+                        <p>Present</p>
+                        <strong id="statPresent">0</strong>
+                        <small class="stat-sub percent-green" id="statPresentRate">&mdash;</small>
+                    </div>
+                    <span class="stat-icon"><i class="fa-regular fa-circle-check" aria-hidden="true"></i></span>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-info">
+                        <p>Absent</p>
+                        <strong id="statAbsent">0</strong>
+                        <small class="stat-sub percent-red" id="statAbsentRate">&mdash;</small>
+                    </div>
+                    <span class="stat-icon"><i class="fa-regular fa-circle-xmark" aria-hidden="true"></i></span>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-info">
+                        <p>Late</p>
+                        <strong id="statLate">0</strong>
+                        <small class="stat-sub percent-amber" id="statLateRate">&mdash;</small>
+                    </div>
+                    <span class="stat-icon"><i class="fa-regular fa-clock" aria-hidden="true"></i></span>
+                </article>
+            </section>
+
+            <div class="table-card">
+                <div class="table-heading">
+                    <h3>Attendance Records</h3>
+                    <span class="date-tag"><i class="fa-regular fa-calendar" aria-hidden="true"></i> <span id="dateRange">&mdash;</span></span>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="matrix-table">
+                        <thead>
+                            <tr id="matrixHead"></tr>
+                        </thead>
+                        <tbody id="matrixBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="analytics-grid">
+                <section class="table-card" aria-label="Attendance analytics">
+                    <div class="donut-row" id="donutRow"></div>
+                </section>
+
+                <aside class="notes-panel">
+                    <p>Students are expected to arrive before the start of class. Attendance is recorded within the first 15 minutes of the session; late arrivals beyond this window are marked as Absent. Please coordinate with the registrar for any absences due to valid school activities.</p>
+                </aside>
+            </div>
+        </section>
+    </main>
+<script src="../../js/api.js"></script>
+<script src="../../js/facultyIdentity.js"></script>
+<script>
+    (function () {
+        function toItems(res) { return (res && Array.isArray(res)) ? res : ((res && res.data) || []); }
+        function esc(v) { return String(v == null ? '' : v).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+        function setText(id, value) { var el = document.getElementById(id); if (el) el.textContent = (value == null || value === '') ? '\u2014' : value; }
+        function param(name) { var m = new RegExp('[?&]' + name + '=([^&]*)').exec(location.search); return m ? decodeURIComponent(m[1]) : ''; }
+
+        var classId = param('id') || param('classId') || '1';
+
+        function donut(value, color, label) {
+            var dash = Math.max(0, Math.min(100, Math.round(value)));
+            return '<div class="donut">' +
+                '<svg viewBox="0 0 36 36" aria-hidden="true">' +
+                '<circle cx="18" cy="18" r="15.9" fill="none" stroke="#E8EEF6" stroke-width="3.5"></circle>' +
+                '<circle cx="18" cy="18" r="15.9" fill="none" stroke="' + color + '" stroke-width="3.5" stroke-dasharray="' + dash + ' 100" stroke-linecap="round" transform="rotate(-90 18 18)"></circle>' +
+                '</svg><span class="donut-value">' + dash + '%</span><span class="donut-label">' + label + '</span></div>';
+        }
+
+        function dayDot(code) {
+            var c = String(code || '').toUpperCase();
+            if (c === 'L') return '<span class="cell-dot dot-amber" title="Late"><i class="fa-solid fa-clock" aria-hidden="true"></i></span>';
+            if (c === 'A') return '<span class="cell-dot dot-red" title="Absent"><i class="fa-solid fa-xmark" aria-hidden="true"></i></span>';
+            return '<span class="cell-dot dot-green" title="Present"><i class="fa-solid fa-check" aria-hidden="true"></i></span>';
+        }
+
+        function statusBadge(s) {
+            var v = String(s || '').toLowerCase();
+            if (v === 'absent') return 'status-red';
+            if (v === 'late') return 'status-amber';
+            return 'status-green';
+        }
+
+        function render(d) {
+            d = (d && d.data) ? d.data : (d || {});
+            var name = d.className || ((d.section || '') + ' - ' + (d.subject || ''));
+            setText('classSummaryName', name.replace(/^\s*-\s*|\s*-\s*$/g, ''));
+            var meta = [];
+            if (d.section) meta.push('Section ' + d.section);
+            if (d.session) meta.push('Session ' + d.session);
+            setText('classSummaryMeta', meta.join(' | '));
+
+            setText('statTotalStudents', d.totalStudents);
+            setText('statPresent', d.present);
+            setText('statAbsent', d.absent);
+            setText('statLate', d.late);
+            if (d.presentRate != null) setText('statPresentRate', d.presentRate + '% attendance rate');
+            if (d.absentRate != null) setText('statAbsentRate', d.absentRate + '% absence rate');
+            if (d.lateRate != null) setText('statLateRate', d.lateRate + '% late rate');
+
+            document.getElementById('donutRow').innerHTML =
+                donut(d.presentRate != null ? d.presentRate : 0, '#2E9E4F', 'Present') +
+                donut(d.absentRate != null ? d.absentRate : 0, '#B3261E', 'Absent') +
+                donut(d.lateRate != null ? d.lateRate : 0, '#E08A00', 'Late');
+
+            var dates = d.dates || [];
+            var head = '<th>#</th><th>Student Name</th><th>Student ID</th>';
+            dates.forEach(function (dt) { head += '<th>' + esc(dt) + '</th>'; });
+            head += '<th>Status</th>';
+            document.getElementById('matrixHead').innerHTML = head;
+
+            var body = document.getElementById('matrixBody');
+            var records = d.records || [];
+            if (!records.length) {
+                body.innerHTML = '<tr><td colspan="' + (4 + dates.length) + '" class="muted-cell">No attendance records found</td></tr>';
+            } else {
+                var html = '';
+                records.forEach(function (r, i) {
+                    var days = r.days || [];
+                    html += '<tr><td>' + (i + 1) + '</td>';
+                    html += '<td>' + esc(r.name || r.studentName) + '</td>';
+                    html += '<td>' + esc(r.studentId || r.id) + '</td>';
+                    for (var j = 0; j < dates.length; j++) html += '<td>' + dayDot(days[j]) + '</td>';
+                    html += '<td><span class="status-badge ' + statusBadge(r.status) + '">' + esc(r.status) + '</span></td></tr>';
+                });
+                body.innerHTML = html;
+            }
+
+            setText('dateRange', d.dateRange);
+        }
+
+        API.get('/faculty/attendance/classes/' + encodeURIComponent(classId)).then(function (res) {
+            render(res);
+        }).catch(function () {
+            render({});
+            if (window.showToast) showToast('Failed to load attendance details', 'error');
+        });
+    })();
+</script>
+<script src="../../js/showToast.js"></script>
+<script src="../../js/copyToClipboard.js"></script>
+<script src="../../js/confirmAction.js"></script>
+<script src="../../js/avatarUpload.js"></script>
+<script src="../../js/validateForm.js"></script>
+<script src="../../js/persistSelect.js"></script>
+<script src="../../js/setYear.js"></script>
+
+</body>
+</html>
